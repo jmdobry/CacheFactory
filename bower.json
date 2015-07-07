@@ -1,0 +1,30 @@
+{
+  "author": "Jason Dobry",
+  "name": "cachefactory",
+  "description": "CacheFactory is a very simple and useful cache for the browser.",
+  "homepage": "https://github.com/jmdobry/cachefactory",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jmdobry/cachefactory.git"
+  },
+  "main": "./dist/cachefactory.js",
+  "keywords": [
+    "cache"
+  ],
+  "ignore": [
+    ".idea/",
+    ".*",
+    "*.iml",
+    "src/",
+    "bower_components/",
+    "coverage/",
+    "Gruntfile.js",
+    "package.json",
+    "CONTRIBUTING.md",
+    "node_modules/",
+    "test/",
+    "karma.conf.js",
+    "karma.start.js",
+    "libpeerconnection.log"
+  ]
+}

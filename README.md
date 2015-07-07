@@ -2,8 +2,6 @@
 
 CacheFactory is a very simple and useful cache.
 
-__versions of cachefactory below 4.0.0 have been deprecated, see the [breaking changes](https://github.com/jmdobry/cachefactory/blob/master/CHANGELOG.md) in 4.0.0__
-
 __Latest Release:__ [![Latest Release](https://img.shields.io/github/release/jmdobry/cachefactory.svg?style=flat-square)](https://github.com/jmdobry/cachefactory/releases)
 
 __Status:__

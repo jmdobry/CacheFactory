@@ -121,7 +121,7 @@ describe('Cache#put(key, value[, options])', function () {
           assert.isUndefined(cache.get('item1'));
           done();
         }, 100);
-      }, 5);
+      }, 15);
     });
     var item = cache.put('item1', promise);
     assert.equal(typeof item.then, 'function');
@@ -145,7 +145,7 @@ describe('Cache#put(key, value[, options])', function () {
             assert.isUndefined(cache.get('item1'));
             done();
           }, 100);
-        }, 5);
+        }, 15);
       } catch (err) {
         done(err);
       }

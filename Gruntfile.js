@@ -92,9 +92,10 @@ module.exports = function (grunt) {
         singleRun: false
       },
       min: {
-        browsers: ['Chrome', 'Firefox'],
+        browsers: ['Chrome', 'Firefox', 'PhantomJS'],
         options: {
           files: [
+            'node_modules/es6-promise/dist/es6-promise.js',
             'dist/cachefactory.min.js',
             './karma.start.js',
             'test/**/*.js'

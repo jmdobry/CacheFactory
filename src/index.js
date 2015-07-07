@@ -1,4 +1,9 @@
 let BinaryHeap = require('yabh');
+let _Promise = null;
+try {
+  _Promise = window.Promise;
+} catch (e) {}
+
 let utils = {
   isNumber(val) {
     return typeof val === 'number';
@@ -24,7 +29,7 @@ let utils = {
     return a === b;
   },
 
-  Promise: Promise
+  Promise: _Promise
 };
 
 let _keys = collection => {
@@ -301,7 +306,11 @@ let createCache = (cacheId, options) => {
             }
           }
           if (isError) {
-            return utils.Promise.reject(v);
+            if (utils.Promise) {
+              return utils.Promise.reject(v);
+            } else {
+              throw v;
+            }
           } else {
             return v;
           }

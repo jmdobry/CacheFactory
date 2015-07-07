@@ -2,8 +2,9 @@ module.exports = function (config) {
   config.set({
     basePath: './',
     frameworks: ['mocha', 'chai', 'sinon'],
-    browsers: ['Chrome', 'Firefox'],
+    browsers: ['Chrome', 'Firefox', 'PhantomJS'],
     files: [
+      'node_modules/es6-promise/dist/es6-promise.js',
       'dist/cachefactory.js',
       './karma.start.js',
       'test/**/*.js'
@@ -14,6 +15,7 @@ module.exports = function (config) {
     port: 9876,
     plugins: [
       'karma-chrome-launcher',
+      'karma-phantomjs-launcher',
       'karma-firefox-launcher',
       'karma-mocha',
       'karma-chai',

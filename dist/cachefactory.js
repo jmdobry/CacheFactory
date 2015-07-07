@@ -1,6 +1,6 @@
 /*!
  * cachefactory
- * @version 1.0.1 - Homepage <http://jmdobry.github.io/cachefactory/>
+ * @version 1.0.2 - Homepage <http://jmdobry.github.io/cachefactory/>
  * @author Jason Dobry <jason.dobry@gmail.com>
  * @copyright (c) 2013-2015 Jason Dobry 
  * @license MIT <https://github.com/jmdobry/cachefactory/blob/master/LICENSE>
@@ -64,6 +64,11 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports, __webpack_require__) {
 
 	var BinaryHeap = __webpack_require__(1);
+	var _Promise = null;
+	try {
+	  _Promise = window.Promise;
+	} catch (e) {}
+
 	var utils = {
 	  isNumber: function isNumber(val) {
 	    return typeof val === 'number';
@@ -89,7 +94,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return a === b;
 	  },
 
-	  Promise: Promise
+	  Promise: _Promise
 	};
 
 	var _keys = function _keys(collection) {
@@ -382,7 +387,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	            }
 	          }
 	          if (isError) {
-	            return utils.Promise.reject(v);
+	            if (utils.Promise) {
+	              return utils.Promise.reject(v);
+	            } else {
+	              throw v;
+	            }
 	          } else {
 	            return v;
 	          }

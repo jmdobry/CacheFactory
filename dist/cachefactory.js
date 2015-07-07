@@ -1,6 +1,6 @@
 /*!
  * cachefactory
- * @version 1.0.0 - Homepage <http://jmdobry.github.io/cachefactory/>
+ * @version 1.0.1 - Homepage <http://jmdobry.github.io/cachefactory/>
  * @author Jason Dobry <jason.dobry@gmail.com>
  * @copyright (c) 2013-2015 Jason Dobry 
  * @license MIT <https://github.com/jmdobry/cachefactory/blob/master/LICENSE>

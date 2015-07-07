@@ -5,7 +5,7 @@
   "homepage": "https://github.com/jmdobry/cachefactory",
   "repository": {
     "type": "git",
-    "url": "https://github.com/jmdobry/cachefactory.git"
+    "url": "https://github.com/jmdobry/CacheFactory.git"
   },
   "main": "./dist/cachefactory.js",
   "keywords": [

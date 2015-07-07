@@ -1,12 +1,12 @@
 {
   "name": "cachefactory",
   "description": "CacheFactory is a very simple and useful cache for the browser.",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "homepage": "http://jmdobry.github.io/cachefactory/",
   "main": "dist/cachefactory.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/jmdobry/cachefactory.git"
+    "url": "https://github.com/jmdobry/CacheFactory.git"
   },
   "author": {
     "name": "Jason Dobry",
@@ -51,6 +51,6 @@
     "test": "grunt test"
   },
   "dependencies": {
-    "yabh": "^1.0.1"
+    "yabh": "1.0.1"
   }
 }

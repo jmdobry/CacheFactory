@@ -1,4 +1,4 @@
-##### 1.2.0 - 12 July 2015
+##### 1.2.0 - 12 October 2015
 
 ###### Backwards compatible API changes
 - #2 - Specify MaxAge on put

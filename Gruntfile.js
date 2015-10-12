@@ -101,6 +101,17 @@ module.exports = function (grunt) {
             'test/**/*.js'
           ]
         }
+      },
+      c9: {
+        browsers: ['PhantomJS'],
+        options: {
+          files: [
+            'node_modules/es6-promise/dist/es6-promise.js',
+            'dist/cachefactory.min.js',
+            './karma.start.js',
+            'test/**/*.js'
+          ]
+        }
       }
     },
     coveralls: {
@@ -111,6 +122,7 @@ module.exports = function (grunt) {
   });
 
   grunt.registerTask('test', ['build', 'karma:dist', 'karma:min']);
+  grunt.registerTask('test_c9', ['build', 'karma:c9']);
   grunt.registerTask('build', [
     'clean',
     'webpack',

@@ -4,14 +4,6 @@ CacheFactory is a very simple and useful cache.
 
 __Latest Release:__ [![Latest Release](https://img.shields.io/github/release/jmdobry/cachefactory.svg?style=flat-square)](https://github.com/jmdobry/cachefactory/releases)
 
-__Status:__
-
-[![Dependency Status](https://img.shields.io/gemnasium/jmdobry/cachefactory.svg?style=flat-square)](https://gemnasium.com/jmdobry/cachefactory) [![Coverage Status](https://img.shields.io/coveralls/jmdobry/cachefactory/master.svg?style=flat-square)](https://coveralls.io/r/jmdobry/cachefactory?branch=master) [![Codacity](https://img.shields.io/codacy/5e27e21d0c4c4d4cb203d589384aa93a.svg?style=flat-square)](https://www.codacy.com/public/jasondobry/cachefactory/dashboard)
-
-__Supported Browsers:__
-
-[![browsers](https://img.shields.io/badge/Browser-Chrome%2CFirefox%2CSafari%2COpera%2CIE%209%2B%2CiOS%20Safari%207.1%2B%2CAndroid%20Browser%202.3%2B-green.svg?style=flat-square)](https://github.com/jmdobry/cachefactory)
-
 ### Table of Contents
 - [Quick Start](#quick-start)
 - [The Basics](#the-basics)
@@ -194,6 +186,12 @@ Will be passed a third `done` argument if the cache is in `passive` mode. This a
 ##### `maxAge`
 
 The number of milliseconds until a newly inserted item expires. Default: `Number.MAX_VALUE`.
+
+You can also specify a `maxAge` for an individual item like so:
+
+```js
+myCache.put('foo', 'bar', { maxAge: 60000 });
+```
 
 ##### `recycleFreq`
 

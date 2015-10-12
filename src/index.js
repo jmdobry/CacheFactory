@@ -220,7 +220,7 @@ let createCache = (cacheId, options) => {
               created: item.created,
               accessed: item.accessed,
               expires: item.expires,
-              isExpired: (new Date().getTime() - item.created) > this.$$maxAge
+              isExpired: (new Date().getTime() - item.created) > (item.maxAge || this.$$maxAge)
             };
           } else {
             return undefined;
@@ -233,7 +233,7 @@ let createCache = (cacheId, options) => {
               created: item.created,
               accessed: item.accessed,
               expires: item.expires,
-              isExpired: (new Date().getTime() - item.created) > this.$$maxAge
+              isExpired: (new Date().getTime() - item.created) > (item.maxAge || this.$$maxAge)
             };
           } else {
             return undefined;
@@ -333,8 +333,12 @@ let createCache = (cacheId, options) => {
         created: now,
         accessed: now
       };
+      
+      if (options.maxAge) {
+        item.maxAge = options.maxAge;
+      }
 
-      item.expires = item.created + this.$$maxAge;
+      item.expires = item.created + (item.maxAge || this.$$maxAge);
 
       if ($$storage) {
         if (_isPromiseLike(item.value)) {
@@ -568,7 +572,7 @@ let createCache = (cacheId, options) => {
             if (this.$$maxAge === Number.MAX_VALUE) {
               item.expires = Number.MAX_VALUE;
             } else {
-              item.expires = item.created + this.$$maxAge;
+              item.expires = item.created + (item.maxAge || this.$$maxAge);
             }
             $$expiresHeap.push({
               key: key,
@@ -584,7 +588,7 @@ let createCache = (cacheId, options) => {
           if (this.$$maxAge === Number.MAX_VALUE) {
             $$data[key].expires = Number.MAX_VALUE;
           } else {
-            $$data[key].expires = $$data[key].created + this.$$maxAge;
+            $$data[key].expires = $$data[key].created + ($$data[key].maxAge || this.$$maxAge);
           }
           $$expiresHeap.push($$data[key]);
         }
@@ -714,20 +718,18 @@ let createCache = (cacheId, options) => {
       let shouldReInsert = false;
       let items = {};
 
-      if (typeof this.$$storageMode === 'string' && this.$$storageMode !== storageMode) {
-        let keys = this.keys();
+      let keys = this.keys();
 
-        if (keys.length) {
-          for (var i = 0; i < keys.length; i++) {
-            items[keys[i]] = this.get(keys[i]);
-          }
-          for (i = 0; i < keys.length; i++) {
-            this.remove(keys[i]);
-          }
-          shouldReInsert = true;
+      if (keys.length) {
+        for (var i = 0; i < keys.length; i++) {
+          items[keys[i]] = this.get(keys[i]);
         }
+        for (i = 0; i < keys.length; i++) {
+          this.remove(keys[i]);
+        }
+        shouldReInsert = true;
       }
-
+      
       this.$$storageMode = storageMode;
 
       if (storageImpl) {

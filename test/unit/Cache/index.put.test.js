@@ -82,6 +82,21 @@ describe('Cache#put(key, value[, options])', function () {
       done();
     }, 100);
   });
+  it('should remove items if an item-specific maxAge is specified and deleteOnExpire is set to "aggressive".', function (done) {
+    var cache = TestCacheFactory('put-cache-8a', {maxAge: 1000, deleteOnExpire: 'aggressive', recycleFreq: 20});
+    cache.put('item1', 'value1', { maxAge: 10 });
+    cache.put('item2', 'value2');
+    assert.equal(cache.get('item1'), 'value1');
+    assert.equal(cache.get('item2'), 'value2');
+    setTimeout(function () {
+      assert.isUndefined(cache.info('item1'));
+      assert.isUndefined(cache.get('item1'));
+      assert.isDefined(cache.info('item2'));
+      assert.isDefined(cache.get('item2'));
+
+      done();
+    }, 100);
+  });
   it('should should lazy delete an item when maxAge is specified and deleteOnExpire is set to "passive".', function (done) {
     var cache = TestCacheFactory('put-cache-9', {maxAge: 10, deleteOnExpire: 'passive'});
     cache.put('item1', 'value1');

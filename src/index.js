@@ -34,6 +34,9 @@ let utils = {
 
 let _keys = collection => {
   let keys = [], key;
+  if (!utils.isObject(collection)) {
+    return keys;
+  }
   for (key in collection) {
     if (collection.hasOwnProperty(key)) {
       keys.push(key);
@@ -55,6 +58,9 @@ let _stringifyNumber = number => {
 
 let _keySet = collection => {
   let keySet = {}, key;
+  if (!utils.isObject(collection)) {
+    return keySet;
+  }
   for (key in collection) {
     if (collection.hasOwnProperty(key)) {
       keySet[key] = key;
@@ -165,7 +171,7 @@ let createCache = (cacheId, options) => {
         } else {
           return;
         }
-      } else {
+      } else if (utils.isObject($$data)) {
         if (!(key in $$data)) {
           return;
         }
@@ -225,19 +231,17 @@ let createCache = (cacheId, options) => {
           } else {
             return undefined;
           }
-        } else {
-          if (key in $$data) {
-            item = $$data[key];
+        } else if (utils.isObject($$data) && key in $$data) {
+          item = $$data[key];
 
-            return {
-              created: item.created,
-              accessed: item.accessed,
-              expires: item.expires,
-              isExpired: (new Date().getTime() - item.created) > (item.maxAge || this.$$maxAge)
-            };
-          } else {
-            return undefined;
-          }
+          return {
+            created: item.created,
+            accessed: item.accessed,
+            expires: item.expires,
+            isExpired: (new Date().getTime() - item.created) > (item.maxAge || this.$$maxAge)
+          };
+        } else {
+          return undefined;
         }
       } else {
         return {
@@ -317,7 +321,7 @@ let createCache = (cacheId, options) => {
         };
       };
 
-      if (this.$$disabled || value === null || value === undefined) {
+      if (this.$$disabled || !utils.isObject($$data) || value === null || value === undefined) {
         return;
       }
       key = _stringifyNumber(key);
@@ -425,7 +429,7 @@ let createCache = (cacheId, options) => {
           $$storage().setItem(`${this.$$prefix}.keys`, JSON.stringify(keys));
           return item.value;
         }
-      } else {
+      } else if (utils.isObject($$data)) {
         let value = $$data[key] ? $$data[key].value : undefined;
         $$lruHeap.remove($$data[key]);
         $$expiresHeap.remove($$data[key]);
@@ -449,12 +453,16 @@ let createCache = (cacheId, options) => {
           }
         }
         $$storage().setItem(`${this.$$prefix}.keys`, JSON.stringify([]));
-      } else {
+      } else if (utils.isObject($$data)) {
         $$lruHeap.removeAll();
         $$expiresHeap.removeAll();
         for (var key in $$data) {
           $$data[key] = null;
         }
+        $$data = {};
+      } else {
+        $$lruHeap.removeAll();
+        $$expiresHeap.removeAll();
         $$data = {};
       }
       $$promises = {};

@@ -1,8 +1,8 @@
 /*!
  * cachefactory
- * @version 1.2.0 - Homepage <http://jmdobry.github.io/cachefactory/>
+ * @version 1.3.0 - Homepage <http://jmdobry.github.io/cachefactory/>
  * @author Jason Dobry <jason.dobry@gmail.com>
- * @copyright (c) 2013-2015 Jason Dobry 
+ * @copyright (c) 2013-2016 Jason Dobry 
  * @license MIT <https://github.com/jmdobry/cachefactory/blob/master/LICENSE>
  * 
  * @overview cachefactory is a very useful replacement for Angular's $cacheFactory.
@@ -63,6 +63,10 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
+	'use strict';
+
+	function _typeof(obj) { return obj && typeof Symbol !== "undefined" && obj.constructor === Symbol ? "symbol" : typeof obj; }
+
 	var BinaryHeap = __webpack_require__(1);
 	var _Promise = null;
 	try {
@@ -70,26 +74,21 @@ return /******/ (function(modules) { // webpackBootstrap
 	} catch (e) {}
 
 	var utils = {
-	  isNumber: function isNumber(val) {
-	    return typeof val === 'number';
+	  isNumber: function isNumber(value) {
+	    return typeof value === 'number';
 	  },
-
-	  isString: function isString(val) {
-	    return typeof val === 'string';
+	  isString: function isString(value) {
+	    return typeof value === 'string';
 	  },
-
-	  isObject: function isObject(val) {
-	    return val !== null && typeof val === 'object';
+	  isObject: function isObject(value) {
+	    return value !== null && (typeof value === 'undefined' ? 'undefined' : _typeof(value)) === 'object';
 	  },
-
-	  isFunction: function isFunction(val) {
-	    return typeof val === 'function';
+	  isFunction: function isFunction(value) {
+	    return typeof value === 'function';
 	  },
-
-	  fromJson: function fromJson(val) {
-	    return JSON.parse(val);
+	  fromJson: function fromJson(value) {
+	    return JSON.parse(value);
 	  },
-
 	  equals: function equals(a, b) {
 	    return a === b;
 	  },
@@ -97,38 +96,44 @@ return /******/ (function(modules) { // webpackBootstrap
 	  Promise: _Promise
 	};
 
-	var _keys = function _keys(collection) {
-	  var keys = [],
-	      key = undefined;
+	function _keys(collection) {
+	  var keys = [];
+	  var key = undefined;
+	  if (!utils.isObject(collection)) {
+	    return keys;
+	  }
 	  for (key in collection) {
 	    if (collection.hasOwnProperty(key)) {
 	      keys.push(key);
 	    }
 	  }
 	  return keys;
-	};
+	}
 
-	var _isPromiseLike = function _isPromiseLike(v) {
-	  return v && typeof v.then === 'function';
-	};
+	function _isPromiseLike(value) {
+	  return value && typeof value.then === 'function';
+	}
 
-	var _stringifyNumber = function _stringifyNumber(number) {
+	function _stringifyNumber(number) {
 	  if (utils.isNumber(number)) {
 	    return number.toString();
 	  }
 	  return number;
-	};
+	}
 
-	var _keySet = function _keySet(collection) {
-	  var keySet = {},
-	      key = undefined;
+	function _keySet(collection) {
+	  var keySet = {};
+	  var key = undefined;
+	  if (!utils.isObject(collection)) {
+	    return keySet;
+	  }
 	  for (key in collection) {
 	    if (collection.hasOwnProperty(key)) {
 	      keySet[key] = key;
 	    }
 	  }
 	  return keySet;
-	};
+	}
 
 	var defaults = {
 	  capacity: Number.MAX_VALUE,
@@ -147,7 +152,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var caches = {};
 
-	var createCache = function createCache(cacheId, options) {
+	function createCache(cacheId, options) {
 	  if (cacheId in caches) {
 	    throw new Error(cacheId + ' already exists!');
 	  } else if (!utils.isString(cacheId)) {
@@ -183,17 +188,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	      this.$$prefix = null;
 	      delete caches[this.$$id];
 	    },
-
 	    disable: function disable() {
 	      this.$$disabled = true;
 	    },
-
 	    enable: function enable() {
 	      delete this.$$disabled;
 	    },
-
 	    get: function get(key, options) {
-	      var _this = this;
+	      var _this2 = this;
 
 	      if (Array.isArray(key)) {
 	        var _ret = (function () {
@@ -201,7 +203,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	          var values = [];
 
 	          keys.forEach(function (key) {
-	            var value = _this.get(key, options);
+	            var value = _this2.get(key, options);
 	            if (value !== null && value !== undefined) {
 	              values.push(value);
 	            }
@@ -212,7 +214,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	          };
 	        })();
 
-	        if (typeof _ret === 'object') return _ret.v;
+	        if ((typeof _ret === 'undefined' ? 'undefined' : _typeof(_ret)) === "object") return _ret.v;
 	      } else {
 	        key = _stringifyNumber(key);
 
@@ -244,7 +246,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        } else {
 	          return;
 	        }
-	      } else {
+	      } else if (utils.isObject($$data)) {
 	        if (!(key in $$data)) {
 	          return;
 	        }
@@ -275,7 +277,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        this.remove(key);
 
 	        if (this.$$onExpire) {
-	          this.$$onExpire.call(this, key, item.value, options.onExpire);
+	          this.$$onExpire(key, item.value, options.onExpire);
 	        } else if (options.onExpire) {
 	          options.onExpire.call(this, key, item.value);
 	        }
@@ -286,7 +288,6 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	      return value;
 	    },
-
 	    info: function info(key) {
 	      if (key) {
 	        var item = undefined;
@@ -304,19 +305,17 @@ return /******/ (function(modules) { // webpackBootstrap
 	          } else {
 	            return undefined;
 	          }
-	        } else {
-	          if (key in $$data) {
-	            item = $$data[key];
+	        } else if (utils.isObject($$data) && key in $$data) {
+	          item = $$data[key];
 
-	            return {
-	              created: item.created,
-	              accessed: item.accessed,
-	              expires: item.expires,
-	              isExpired: new Date().getTime() - item.created > (item.maxAge || this.$$maxAge)
-	            };
-	          } else {
-	            return undefined;
-	          }
+	          return {
+	            created: item.created,
+	            accessed: item.accessed,
+	            expires: item.expires,
+	            isExpired: new Date().getTime() - item.created > (item.maxAge || this.$$maxAge)
+	          };
+	        } else {
+	          return undefined;
 	        }
 	      } else {
 	        return {
@@ -334,7 +333,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	        };
 	      }
 	    },
-
 	    keys: function keys() {
 	      if ($$storage) {
 	        var keysJson = $$storage().getItem(this.$$prefix + '.keys');
@@ -348,7 +346,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	        return _keys($$data);
 	      }
 	    },
-
 	    keySet: function keySet() {
 	      if ($$storage) {
 	        var keysJson = $$storage().getItem(this.$$prefix + '.keys');
@@ -366,9 +363,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	        return _keySet($$data);
 	      }
 	    },
-
 	    put: function put(key, value, options) {
-	      var _this2 = this;
+	      var _this3 = this;
 
 	      options = options || {};
 
@@ -381,9 +377,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	            delete $$promises[key];
 	            if (utils.isObject(v) && 'status' in v && 'data' in v) {
 	              v = [v.status, v.data, v.headers(), v.statusText];
-	              _this2.put(key, v);
+	              _this3.put(key, v);
 	            } else {
-	              _this2.put(key, v);
+	              _this3.put(key, v);
 	            }
 	          }
 	          if (isError) {
@@ -398,7 +394,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        };
 	      };
 
-	      if (this.$$disabled || value === null || value === undefined) {
+	      if (this.$$disabled || !utils.isObject($$data) || value === null || value === undefined) {
 	        return;
 	      }
 	      key = _stringifyNumber(key);
@@ -414,7 +410,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	        created: now,
 	        accessed: now
 	      };
-
 	      if (options.maxAge) {
 	        item.maxAge = options.maxAge;
 	      }
@@ -478,7 +473,6 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	      return value;
 	    },
-
 	    remove: function remove(key) {
 	      key += '';
 	      delete $$promises[key];
@@ -506,7 +500,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	          $$storage().setItem(this.$$prefix + '.keys', JSON.stringify(keys));
 	          return item.value;
 	        }
-	      } else {
+	      } else if (utils.isObject($$data)) {
 	        var value = $$data[key] ? $$data[key].value : undefined;
 	        $$lruHeap.remove($$data[key]);
 	        $$expiresHeap.remove($$data[key]);
@@ -515,7 +509,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	        return value;
 	      }
 	    },
-
 	    removeAll: function removeAll() {
 	      if ($$storage) {
 	        $$lruHeap.removeAll();
@@ -530,17 +523,20 @@ return /******/ (function(modules) { // webpackBootstrap
 	          }
 	        }
 	        $$storage().setItem(this.$$prefix + '.keys', JSON.stringify([]));
-	      } else {
+	      } else if (utils.isObject($$data)) {
 	        $$lruHeap.removeAll();
 	        $$expiresHeap.removeAll();
 	        for (var key in $$data) {
 	          $$data[key] = null;
 	        }
 	        $$data = {};
+	      } else {
+	        $$lruHeap.removeAll();
+	        $$expiresHeap.removeAll();
+	        $$data = {};
 	      }
 	      $$promises = {};
 	    },
-
 	    removeExpired: function removeExpired() {
 	      var now = new Date().getTime();
 	      var expired = {};
@@ -568,31 +564,30 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	      if (this.$$onExpire) {
 	        for (key in expired) {
-	          this.$$onExpire.call(this, key, expired[key]);
+	          this.$$onExpire(key, expired[key]);
 	        }
 	      }
 
 	      return expired;
 	    },
-
 	    setCacheFlushInterval: function setCacheFlushInterval(cacheFlushInterval) {
+	      var _this = this;
 	      if (cacheFlushInterval === null) {
-	        delete this.$$cacheFlushInterval;
+	        delete _this.$$cacheFlushInterval;
 	      } else if (!utils.isNumber(cacheFlushInterval)) {
 	        throw new Error('cacheFlushInterval must be a number!');
 	      } else if (cacheFlushInterval < 0) {
 	        throw new Error('cacheFlushInterval must be greater than zero!');
-	      } else if (cacheFlushInterval !== this.$$cacheFlushInterval) {
-	        this.$$cacheFlushInterval = cacheFlushInterval;
-	        clearInterval(this.$$cacheFlushIntervalId);
-	        (function (self) {
-	          self.$$cacheFlushIntervalId = setInterval(function () {
-	            self.removeAll();
-	          }, self.$$cacheFlushInterval);
-	        })(this);
+	      } else if (cacheFlushInterval !== _this.$$cacheFlushInterval) {
+	        _this.$$cacheFlushInterval = cacheFlushInterval;
+
+	        clearInterval(_this.$$cacheFlushIntervalId); // eslint-disable-line
+
+	        _this.$$cacheFlushIntervalId = setInterval(function () {
+	          _this.removeAll();
+	        }, _this.$$cacheFlushInterval);
 	      }
 	    },
-
 	    setCapacity: function setCapacity(capacity) {
 	      if (capacity === null) {
 	        delete this.$$capacity;
@@ -609,7 +604,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	      }
 	      return removed;
 	    },
-
 	    setDeleteOnExpire: function setDeleteOnExpire(deleteOnExpire, setRecycleFreq) {
 	      if (deleteOnExpire === null) {
 	        delete this.$$deleteOnExpire;
@@ -624,7 +618,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	        this.setRecycleFreq(this.$$recycleFreq);
 	      }
 	    },
-
 	    setMaxAge: function setMaxAge(maxAge) {
 	      if (maxAge === null) {
 	        this.$$maxAge = Number.MAX_VALUE;
@@ -682,7 +675,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	        return {};
 	      }
 	    },
-
 	    setOnExpire: function setOnExpire(onExpire) {
 	      if (onExpire === null) {
 	        delete this.$$onExpire;
@@ -692,7 +684,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	        this.$$onExpire = onExpire;
 	      }
 	    },
-
 	    setOptions: function setOptions(cacheOptions, strict) {
 	      cacheOptions = cacheOptions || {};
 	      strict = !!strict;
@@ -768,7 +759,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	        this.setOnExpire(defaults.onExpire);
 	      }
 	    },
-
 	    setRecycleFreq: function setRecycleFreq(recycleFreq) {
 	      if (recycleFreq === null) {
 	        delete this.$$recycleFreq;
@@ -790,7 +780,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	        delete this.$$recycleFreqId;
 	      }
 	    },
-
 	    setStorageMode: function setStorageMode(storageMode, storageImpl) {
 	      if (!utils.isString(storageMode)) {
 	        throw new Error('storageMode must be a string!');
@@ -801,16 +790,21 @@ return /******/ (function(modules) { // webpackBootstrap
 	      var shouldReInsert = false;
 	      var items = {};
 
-	      var keys = this.keys();
+	      function load() {
+	        var keys = this.keys();
+	        if (keys.length) {
+	          for (var i = 0; i < keys.length; i++) {
+	            items[keys[i]] = this.get(keys[i]);
+	          }
+	          for (i = 0; i < keys.length; i++) {
+	            this.remove(keys[i]);
+	          }
+	          shouldReInsert = true;
+	        }
+	      }
 
-	      if (keys.length) {
-	        for (var i = 0; i < keys.length; i++) {
-	          items[keys[i]] = this.get(keys[i]);
-	        }
-	        for (i = 0; i < keys.length; i++) {
-	          this.remove(keys[i]);
-	        }
-	        shouldReInsert = true;
+	      if (!this.$$initializing) {
+	        load.call(this);
 	      }
 
 	      this.$$storageMode = storageMode;
@@ -852,20 +846,23 @@ return /******/ (function(modules) { // webpackBootstrap
 	        }
 	      }
 
+	      if (this.$$initializing) {
+	        load.call(this);
+	      }
+
 	      if (shouldReInsert) {
 	        for (var key in items) {
 	          this.put(key, items[key]);
 	        }
 	      }
 	    },
-
 	    touch: function touch(key) {
-	      var _this3 = this;
+	      var _this4 = this;
 
 	      if (key) {
 	        var val = this.get(key, {
 	          onExpire: function onExpire(k, v) {
-	            return _this3.put(k, v);
+	            return _this4.put(k, v);
 	          }
 	        });
 	        if (val) {
@@ -880,10 +877,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 	  };
 
+	  cache.$$initializing = true;
 	  cache.setOptions(options, true);
+	  cache.$$initializing = false;
 
 	  return cache;
-	};
+	}
 
 	function CacheFactory(cacheId, options) {
 	  return createCache(cacheId, options);
@@ -913,35 +912,29 @@ return /******/ (function(modules) { // webpackBootstrap
 	CacheFactory.get = function (cacheId) {
 	  return caches[cacheId];
 	};
-
 	CacheFactory.keySet = function () {
 	  return _keySet(caches);
 	};
-
 	CacheFactory.keys = function () {
 	  return _keys(caches);
 	};
-
 	CacheFactory.destroy = function (cacheId) {
 	  if (caches[cacheId]) {
 	    caches[cacheId].destroy();
 	    delete caches[cacheId];
 	  }
 	};
-
 	CacheFactory.destroyAll = function () {
 	  for (var cacheId in caches) {
 	    caches[cacheId].destroy();
 	  }
 	  caches = {};
 	};
-
 	CacheFactory.clearAll = function () {
 	  for (var cacheId in caches) {
 	    caches[cacheId].removeAll();
 	  }
 	};
-
 	CacheFactory.removeExpiredFromAll = function () {
 	  var expired = {};
 	  for (var cacheId in caches) {
@@ -949,19 +942,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }
 	  return expired;
 	};
-
 	CacheFactory.enableAll = function () {
 	  for (var cacheId in caches) {
 	    caches[cacheId].$$disabled = false;
 	  }
 	};
-
 	CacheFactory.disableAll = function () {
 	  for (var cacheId in caches) {
 	    caches[cacheId].$$disabled = true;
 	  }
 	};
-
 	CacheFactory.touchAll = function () {
 	  for (var cacheId in caches) {
 	    caches[cacheId].touch();

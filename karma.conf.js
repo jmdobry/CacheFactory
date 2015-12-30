@@ -2,7 +2,7 @@ module.exports = function (config) {
   config.set({
     basePath: './',
     frameworks: ['mocha', 'chai', 'sinon'],
-    browsers: ['Chrome', 'Firefox', 'PhantomJS'],
+    browsers: ['Chrome', 'PhantomJS'],
     files: [
       'node_modules/es6-promise/dist/es6-promise.js',
       'dist/cachefactory.js',

@@ -1,75 +1,77 @@
-let BinaryHeap = require('yabh');
-let _Promise = null;
+let BinaryHeap = require('yabh')
+let _Promise = null
 try {
-  _Promise = window.Promise;
+  _Promise = window.Promise
 } catch (e) {}
 
 let utils = {
-  isNumber(val) {
-    return typeof val === 'number';
+  isNumber (value) {
+    return typeof value === 'number'
   },
 
-  isString(val) {
-    return typeof val === 'string';
+  isString (value) {
+    return typeof value === 'string'
   },
 
-  isObject(val) {
-    return val !== null && typeof val === 'object';
+  isObject (value) {
+    return value !== null && typeof value === 'object'
   },
 
-  isFunction(val) {
-    return typeof val === 'function';
+  isFunction (value) {
+    return typeof value === 'function'
   },
 
-  fromJson(val) {
-    return JSON.parse(val);
+  fromJson (value) {
+    return JSON.parse(value)
   },
 
-  equals(a, b) {
-    return a === b;
+  equals (a, b) {
+    return a === b
   },
 
   Promise: _Promise
-};
+}
 
-let _keys = collection => {
-  let keys = [], key;
+function _keys (collection) {
+  const keys = []
+  let key
   if (!utils.isObject(collection)) {
-    return keys;
+    return keys
   }
   for (key in collection) {
     if (collection.hasOwnProperty(key)) {
-      keys.push(key);
+      keys.push(key)
     }
   }
-  return keys;
-};
+  return keys
+}
 
-let _isPromiseLike = v => {
-  return v && typeof v.then === 'function';
-};
+function _isPromiseLike (value) {
+  return value && typeof value.then === 'function'
+}
 
-let _stringifyNumber = number => {
+function _stringifyNumber (number) {
   if (utils.isNumber(number)) {
-    return number.toString();
+    return number.toString()
   }
-  return number;
-};
+  return number
+}
 
-let _keySet = collection => {
-  let keySet = {}, key;
+function _keySet (collection) {
+  const keySet = {}
+  let key
   if (!utils.isObject(collection)) {
-    return keySet;
+    return keySet
   }
   for (key in collection) {
     if (collection.hasOwnProperty(key)) {
-      keySet[key] = key;
+      keySet[key] = key
     }
   }
-  return keySet;
-};
+  return keySet
+}
 
-let defaults = {
+const defaults = {
   capacity: Number.MAX_VALUE,
   maxAge: Number.MAX_VALUE,
   deleteOnExpire: 'none',
@@ -82,166 +84,166 @@ let defaults = {
   storagePrefix: 'cachefactory.caches.',
   storeOnResolve: false,
   storeOnReject: false
-};
+}
 
-let caches = {};
+let caches = {}
 
-let createCache = (cacheId, options) => {
+function createCache (cacheId, options) {
   if (cacheId in caches) {
-    throw new Error(`${cacheId} already exists!`);
+    throw new Error(`${cacheId} already exists!`)
   } else if (!utils.isString(cacheId)) {
-    throw new Error('cacheId must be a string!');
+    throw new Error('cacheId must be a string!')
   }
 
-  let $$data = {};
-  let $$promises = {};
-  let $$storage = null;
-  let $$expiresHeap = new BinaryHeap(x => x.expires, utils.equals);
-  let $$lruHeap = new BinaryHeap(x => x.accessed, utils.equals);
+  let $$data = {}
+  let $$promises = {}
+  let $$storage = null
+  let $$expiresHeap = new BinaryHeap(function (x) { return x.expires }, utils.equals)
+  let $$lruHeap = new BinaryHeap(function (x) { return x.accessed }, utils.equals)
 
   let cache = caches[cacheId] = {
 
     $$id: cacheId,
 
-    destroy() {
-      clearInterval(this.$$cacheFlushIntervalId);
-      clearInterval(this.$$recycleFreqId);
-      this.removeAll();
+    destroy () {
+      clearInterval(this.$$cacheFlushIntervalId)
+      clearInterval(this.$$recycleFreqId)
+      this.removeAll()
       if ($$storage) {
-        $$storage().removeItem(`${this.$$prefix}.keys`);
-        $$storage().removeItem(this.$$prefix);
+        $$storage().removeItem(`${this.$$prefix}.keys`)
+        $$storage().removeItem(this.$$prefix)
       }
-      $$storage = null;
-      $$data = null;
-      $$lruHeap = null;
-      $$expiresHeap = null;
-      this.$$prefix = null;
-      delete caches[this.$$id];
+      $$storage = null
+      $$data = null
+      $$lruHeap = null
+      $$expiresHeap = null
+      this.$$prefix = null
+      delete caches[this.$$id]
     },
 
-    disable() {
-      this.$$disabled = true;
+    disable () {
+      this.$$disabled = true
     },
 
-    enable() {
-      delete this.$$disabled;
+    enable () {
+      delete this.$$disabled
     },
 
-    get(key, options) {
+    get (key, options) {
       if (Array.isArray(key)) {
-        let keys = key;
-        let values = [];
+        let keys = key
+        let values = []
 
         keys.forEach(key => {
-          let value = this.get(key, options);
+          let value = this.get(key, options)
           if (value !== null && value !== undefined) {
-            values.push(value);
+            values.push(value)
           }
-        });
+        })
 
-        return values;
+        return values
       } else {
-        key = _stringifyNumber(key);
+        key = _stringifyNumber(key)
 
         if (this.$$disabled) {
-          return;
+          return
         }
       }
 
-      options = options || {};
+      options = options || {}
       if (!utils.isString(key)) {
-        throw new Error('key must be a string!');
+        throw new Error('key must be a string!')
       } else if (options && !utils.isObject(options)) {
-        throw new Error('options must be an object!');
+        throw new Error('options must be an object!')
       } else if (options.onExpire && !utils.isFunction(options.onExpire)) {
-        throw new Error('options.onExpire must be a function!');
+        throw new Error('options.onExpire must be a function!')
       }
 
-      let item;
+      let item
 
       if ($$storage) {
         if ($$promises[key]) {
-          return $$promises[key];
+          return $$promises[key]
         }
 
-        let itemJson = $$storage().getItem(`${this.$$prefix}.data.${key}`);
+        let itemJson = $$storage().getItem(`${this.$$prefix}.data.${key}`)
 
         if (itemJson) {
-          item = utils.fromJson(itemJson);
+          item = utils.fromJson(itemJson)
         } else {
-          return;
+          return
         }
       } else if (utils.isObject($$data)) {
         if (!(key in $$data)) {
-          return;
+          return
         }
 
-        item = $$data[key];
+        item = $$data[key]
       }
 
-      let value = item.value;
-      let now = new Date().getTime();
+      let value = item.value
+      let now = new Date().getTime()
 
       if ($$storage) {
         $$lruHeap.remove({
           key: key,
           accessed: item.accessed
-        });
-        item.accessed = now;
+        })
+        item.accessed = now
         $$lruHeap.push({
           key: key,
           accessed: now
-        });
+        })
       } else {
-        $$lruHeap.remove(item);
-        item.accessed = now;
-        $$lruHeap.push(item);
+        $$lruHeap.remove(item)
+        item.accessed = now
+        $$lruHeap.push(item)
       }
 
       if (this.$$deleteOnExpire === 'passive' && 'expires' in item && item.expires < now) {
-        this.remove(key);
+        this.remove(key)
 
         if (this.$$onExpire) {
-          this.$$onExpire.call(this, key, item.value, options.onExpire);
+          this.$$onExpire(key, item.value, options.onExpire)
         } else if (options.onExpire) {
-          options.onExpire.call(this, key, item.value);
+          options.onExpire.call(this, key, item.value)
         }
-        value = undefined;
+        value = undefined
       } else if ($$storage) {
-        $$storage().setItem(`${this.$$prefix}.data.${key}`, JSON.stringify(item));
+        $$storage().setItem(`${this.$$prefix}.data.${key}`, JSON.stringify(item))
       }
 
-      return value;
+      return value
     },
 
-    info(key) {
+    info (key) {
       if (key) {
-        let item;
+        let item
         if ($$storage) {
-          let itemJson = $$storage().getItem(`${this.$$prefix}.data.${key}`);
+          let itemJson = $$storage().getItem(`${this.$$prefix}.data.${key}`)
 
           if (itemJson) {
-            item = utils.fromJson(itemJson);
+            item = utils.fromJson(itemJson)
             return {
               created: item.created,
               accessed: item.accessed,
               expires: item.expires,
               isExpired: (new Date().getTime() - item.created) > (item.maxAge || this.$$maxAge)
-            };
+            }
           } else {
-            return undefined;
+            return undefined
           }
         } else if (utils.isObject($$data) && key in $$data) {
-          item = $$data[key];
+          item = $$data[key]
 
           return {
             created: item.created,
             accessed: item.accessed,
             expires: item.expires,
             isExpired: (new Date().getTime() - item.created) > (item.maxAge || this.$$maxAge)
-          };
+          }
         } else {
-          return undefined;
+          return undefined
         }
       } else {
         return {
@@ -256,632 +258,630 @@ let createCache = (cacheId, options) => {
           storageImpl: $$storage ? $$storage() : undefined,
           disabled: !!this.$$disabled,
           size: $$lruHeap && $$lruHeap.size() || 0
-        };
+        }
       }
     },
 
-    keys() {
+    keys () {
       if ($$storage) {
-        let keysJson = $$storage().getItem(`${this.$$prefix}.keys`);
+        let keysJson = $$storage().getItem(`${this.$$prefix}.keys`)
 
         if (keysJson) {
-          return utils.fromJson(keysJson);
+          return utils.fromJson(keysJson)
         } else {
-          return [];
+          return []
         }
       } else {
-        return _keys($$data);
+        return _keys($$data)
       }
     },
 
-    keySet() {
+    keySet () {
       if ($$storage) {
-        let keysJson = $$storage().getItem(`${this.$$prefix}.keys`);
-        let kSet = {};
+        let keysJson = $$storage().getItem(`${this.$$prefix}.keys`)
+        let kSet = {}
 
         if (keysJson) {
-          let keys = utils.fromJson(keysJson);
+          let keys = utils.fromJson(keysJson)
 
           for (var i = 0; i < keys.length; i++) {
-            kSet[keys[i]] = keys[i];
+            kSet[keys[i]] = keys[i]
           }
         }
-        return kSet;
+        return kSet
       } else {
-        return _keySet($$data);
+        return _keySet($$data)
       }
     },
 
-    put(key, value, options) {
-      options = options || {};
+    put (key, value, options) {
+      options = options || {}
 
-      let storeOnResolve = 'storeOnResolve' in options ? !!options.storeOnResolve : this.$$storeOnResolve;
-      let storeOnReject = 'storeOnReject' in options ? !!options.storeOnReject : this.$$storeOnReject;
+      let storeOnResolve = 'storeOnResolve' in options ? !!options.storeOnResolve : this.$$storeOnResolve
+      let storeOnReject = 'storeOnReject' in options ? !!options.storeOnReject : this.$$storeOnReject
 
       let getHandler = (store, isError) => {
         return v => {
           if (store) {
-            delete $$promises[key];
+            delete $$promises[key]
             if (utils.isObject(v) && 'status' in v && 'data' in v) {
-              v = [v.status, v.data, v.headers(), v.statusText];
-              this.put(key, v);
+              v = [v.status, v.data, v.headers(), v.statusText]
+              this.put(key, v)
             } else {
-              this.put(key, v);
+              this.put(key, v)
             }
           }
           if (isError) {
             if (utils.Promise) {
-              return utils.Promise.reject(v);
+              return utils.Promise.reject(v)
             } else {
-              throw v;
+              throw v
             }
           } else {
-            return v;
+            return v
           }
-        };
-      };
+        }
+      }
 
       if (this.$$disabled || !utils.isObject($$data) || value === null || value === undefined) {
-        return;
+        return
       }
-      key = _stringifyNumber(key);
+      key = _stringifyNumber(key)
 
       if (!utils.isString(key)) {
-        throw new Error('key must be a string!');
+        throw new Error('key must be a string!')
       }
 
-      let now = new Date().getTime();
+      let now = new Date().getTime()
       let item = {
         key: key,
         value: _isPromiseLike(value) ? value.then(getHandler(storeOnResolve, false), getHandler(storeOnReject, true)) : value,
         created: now,
         accessed: now
-      };
-      
+      }
       if (options.maxAge) {
-        item.maxAge = options.maxAge;
+        item.maxAge = options.maxAge
       }
 
-      item.expires = item.created + (item.maxAge || this.$$maxAge);
+      item.expires = item.created + (item.maxAge || this.$$maxAge)
 
       if ($$storage) {
         if (_isPromiseLike(item.value)) {
-          $$promises[key] = item.value;
-          return $$promises[key];
+          $$promises[key] = item.value
+          return $$promises[key]
         }
-        let keysJson = $$storage().getItem(`${this.$$prefix}.keys`);
-        let keys = keysJson ? utils.fromJson(keysJson) : [];
-        let itemJson = $$storage().getItem(`${this.$$prefix}.data.${key}`);
+        let keysJson = $$storage().getItem(`${this.$$prefix}.keys`)
+        let keys = keysJson ? utils.fromJson(keysJson) : []
+        let itemJson = $$storage().getItem(`${this.$$prefix}.data.${key}`)
 
         // Remove existing
         if (itemJson) {
-          this.remove(key);
+          this.remove(key)
         }
         // Add to expires heap
         $$expiresHeap.push({
           key: key,
           expires: item.expires
-        });
+        })
         // Add to lru heap
         $$lruHeap.push({
           key: key,
           accessed: item.accessed
-        });
+        })
         // Set item
-        $$storage().setItem(`${this.$$prefix}.data.${key}`, JSON.stringify(item));
-        let exists = false;
+        $$storage().setItem(`${this.$$prefix}.data.${key}`, JSON.stringify(item))
+        let exists = false
         for (var i = 0; i < keys.length; i++) {
           if (keys[i] === key) {
-            exists = true;
-            break;
+            exists = true
+            break
           }
         }
         if (!exists) {
-          keys.push(key);
+          keys.push(key)
         }
-        $$storage().setItem(`${this.$$prefix}.keys`, JSON.stringify(keys));
+        $$storage().setItem(`${this.$$prefix}.keys`, JSON.stringify(keys))
       } else {
         // Remove existing
         if ($$data[key]) {
-          this.remove(key);
+          this.remove(key)
         }
         // Add to expires heap
-        $$expiresHeap.push(item);
+        $$expiresHeap.push(item)
         // Add to lru heap
-        $$lruHeap.push(item);
+        $$lruHeap.push(item)
         // Set item
-        $$data[key] = item;
-        delete $$promises[key];
+        $$data[key] = item
+        delete $$promises[key]
       }
 
       // Handle exceeded capacity
       if ($$lruHeap.size() > this.$$capacity) {
-        this.remove($$lruHeap.peek().key);
+        this.remove($$lruHeap.peek().key)
       }
 
-      return value;
+      return value
     },
 
-    remove(key) {
-      key += '';
-      delete $$promises[key];
+    remove (key) {
+      key += ''
+      delete $$promises[key]
       if ($$storage) {
-        let itemJson = $$storage().getItem(`${this.$$prefix}.data.${key}`);
+        let itemJson = $$storage().getItem(`${this.$$prefix}.data.${key}`)
 
         if (itemJson) {
-          let item = utils.fromJson(itemJson);
+          let item = utils.fromJson(itemJson)
           $$lruHeap.remove({
             key: key,
             accessed: item.accessed
-          });
+          })
           $$expiresHeap.remove({
             key: key,
             expires: item.expires
-          });
-          $$storage().removeItem(`${this.$$prefix}.data.${key}`);
-          let keysJson = $$storage().getItem(`${this.$$prefix}.keys`);
-          let keys = keysJson ? utils.fromJson(keysJson) : [];
-          let index = keys.indexOf(key);
+          })
+          $$storage().removeItem(`${this.$$prefix}.data.${key}`)
+          let keysJson = $$storage().getItem(`${this.$$prefix}.keys`)
+          let keys = keysJson ? utils.fromJson(keysJson) : []
+          let index = keys.indexOf(key)
 
           if (index >= 0) {
-            keys.splice(index, 1);
+            keys.splice(index, 1)
           }
-          $$storage().setItem(`${this.$$prefix}.keys`, JSON.stringify(keys));
-          return item.value;
+          $$storage().setItem(`${this.$$prefix}.keys`, JSON.stringify(keys))
+          return item.value
         }
       } else if (utils.isObject($$data)) {
-        let value = $$data[key] ? $$data[key].value : undefined;
-        $$lruHeap.remove($$data[key]);
-        $$expiresHeap.remove($$data[key]);
-        $$data[key] = null;
-        delete $$data[key];
-        return value;
+        let value = $$data[key] ? $$data[key].value : undefined
+        $$lruHeap.remove($$data[key])
+        $$expiresHeap.remove($$data[key])
+        $$data[key] = null
+        delete $$data[key]
+        return value
       }
     },
 
-    removeAll() {
+    removeAll () {
       if ($$storage) {
-        $$lruHeap.removeAll();
-        $$expiresHeap.removeAll();
-        let keysJson = $$storage().getItem(`${this.$$prefix}.keys`);
+        $$lruHeap.removeAll()
+        $$expiresHeap.removeAll()
+        let keysJson = $$storage().getItem(`${this.$$prefix}.keys`)
 
         if (keysJson) {
-          let keys = utils.fromJson(keysJson);
+          let keys = utils.fromJson(keysJson)
 
           for (var i = 0; i < keys.length; i++) {
-            this.remove(keys[i]);
+            this.remove(keys[i])
           }
         }
-        $$storage().setItem(`${this.$$prefix}.keys`, JSON.stringify([]));
+        $$storage().setItem(`${this.$$prefix}.keys`, JSON.stringify([]))
       } else if (utils.isObject($$data)) {
-        $$lruHeap.removeAll();
-        $$expiresHeap.removeAll();
+        $$lruHeap.removeAll()
+        $$expiresHeap.removeAll()
         for (var key in $$data) {
-          $$data[key] = null;
+          $$data[key] = null
         }
-        $$data = {};
+        $$data = {}
       } else {
-        $$lruHeap.removeAll();
-        $$expiresHeap.removeAll();
-        $$data = {};
+        $$lruHeap.removeAll()
+        $$expiresHeap.removeAll()
+        $$data = {}
       }
-      $$promises = {};
+      $$promises = {}
     },
 
-    removeExpired() {
-      let now = new Date().getTime();
-      let expired = {};
-      let key;
-      let expiredItem;
+    removeExpired () {
+      let now = new Date().getTime()
+      let expired = {}
+      let key
+      let expiredItem
 
       while ((expiredItem = $$expiresHeap.peek()) && expiredItem.expires <= now) {
-        expired[expiredItem.key] = expiredItem.value ? expiredItem.value : null;
-        $$expiresHeap.pop();
+        expired[expiredItem.key] = expiredItem.value ? expiredItem.value : null
+        $$expiresHeap.pop()
       }
 
       if ($$storage) {
         for (key in expired) {
-          let itemJson = $$storage().getItem(`${this.$$prefix}.data.${key}`);
+          let itemJson = $$storage().getItem(`${this.$$prefix}.data.${key}`)
           if (itemJson) {
-            expired[key] = utils.fromJson(itemJson).value;
-            this.remove(key);
+            expired[key] = utils.fromJson(itemJson).value
+            this.remove(key)
           }
         }
       } else {
         for (key in expired) {
-          this.remove(key);
+          this.remove(key)
         }
       }
 
       if (this.$$onExpire) {
         for (key in expired) {
-          this.$$onExpire.call(this, key, expired[key]);
+          this.$$onExpire(key, expired[key])
         }
       }
 
-      return expired;
+      return expired
     },
 
-    setCacheFlushInterval(cacheFlushInterval) {
+    setCacheFlushInterval (cacheFlushInterval) {
+      const _this = this
       if (cacheFlushInterval === null) {
-        delete this.$$cacheFlushInterval;
+        delete _this.$$cacheFlushInterval
       } else if (!utils.isNumber(cacheFlushInterval)) {
-        throw new Error('cacheFlushInterval must be a number!');
+        throw new Error('cacheFlushInterval must be a number!')
       } else if (cacheFlushInterval < 0) {
-        throw new Error('cacheFlushInterval must be greater than zero!');
-      } else if (cacheFlushInterval !== this.$$cacheFlushInterval) {
-        this.$$cacheFlushInterval = cacheFlushInterval;
-        clearInterval(this.$$cacheFlushIntervalId);
-        (function (self) {
-          self.$$cacheFlushIntervalId = setInterval(function () {
-            self.removeAll();
-          }, self.$$cacheFlushInterval);
-        })(this);
+        throw new Error('cacheFlushInterval must be greater than zero!')
+      } else if (cacheFlushInterval !== _this.$$cacheFlushInterval) {
+        _this.$$cacheFlushInterval = cacheFlushInterval
+
+        clearInterval(_this.$$cacheFlushIntervalId) // eslint-disable-line
+
+        _this.$$cacheFlushIntervalId = setInterval(function () {
+          _this.removeAll()
+        }, _this.$$cacheFlushInterval)
       }
     },
 
-    setCapacity(capacity) {
+    setCapacity (capacity) {
       if (capacity === null) {
-        delete this.$$capacity;
+        delete this.$$capacity
       } else if (!utils.isNumber(capacity)) {
-        throw new Error('capacity must be a number!');
+        throw new Error('capacity must be a number!')
       } else if (capacity < 0) {
-        throw new Error('capacity must be greater than zero!');
+        throw new Error('capacity must be greater than zero!')
       } else {
-        this.$$capacity = capacity;
+        this.$$capacity = capacity
       }
-      let removed = {};
+      let removed = {}
       while ($$lruHeap.size() > this.$$capacity) {
-        removed[$$lruHeap.peek().key] = this.remove($$lruHeap.peek().key);
+        removed[$$lruHeap.peek().key] = this.remove($$lruHeap.peek().key)
       }
-      return removed;
+      return removed
     },
 
-    setDeleteOnExpire(deleteOnExpire, setRecycleFreq) {
+    setDeleteOnExpire (deleteOnExpire, setRecycleFreq) {
       if (deleteOnExpire === null) {
-        delete this.$$deleteOnExpire;
+        delete this.$$deleteOnExpire
       } else if (!utils.isString(deleteOnExpire)) {
-        throw new Error('deleteOnExpire must be a string!');
+        throw new Error('deleteOnExpire must be a string!')
       } else if (deleteOnExpire !== 'none' && deleteOnExpire !== 'passive' && deleteOnExpire !== 'aggressive') {
-        throw new Error('deleteOnExpire must be "none", "passive" or "aggressive"!');
+        throw new Error('deleteOnExpire must be "none", "passive" or "aggressive"!')
       } else {
-        this.$$deleteOnExpire = deleteOnExpire;
+        this.$$deleteOnExpire = deleteOnExpire
       }
       if (setRecycleFreq !== false) {
-        this.setRecycleFreq(this.$$recycleFreq);
+        this.setRecycleFreq(this.$$recycleFreq)
       }
     },
 
-    setMaxAge(maxAge) {
+    setMaxAge (maxAge) {
       if (maxAge === null) {
-        this.$$maxAge = Number.MAX_VALUE;
+        this.$$maxAge = Number.MAX_VALUE
       } else if (!utils.isNumber(maxAge)) {
-        throw new Error('maxAge must be a number!');
+        throw new Error('maxAge must be a number!')
       } else if (maxAge < 0) {
-        throw new Error('maxAge must be greater than zero!');
+        throw new Error('maxAge must be greater than zero!')
       } else {
-        this.$$maxAge = maxAge;
+        this.$$maxAge = maxAge
       }
-      let i, keys, key;
+      let i, keys, key
 
-      $$expiresHeap.removeAll();
+      $$expiresHeap.removeAll()
 
       if ($$storage) {
-        let keysJson = $$storage().getItem(`${this.$$prefix}.keys`);
+        let keysJson = $$storage().getItem(`${this.$$prefix}.keys`)
 
-        keys = keysJson ? utils.fromJson(keysJson) : [];
+        keys = keysJson ? utils.fromJson(keysJson) : []
 
         for (i = 0; i < keys.length; i++) {
-          key = keys[i];
-          let itemJson = $$storage().getItem(`${this.$$prefix}.data.${key}`);
+          key = keys[i]
+          let itemJson = $$storage().getItem(`${this.$$prefix}.data.${key}`)
 
           if (itemJson) {
-            let item = utils.fromJson(itemJson);
+            let item = utils.fromJson(itemJson)
             if (this.$$maxAge === Number.MAX_VALUE) {
-              item.expires = Number.MAX_VALUE;
+              item.expires = Number.MAX_VALUE
             } else {
-              item.expires = item.created + (item.maxAge || this.$$maxAge);
+              item.expires = item.created + (item.maxAge || this.$$maxAge)
             }
             $$expiresHeap.push({
               key: key,
               expires: item.expires
-            });
+            })
           }
         }
       } else {
-        keys = _keys($$data);
+        keys = _keys($$data)
 
         for (i = 0; i < keys.length; i++) {
-          key = keys[i];
+          key = keys[i]
           if (this.$$maxAge === Number.MAX_VALUE) {
-            $$data[key].expires = Number.MAX_VALUE;
+            $$data[key].expires = Number.MAX_VALUE
           } else {
-            $$data[key].expires = $$data[key].created + ($$data[key].maxAge || this.$$maxAge);
+            $$data[key].expires = $$data[key].created + ($$data[key].maxAge || this.$$maxAge)
           }
-          $$expiresHeap.push($$data[key]);
+          $$expiresHeap.push($$data[key])
         }
       }
       if (this.$$deleteOnExpire === 'aggressive') {
-        return this.removeExpired();
+        return this.removeExpired()
       } else {
-        return {};
+        return {}
       }
     },
 
-    setOnExpire(onExpire) {
+    setOnExpire (onExpire) {
       if (onExpire === null) {
-        delete this.$$onExpire;
+        delete this.$$onExpire
       } else if (!utils.isFunction(onExpire)) {
-        throw new Error('onExpire must be a function!');
+        throw new Error('onExpire must be a function!')
       } else {
-        this.$$onExpire = onExpire;
+        this.$$onExpire = onExpire
       }
     },
 
-    setOptions(cacheOptions, strict) {
-      cacheOptions = cacheOptions || {};
-      strict = !!strict;
+    setOptions (cacheOptions, strict) {
+      cacheOptions = cacheOptions || {}
+      strict = !!strict
       if (!utils.isObject(cacheOptions)) {
-        throw new Error('cacheOptions must be an object!');
+        throw new Error('cacheOptions must be an object!')
       }
 
       if ('storagePrefix' in cacheOptions) {
-        this.$$storagePrefix = cacheOptions.storagePrefix;
+        this.$$storagePrefix = cacheOptions.storagePrefix
       } else if (strict) {
-        this.$$storagePrefix = defaults.storagePrefix;
+        this.$$storagePrefix = defaults.storagePrefix
       }
 
-      this.$$prefix = this.$$storagePrefix + this.$$id;
+      this.$$prefix = this.$$storagePrefix + this.$$id
 
       if ('disabled' in cacheOptions) {
-        this.$$disabled = !!cacheOptions.disabled;
+        this.$$disabled = !!cacheOptions.disabled
       } else if (strict) {
-        this.$$disabled = defaults.disabled;
+        this.$$disabled = defaults.disabled
       }
 
       if ('storageMode' in cacheOptions || 'storageImpl' in cacheOptions) {
-        this.setStorageMode(cacheOptions.storageMode || defaults.storageMode, cacheOptions.storageImpl || defaults.storageImpl);
+        this.setStorageMode(cacheOptions.storageMode || defaults.storageMode, cacheOptions.storageImpl || defaults.storageImpl)
       } else if (strict) {
-        this.setStorageMode(defaults.storageMode, defaults.storageImpl);
+        this.setStorageMode(defaults.storageMode, defaults.storageImpl)
       }
 
       if ('storeOnResolve' in cacheOptions) {
-        this.$$storeOnResolve = !!cacheOptions.storeOnResolve;
+        this.$$storeOnResolve = !!cacheOptions.storeOnResolve
       } else if (strict) {
-        this.$$storeOnResolve = defaults.storeOnResolve;
+        this.$$storeOnResolve = defaults.storeOnResolve
       }
 
       if ('storeOnReject' in cacheOptions) {
-        this.$$storeOnReject = !!cacheOptions.storeOnReject;
+        this.$$storeOnReject = !!cacheOptions.storeOnReject
       } else if (strict) {
-        this.$$storeOnReject = defaults.storeOnReject;
+        this.$$storeOnReject = defaults.storeOnReject
       }
 
       if ('capacity' in cacheOptions) {
-        this.setCapacity(cacheOptions.capacity);
+        this.setCapacity(cacheOptions.capacity)
       } else if (strict) {
-        this.setCapacity(defaults.capacity);
+        this.setCapacity(defaults.capacity)
       }
 
       if ('deleteOnExpire' in cacheOptions) {
-        this.setDeleteOnExpire(cacheOptions.deleteOnExpire, false);
+        this.setDeleteOnExpire(cacheOptions.deleteOnExpire, false)
       } else if (strict) {
-        this.setDeleteOnExpire(defaults.deleteOnExpire, false);
+        this.setDeleteOnExpire(defaults.deleteOnExpire, false)
       }
 
       if ('maxAge' in cacheOptions) {
-        this.setMaxAge(cacheOptions.maxAge);
+        this.setMaxAge(cacheOptions.maxAge)
       } else if (strict) {
-        this.setMaxAge(defaults.maxAge);
+        this.setMaxAge(defaults.maxAge)
       }
 
       if ('recycleFreq' in cacheOptions) {
-        this.setRecycleFreq(cacheOptions.recycleFreq);
+        this.setRecycleFreq(cacheOptions.recycleFreq)
       } else if (strict) {
-        this.setRecycleFreq(defaults.recycleFreq);
+        this.setRecycleFreq(defaults.recycleFreq)
       }
 
       if ('cacheFlushInterval' in cacheOptions) {
-        this.setCacheFlushInterval(cacheOptions.cacheFlushInterval);
+        this.setCacheFlushInterval(cacheOptions.cacheFlushInterval)
       } else if (strict) {
-        this.setCacheFlushInterval(defaults.cacheFlushInterval);
+        this.setCacheFlushInterval(defaults.cacheFlushInterval)
       }
 
       if ('onExpire' in cacheOptions) {
-        this.setOnExpire(cacheOptions.onExpire);
+        this.setOnExpire(cacheOptions.onExpire)
       } else if (strict) {
-        this.setOnExpire(defaults.onExpire);
+        this.setOnExpire(defaults.onExpire)
       }
     },
 
-    setRecycleFreq(recycleFreq) {
+    setRecycleFreq (recycleFreq) {
       if (recycleFreq === null) {
-        delete this.$$recycleFreq;
+        delete this.$$recycleFreq
       } else if (!utils.isNumber(recycleFreq)) {
-        throw new Error('recycleFreq must be a number!');
+        throw new Error('recycleFreq must be a number!')
       } else if (recycleFreq < 0) {
-        throw new Error('recycleFreq must be greater than zero!');
+        throw new Error('recycleFreq must be greater than zero!')
       } else {
-        this.$$recycleFreq = recycleFreq;
+        this.$$recycleFreq = recycleFreq
       }
-      clearInterval(this.$$recycleFreqId);
+      clearInterval(this.$$recycleFreqId)
       if (this.$$deleteOnExpire === 'aggressive') {
         (function (self) {
           self.$$recycleFreqId = setInterval(function () {
-            self.removeExpired();
-          }, self.$$recycleFreq);
-        })(this);
+            self.removeExpired()
+          }, self.$$recycleFreq)
+        })(this)
       } else {
-        delete this.$$recycleFreqId;
+        delete this.$$recycleFreqId
       }
     },
 
-    setStorageMode(storageMode, storageImpl) {
+    setStorageMode (storageMode, storageImpl) {
       if (!utils.isString(storageMode)) {
-        throw new Error('storageMode must be a string!');
+        throw new Error('storageMode must be a string!')
       } else if (storageMode !== 'memory' && storageMode !== 'localStorage' && storageMode !== 'sessionStorage') {
-        throw new Error('storageMode must be "memory", "localStorage" or "sessionStorage"!');
+        throw new Error('storageMode must be "memory", "localStorage" or "sessionStorage"!')
       }
 
-      let shouldReInsert = false;
-      let items = {};
+      let shouldReInsert = false
+      let items = {}
 
-      let keys = this.keys();
-
-      if (keys.length) {
-        for (var i = 0; i < keys.length; i++) {
-          items[keys[i]] = this.get(keys[i]);
+      function load () {
+        const keys = this.keys()
+        if (keys.length) {
+          for (var i = 0; i < keys.length; i++) {
+            items[keys[i]] = this.get(keys[i])
+          }
+          for (i = 0; i < keys.length; i++) {
+            this.remove(keys[i])
+          }
+          shouldReInsert = true
         }
-        for (i = 0; i < keys.length; i++) {
-          this.remove(keys[i]);
-        }
-        shouldReInsert = true;
       }
-      
-      this.$$storageMode = storageMode;
+
+      if (!this.$$initializing) {
+        load.call(this)
+      }
+
+      this.$$storageMode = storageMode
 
       if (storageImpl) {
         if (!utils.isObject(storageImpl)) {
-          throw new Error('storageImpl must be an object!');
+          throw new Error('storageImpl must be an object!')
         } else if (!('setItem' in storageImpl) || typeof storageImpl.setItem !== 'function') {
-          throw new Error('storageImpl must implement "setItem(key, value)"!');
+          throw new Error('storageImpl must implement "setItem(key, value)"!')
         } else if (!('getItem' in storageImpl) || typeof storageImpl.getItem !== 'function') {
-          throw new Error('storageImpl must implement "getItem(key)"!');
+          throw new Error('storageImpl must implement "getItem(key)"!')
         } else if (!('removeItem' in storageImpl) || typeof storageImpl.removeItem !== 'function') {
-          throw new Error('storageImpl must implement "removeItem(key)"!');
+          throw new Error('storageImpl must implement "removeItem(key)"!')
         }
-        $$storage = () => storageImpl;
+        $$storage = () => storageImpl
       } else if (this.$$storageMode === 'localStorage') {
         try {
-          localStorage.setItem('cachefactory', 'cachefactory');
-          localStorage.removeItem('cachefactory');
-          $$storage = () => localStorage;
+          localStorage.setItem('cachefactory', 'cachefactory')
+          localStorage.removeItem('cachefactory')
+          $$storage = () => localStorage
         } catch (e) {
-          $$storage = null;
-          this.$$storageMode = 'memory';
+          $$storage = null
+          this.$$storageMode = 'memory'
         }
       } else if (this.$$storageMode === 'sessionStorage') {
         try {
-          sessionStorage.setItem('cachefactory', 'cachefactory');
-          sessionStorage.removeItem('cachefactory');
-          $$storage = () => sessionStorage;
+          sessionStorage.setItem('cachefactory', 'cachefactory')
+          sessionStorage.removeItem('cachefactory')
+          $$storage = () => sessionStorage
         } catch (e) {
-          $$storage = null;
-          this.$$storageMode = 'memory';
+          $$storage = null
+          this.$$storageMode = 'memory'
         }
+      }
+
+      if (this.$$initializing) {
+        load.call(this)
       }
 
       if (shouldReInsert) {
         for (var key in items) {
-          this.put(key, items[key]);
+          this.put(key, items[key])
         }
       }
     },
 
-    touch(key) {
+    touch (key) {
       if (key) {
         let val = this.get(key, {
           onExpire: (k, v) => this.put(k, v)
-        });
+        })
         if (val) {
-          this.put(key, val);
+          this.put(key, val)
         }
       } else {
-        let keys = this.keys();
+        let keys = this.keys()
         for (var i = 0; i < keys.length; i++) {
-          this.touch(keys[i]);
+          this.touch(keys[i])
         }
       }
     }
-  };
+  }
 
-  cache.setOptions(options, true);
+  cache.$$initializing = true
+  cache.setOptions(options, true)
+  cache.$$initializing = false
 
-  return cache;
-};
-
-function CacheFactory(cacheId, options) {
-  return createCache(cacheId, options);
+  return cache
 }
 
-CacheFactory.createCache = createCache;
-CacheFactory.defaults = defaults;
+function CacheFactory (cacheId, options) {
+  return createCache(cacheId, options)
+}
 
-CacheFactory.info = () => {
-  let keys = _keys(caches);
-  let info = {
+CacheFactory.createCache = createCache
+CacheFactory.defaults = defaults
+
+CacheFactory.info = function () {
+  const keys = _keys(caches)
+  const info = {
     size: keys.length,
     caches: {}
-  };
+  }
   for (var opt in defaults) {
     if (defaults.hasOwnProperty(opt)) {
-      info[opt] = defaults[opt];
+      info[opt] = defaults[opt]
     }
   }
   for (var i = 0; i < keys.length; i++) {
-    let key = keys[i];
-    info.caches[key] = caches[key].info();
+    let key = keys[i]
+    info.caches[key] = caches[key].info()
   }
-  return info;
-};
+  return info
+}
 
-CacheFactory.get = cacheId => {
-  return caches[cacheId];
-};
-
-CacheFactory.keySet = () => {
-  return _keySet(caches);
-};
-
-CacheFactory.keys = () => _keys(caches);
-
-CacheFactory.destroy = cacheId => {
+CacheFactory.get = function (cacheId) { return caches[cacheId] }
+CacheFactory.keySet = function () { return _keySet(caches) }
+CacheFactory.keys = function () { return _keys(caches) }
+CacheFactory.destroy = function (cacheId) {
   if (caches[cacheId]) {
-    caches[cacheId].destroy();
-    delete caches[cacheId];
+    caches[cacheId].destroy()
+    delete caches[cacheId]
   }
-};
-
-CacheFactory.destroyAll = () => {
+}
+CacheFactory.destroyAll = function () {
   for (var cacheId in caches) {
-    caches[cacheId].destroy();
+    caches[cacheId].destroy()
   }
-  caches = {};
-};
-
-CacheFactory.clearAll = () => {
+  caches = {}
+}
+CacheFactory.clearAll = function () {
   for (var cacheId in caches) {
-    caches[cacheId].removeAll();
+    caches[cacheId].removeAll()
   }
-};
-
-CacheFactory.removeExpiredFromAll = () => {
-  let expired = {};
+}
+CacheFactory.removeExpiredFromAll = function () {
+  const expired = {}
   for (var cacheId in caches) {
-    expired[cacheId] = caches[cacheId].removeExpired();
+    expired[cacheId] = caches[cacheId].removeExpired()
   }
-  return expired;
-};
-
-CacheFactory.enableAll = () => {
+  return expired
+}
+CacheFactory.enableAll = function () {
   for (var cacheId in caches) {
-    caches[cacheId].$$disabled = false;
+    caches[cacheId].$$disabled = false
   }
-};
-
-CacheFactory.disableAll = () => {
+}
+CacheFactory.disableAll = function () {
   for (var cacheId in caches) {
-    caches[cacheId].$$disabled = true;
+    caches[cacheId].$$disabled = true
   }
-};
-
-CacheFactory.touchAll = () => {
+}
+CacheFactory.touchAll = function () {
   for (var cacheId in caches) {
-    caches[cacheId].touch();
+    caches[cacheId].touch()
   }
-};
+}
 
-CacheFactory.utils = utils;
-CacheFactory.BinaryHeap = BinaryHeap;
+CacheFactory.utils = utils
+CacheFactory.BinaryHeap = BinaryHeap
 
-module.exports = CacheFactory;
+module.exports = CacheFactory

@@ -468,7 +468,7 @@ Set multiple options for the cache at a time. Setting `strict` to `true` will re
 ### License
 [MIT License](https://github.com/jmdobry/cachefactory/blob/master/LICENSE)
 
-Copyright (C) 2015 Jason Dobry
+Copyright (C) 2015-2016 Jason Dobry
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in

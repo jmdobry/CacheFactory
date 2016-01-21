@@ -295,7 +295,7 @@ function createCache (cacheId, options) {
     },
 
     put (key, value, options) {
-      options = options || {}
+      options || (options = {})
 
       let storeOnResolve = 'storeOnResolve' in options ? !!options.storeOnResolve : this.$$storeOnResolve
       let storeOnReject = 'storeOnReject' in options ? !!options.storeOnReject : this.$$storeOnReject
@@ -336,14 +336,18 @@ function createCache (cacheId, options) {
       let item = {
         key: key,
         value: _isPromiseLike(value) ? value.then(getHandler(storeOnResolve, false), getHandler(storeOnReject, true)) : value,
-        created: now,
-        accessed: now
+        created: options.created === undefined ? now : options.created,
+        accessed: options.accessed === undefined ? now : options.accessed
       }
       if (options.maxAge) {
         item.maxAge = options.maxAge
       }
 
-      item.expires = item.created + (item.maxAge || this.$$maxAge)
+      if (options.expires === undefined) {
+        item.expires = item.created + (item.maxAge || this.$$maxAge)
+      } else {
+        item.expires = options.expires
+      }
 
       if ($$storage) {
         if (_isPromiseLike(item.value)) {
@@ -659,12 +663,6 @@ function createCache (cacheId, options) {
         this.setMaxAge(defaults.maxAge)
       }
 
-      if ('storageMode' in cacheOptions || 'storageImpl' in cacheOptions) {
-        this.setStorageMode(cacheOptions.storageMode || defaults.storageMode, cacheOptions.storageImpl || defaults.storageImpl)
-      } else if (strict) {
-        this.setStorageMode(defaults.storageMode, defaults.storageImpl)
-      }
-
       if ('storeOnResolve' in cacheOptions) {
         this.$$storeOnResolve = !!cacheOptions.storeOnResolve
       } else if (strict) {
@@ -693,6 +691,12 @@ function createCache (cacheId, options) {
         this.setOnExpire(cacheOptions.onExpire)
       } else if (strict) {
         this.setOnExpire(defaults.onExpire)
+      }
+
+      if ('storageMode' in cacheOptions || 'storageImpl' in cacheOptions) {
+        this.setStorageMode(cacheOptions.storageMode || defaults.storageMode, cacheOptions.storageImpl || defaults.storageImpl)
+      } else if (strict) {
+        this.setStorageMode(defaults.storageMode, defaults.storageImpl)
       }
     },
 
@@ -725,24 +729,35 @@ function createCache (cacheId, options) {
         throw new Error('storageMode must be "memory", "localStorage" or "sessionStorage"!')
       }
 
+      const prevStorage = $$storage
+      const prevData = $$data
       let shouldReInsert = false
       let items = {}
 
-      function load () {
+      function load (prevStorage, prevData) {
         const keys = this.keys()
-        if (keys.length) {
-          for (var i = 0; i < keys.length; i++) {
-            items[keys[i]] = this.get(keys[i])
-          }
-          for (i = 0; i < keys.length; i++) {
-            this.remove(keys[i])
+        const length = keys.length
+        if (length) {
+          let key
+          const prevDataIsObject = utils.isObject(prevData)
+          for (var i = 0; i < length; i++) {
+            key = keys[i]
+            if (prevStorage) {
+              const itemJson = prevStorage().getItem(`${this.$$prefix}.data.${key}`)
+              if (itemJson) {
+                items[key] = utils.fromJson(itemJson)
+              }
+            } else if (prevDataIsObject) {
+              items[key] = prevData[key]
+            }
+            this.remove(key)
           }
           shouldReInsert = true
         }
       }
 
       if (!this.$$initializing) {
-        load.call(this)
+        load.call(this, prevStorage, prevData)
       }
 
       this.$$storageMode = storageMode
@@ -776,15 +791,24 @@ function createCache (cacheId, options) {
           $$storage = null
           this.$$storageMode = 'memory'
         }
+      } else {
+        $$storage = null
+        this.$$storageModel = 'memory'
       }
 
       if (this.$$initializing) {
-        load.call(this)
+        load.call(this, $$storage, $$data)
       }
 
       if (shouldReInsert) {
+        let item
         for (var key in items) {
-          this.put(key, items[key])
+          item = items[key]
+          this.put(key, item.value, {
+            created: item.created,
+            accessed: item.accessed,
+            expires: item.expires
+          })
         }
       }
     },
@@ -803,6 +827,15 @@ function createCache (cacheId, options) {
           this.touch(keys[i])
         }
       }
+    },
+
+    values () {
+      const keys = this.keys()
+      const items = []
+      for (var i = 0; i < keys.length; i++) {
+        items.push(this.get(keys[i]))
+      }
+      return items
     }
   }
 

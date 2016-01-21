@@ -1,3 +1,13 @@
+##### 1.4.0 - 21 January 2016
+
+###### Backwards compatible API changes
+- Add a `values()` method to cache instances
+
+###### Bug fixes
+- Fixed "expires" sometimes getting set to null
+- Fixed cache not re-initializing properly from localStorage
+- #3 - Initialization resets access timestamps
+
 ##### 1.3.0 - 30 December 2015
 
 ###### Bug fixes

@@ -641,6 +641,24 @@ function createCache (cacheId, options) {
         this.$$disabled = defaults.disabled
       }
 
+      if ('deleteOnExpire' in cacheOptions) {
+        this.setDeleteOnExpire(cacheOptions.deleteOnExpire, false)
+      } else if (strict) {
+        this.setDeleteOnExpire(defaults.deleteOnExpire, false)
+      }
+
+      if ('recycleFreq' in cacheOptions) {
+        this.setRecycleFreq(cacheOptions.recycleFreq)
+      } else if (strict) {
+        this.setRecycleFreq(defaults.recycleFreq)
+      }
+
+      if ('maxAge' in cacheOptions) {
+        this.setMaxAge(cacheOptions.maxAge)
+      } else if (strict) {
+        this.setMaxAge(defaults.maxAge)
+      }
+
       if ('storageMode' in cacheOptions || 'storageImpl' in cacheOptions) {
         this.setStorageMode(cacheOptions.storageMode || defaults.storageMode, cacheOptions.storageImpl || defaults.storageImpl)
       } else if (strict) {
@@ -663,24 +681,6 @@ function createCache (cacheId, options) {
         this.setCapacity(cacheOptions.capacity)
       } else if (strict) {
         this.setCapacity(defaults.capacity)
-      }
-
-      if ('deleteOnExpire' in cacheOptions) {
-        this.setDeleteOnExpire(cacheOptions.deleteOnExpire, false)
-      } else if (strict) {
-        this.setDeleteOnExpire(defaults.deleteOnExpire, false)
-      }
-
-      if ('maxAge' in cacheOptions) {
-        this.setMaxAge(cacheOptions.maxAge)
-      } else if (strict) {
-        this.setMaxAge(defaults.maxAge)
-      }
-
-      if ('recycleFreq' in cacheOptions) {
-        this.setRecycleFreq(cacheOptions.recycleFreq)
-      } else if (strict) {
-        this.setRecycleFreq(defaults.recycleFreq)
       }
 
       if ('cacheFlushInterval' in cacheOptions) {

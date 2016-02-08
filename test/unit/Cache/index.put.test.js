@@ -120,6 +120,20 @@ describe('Cache#put(key, value[, options])', function () {
       done();
     }, 100);
   });
+  it('should  allow an item touched with options.', function (done) {
+    var cache = TestCacheFactory('put-cache-10', {maxAge: 30, deleteOnExpire: 'aggressive'});
+    var options = {maxAge:15};
+    cache.put('item1', 'value1', options);
+    assert.equal(cache.get('item1'), 'value1');
+    setTimeout(function () {
+      cache.touch('item1', options);
+      assert.equal(cache.get('item1'), 'value1');
+      setTimeout(function () {
+        assert.equal(cache.get('item1'), 'value1');
+        done();
+      }, 10);
+    }, 10);
+  });
   it('should handle normal promises.', function (done) {
     var cache = TestCacheFactory('put-cache-11', {
       maxAge: 30,

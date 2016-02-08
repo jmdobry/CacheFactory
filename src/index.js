@@ -813,18 +813,18 @@ function createCache (cacheId, options) {
       }
     },
 
-    touch (key) {
+    touch (key, options) {
       if (key) {
         let val = this.get(key, {
           onExpire: (k, v) => this.put(k, v)
         })
         if (val) {
-          this.put(key, val)
+          this.put(key, val, options)
         }
       } else {
         let keys = this.keys()
         for (var i = 0; i < keys.length; i++) {
-          this.touch(keys[i])
+          this.touch(keys[i], options)
         }
       }
     },

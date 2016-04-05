@@ -431,7 +431,7 @@ Disable the cache.
 ##### `Cache#touch([key][, options])`
 
 `Cache#touch()` will "touch" all items in the cache.
-`Cache#touch(key)` will "touch" the item with the given `key`.
+`Cache#touch(key, [options])` will "touch" the item with the given `key`. `options`, if provided, must be an object.
 
 ##### `Cache#setCacheFlushInterval(cacheFlushInterval)`
 

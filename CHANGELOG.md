@@ -1,3 +1,11 @@
+##### 1.4.1 - 05 April 2016
+
+###### Backwards compatible changes
+- Added TypeScript definition file (thanks @SamuelMarks)
+
+###### Other
+- Upgraded devDependencies
+
 ##### 1.4.0 - 21 January 2016
 
 ###### Backwards compatible API changes

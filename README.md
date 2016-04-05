@@ -44,7 +44,7 @@ var profileCache;
 
 // Check to make sure the cache doesn't already exist
 if (!CacheFactory.get('profileCache')) {
-  profileCache = CacheFactory('profileCache');
+  profileCache = CacheFactory.createCache('profileCache');
 }
 ```
 
@@ -67,7 +67,7 @@ Right now, these items will stay in the cache until a page refresh.
 Let's have items which are added to `profileCache` expire after an hour:
 
 ```js
-profileCache = CacheFactory('profileCache', {
+profileCache = CacheFactory.createCache('profileCache', {
   maxAge: 60 * 60 * 1000 // 1 hour
 });
 ```
@@ -75,7 +75,7 @@ profileCache = CacheFactory('profileCache', {
 Perfect. Say we also want the items removed from the cache when they expire:
 
 ```js
-profileCache = CacheFactory('profileCache', {
+profileCache = CacheFactory.createCache('profileCache', {
   maxAge: 60 * 60 * 1000 // 1 hour,
   deleteOnExpire: 'aggressive'
 });
@@ -84,7 +84,7 @@ profileCache = CacheFactory('profileCache', {
 Let's say that when the items do expire, we want to refresh them with new values:
 
 ```js
-profileCache = CacheFactory('profileCache', {
+profileCache = CacheFactory.createCache('profileCache', {
   maxAge: 60 * 60 * 1000 // 1 hour,
   deleteOnExpire: 'aggressive',
   onExpire: function (key, value) {
@@ -241,7 +241,7 @@ If inserting a promise into a cache, also insert the resolved value if the promi
 // This cache will sync itself with localStorage if it exists, otherwise it won't. Every time the
 // browser loads this app, this cache will attempt to initialize itself with any data it had
 // already saved to localStorage (or sessionStorage if you used that).
-var myAwesomeCache = CacheFactory('myAwesomeCache', {
+var myAwesomeCache = CacheFactory.createCache('myAwesomeCache', {
   maxAge: 15 * 60 * 1000, // Items added to this cache expire after 15 minutes.
   cacheFlushInterval: 60 * 60 * 1000, // This cache will clear itself every hour.
   deleteOnExpire: 'aggressive', // Items will be deleted from this cache right when they expire.
@@ -265,7 +265,7 @@ var localStoragePolyfill = {
 };
 
 // Always use the polyfill
-var myAwesomeCache = CacheFactory('myAwesomeCache', {
+var myAwesomeCache = CacheFactory.createCache('myAwesomeCache', {
   maxAge: 15 * 60 * 1000, // Items added to this cache expire after 15 minutes.
   cacheFlushInterval: 60 * 60 * 1000, // This cache will clear itself every hour.
   deleteOnExpire: 'aggressive', // Items will be deleted from this cache right when they expire.
@@ -283,7 +283,7 @@ var options = {
 if (!window.localStorage) {
   options.storageImpl = localStoragePolyfill;
 }
-var myAwesomeCache = CacheFactory('myAwesomeCache', options);
+var myAwesomeCache = CacheFactory.createCache('myAwesomeCache', options);
 ```
 
 Documentation on the interface that must be implemented by any storageImpl polyfill used by cachefactory can be found on the W3C Recommendation page for webstorage. The interface itself looks like:
@@ -314,7 +314,7 @@ var storeJsToStandard {
   removeItem: store.remove
 };
 
-CacheFactory('myNewCache', {
+CacheFactory.createCache('myNewCache', {
   storageMode: 'localStorage',
   storageImpl: storeJsToStandard
 });
@@ -322,15 +322,15 @@ CacheFactory('myNewCache', {
 
 ### API Reference
 
-##### `CacheFactory(cacheId[, options])` & `CacheFactory.createCache(cacheId[, options])`
+##### `CacheFactory.createCache(cacheId[, options])`
 
 Create a cache. Cache must not already exist. `cacheId` must be a string. `options` is an optional argument and must be an object. Any options you pass here will override any default options.
 
 ```js
-var cache = CacheFactory('cache');
+var cache = CacheFactory.createCache('cache');
 var cache2 = CacheFactory.createCache('cache2');
-var cache3 = CacheFactory('cache', { maxAge: 900000 });
-var cache4 = CacheFactory('cache'); // Error "cache already exists!"
+var cache3 = CacheFactory.createCache('cache', { maxAge: 900000 });
+var cache4 = CacheFactory.createCache('cache'); // Error "cache already exists!"
 ```
 
 ##### `CacheFactory.get(cacheId)`
@@ -428,7 +428,7 @@ Enable the cache.
 
 Disable the cache.
 
-##### `Cache#touch([key])`
+##### `Cache#touch([key][, options])`
 
 `Cache#touch()` will "touch" all items in the cache.
 `Cache#touch(key)` will "touch" the item with the given `key`.
@@ -468,7 +468,7 @@ Set multiple options for the cache at a time. Setting `strict` to `true` will re
 ### License
 [MIT License](https://github.com/jmdobry/cachefactory/blob/master/LICENSE)
 
-Copyright (C) 2015-2016 Jason Dobry
+Copyright (C) 2015-2016 CacheFactory project authors
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in

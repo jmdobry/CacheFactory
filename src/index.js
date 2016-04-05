@@ -793,7 +793,7 @@ function createCache (cacheId, options) {
         }
       } else {
         $$storage = null
-        this.$$storageModel = 'memory'
+        this.$$storageMode = 'memory'
       }
 
       if (this.$$initializing) {

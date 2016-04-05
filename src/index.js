@@ -134,7 +134,7 @@ function createCache (cacheId, options) {
         let keys = key
         let values = []
 
-        keys.forEach(key => {
+        keys.forEach((key) => {
           let value = this.get(key, options)
           if (value !== null && value !== undefined) {
             values.push(value)
@@ -301,7 +301,7 @@ function createCache (cacheId, options) {
       let storeOnReject = 'storeOnReject' in options ? !!options.storeOnReject : this.$$storeOnReject
 
       let getHandler = (store, isError) => {
-        return v => {
+        return (v) => {
           if (store) {
             delete $$promises[key]
             if (utils.isObject(v) && 'status' in v && 'data' in v) {

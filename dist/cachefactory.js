@@ -1,6 +1,6 @@
 /*!
  * cachefactory
- * @version 1.4.0 - Homepage <https://github.com/jmdobry/CacheFactory>
+ * @version 1.4.1 - Homepage <https://github.com/jmdobry/CacheFactory>
  * @author Jason Dobry <jason.dobry@gmail.com>
  * @copyright (c) 2013-2016 Jason Dobry 
  * @license MIT <https://github.com/jmdobry/CacheFactory/blob/master/LICENSE>
@@ -93,12 +93,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return a === b;
 	  },
 	
+	
 	  Promise: _Promise
 	};
 	
 	function _keys(collection) {
 	  var keys = [];
-	  var key = undefined;
+	  var key = void 0;
 	  if (!utils.isObject(collection)) {
 	    return keys;
 	  }
@@ -123,7 +124,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	function _keySet(collection) {
 	  var keySet = {};
-	  var key = undefined;
+	  var key = void 0;
 	  if (!utils.isObject(collection)) {
 	    return keySet;
 	  }
@@ -232,7 +233,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        throw new Error('options.onExpire must be a function!');
 	      }
 	
-	      var item = undefined;
+	      var item = void 0;
 	
 	      if ($$storage) {
 	        if ($$promises[key]) {
@@ -290,7 +291,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    },
 	    info: function info(key) {
 	      if (key) {
-	        var item = undefined;
+	        var item = void 0;
 	        if ($$storage) {
 	          var itemJson = $$storage().getItem(this.$$prefix + '.data.' + key);
 	
@@ -544,8 +545,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	    removeExpired: function removeExpired() {
 	      var now = new Date().getTime();
 	      var expired = {};
-	      var key = undefined;
-	      var expiredItem = undefined;
+	      var key = void 0;
+	      var expiredItem = void 0;
 	
 	      while ((expiredItem = $$expiresHeap.peek()) && expiredItem.expires <= now) {
 	        expired[expiredItem.key] = expiredItem.value ? expiredItem.value : null;
@@ -632,9 +633,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	      } else {
 	        this.$$maxAge = maxAge;
 	      }
-	      var i = undefined,
-	          keys = undefined,
-	          key = undefined;
+	      var i = void 0,
+	          keys = void 0,
+	          key = void 0;
 	
 	      $$expiresHeap.removeAll();
 	
@@ -800,7 +801,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        var keys = this.keys();
 	        var length = keys.length;
 	        if (length) {
-	          var _key = undefined;
+	          var _key = void 0;
 	          var prevDataIsObject = utils.isObject(prevData);
 	          for (var i = 0; i < length; i++) {
 	            _key = keys[i];
@@ -861,7 +862,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        }
 	      } else {
 	        $$storage = null;
-	        this.$$storageModel = 'memory';
+	        this.$$storageMode = 'memory';
 	      }
 	
 	      if (this.$$initializing) {
@@ -869,7 +870,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      }
 	
 	      if (shouldReInsert) {
-	        var item = undefined;
+	        var item = void 0;
 	        for (var key in items) {
 	          item = items[key];
 	          this.put(key, item.value, {
@@ -880,7 +881,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        }
 	      }
 	    },
-	    touch: function touch(key) {
+	    touch: function touch(key, options) {
 	      var _this4 = this;
 	
 	      if (key) {
@@ -890,12 +891,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	          }
 	        });
 	        if (val) {
-	          this.put(key, val);
+	          this.put(key, val, options);
 	        }
 	      } else {
 	        var keys = this.keys();
 	        for (var i = 0; i < keys.length; i++) {
-	          this.touch(keys[i]);
+	          this.touch(keys[i], options);
 	        }
 	      }
 	    },

@@ -1,6 +1,6 @@
 /**
  * CacheFactory
- * @version 1.5.0 - Homepage <https://github.com/jmdobry/CacheFactory>
+ * @version 1.5.1 - Homepage <https://github.com/jmdobry/CacheFactory>
  * @copyright (c) 2013-2016 CacheFactory project authors
  * @license MIT <https://github.com/jmdobry/CacheFactory/blob/master/LICENSE>
  * @overview CacheFactory is a very simple and useful cache for the browser.

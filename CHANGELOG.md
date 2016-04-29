@@ -1,3 +1,8 @@
+##### 1.5.1 - 29 April 2016
+
+###### Backwards compatible changes
+- Added `jsnext:main`
+
 ##### 1.5.0 - 29 April 2016
 
 ###### Backwards compatible changes

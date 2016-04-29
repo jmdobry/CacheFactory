@@ -1,14 +1,12 @@
 # cachefactory
 
-[![bower version](https://img.shields.io/bower/v/cachefactory.svg?style=flat-square)](https://www.npmjs.org/package/cachefactory)
-[![npm version](https://img.shields.io/npm/v/cachefactory.svg?style=flat-square)](https://www.npmjs.org/package/cachefactory)
-[![Circle CI](https://img.shields.io/circleci/project/jmdobry/cachefactory/master.svg?style=flat-square)](https://circleci.com/gh/jmdobry/cachefactory/tree/master)
-[![npm downloads](https://img.shields.io/npm/dm/cachefactory.svg?style=flat-square)](https://www.npmjs.org/package/cachefactory)
-[![License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://github.com/jmdobry/cachefactory/blob/master/LICENSE)
+[![bower version](https://img.shields.io/bower/v/cachefactory.svg?style=flat)](https://www.npmjs.org/package/cachefactory)
+[![npm version](https://img.shields.io/npm/v/cachefactory.svg?style=flat)](https://www.npmjs.org/package/cachefactory)
+[![Circle CI](https://img.shields.io/circleci/project/jmdobry/cachefactory/master.svg?style=flat)](https://circleci.com/gh/jmdobry/cachefactory/tree/master)
+[![npm downloads](https://img.shields.io/npm/dm/cachefactory.svg?style=flat)](https://www.npmjs.org/package/cachefactory)
+[![codecov](https://img.shields.io/codecov/c/github/jmdobry/CacheFactory.svg)](https://codecov.io/gh/jmdobry/CacheFactory)
 
-CacheFactory is a very simple and useful cache.
-
-__Latest Release:__ [![Latest Release](https://img.shields.io/github/release/jmdobry/cachefactory.svg?style=flat-square)](https://github.com/jmdobry/cachefactory/releases)
+CacheFactory is a very simple and useful cache for the browser.
 
 ### Table of Contents
 - [Quick Start](#quick-start)

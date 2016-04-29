@@ -1,4 +1,5 @@
-let BinaryHeap = require('yabh')
+import BinaryHeap from '../node_modules/yabh/src/index'
+
 let _Promise = null
 try {
   _Promise = window.Promise
@@ -917,4 +918,4 @@ CacheFactory.touchAll = function () {
 CacheFactory.utils = utils
 CacheFactory.BinaryHeap = BinaryHeap
 
-module.exports = CacheFactory
+export default CacheFactory

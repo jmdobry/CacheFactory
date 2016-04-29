@@ -1,3 +1,9 @@
+##### 1.5.0 - 29 April 2016
+
+###### Backwards compatible changes
+- Switched to Rollup.js
+- Improve import of `yabh`
+
 ##### 1.4.1 - 05 April 2016
 
 ###### Backwards compatible changes

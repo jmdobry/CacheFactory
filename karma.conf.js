@@ -2,7 +2,7 @@ module.exports = function (config) {
   config.set({
     basePath: './',
     frameworks: ['mocha', 'chai', 'sinon'],
-    browsers: ['Chrome', 'PhantomJS'],
+    browsers: ['PhantomJS'],
     files: [
       'node_modules/es6-promise/dist/es6-promise.js',
       'dist/cachefactory.js',
@@ -14,9 +14,7 @@ module.exports = function (config) {
     logLevel: config.LOG_INFO,
     port: 9876,
     plugins: [
-      'karma-chrome-launcher',
       'karma-phantomjs-launcher',
-      'karma-firefox-launcher',
       'karma-mocha',
       'karma-chai',
       'karma-sinon',
@@ -25,13 +23,13 @@ module.exports = function (config) {
     runnerPort: 9100,
     singleRun: true,
     autoWatch: false,
-    //coverageReporter: {
-    //  type: 'lcov',
-    //  dir: 'coverage/'
-    //},
-    //preprocessors: {
-    //  'dist/cachefactory.js': ['coverage']
-    //},
-    //reporters: ['progress', 'coverage']
-  });
-};
+    coverageReporter: {
+      type: 'lcov',
+      dir: 'coverage/'
+    },
+    preprocessors: {
+      'dist/cachefactory.js': ['coverage']
+    },
+    reporters: ['progress', 'coverage']
+  })
+}

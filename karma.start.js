@@ -1,3 +1,5 @@
+/* global CacheFactory */
+/*eslint-disable*/
 var fail = function (msg) {
     assert.equal('should not reach this!: ' + msg, 'failure');
   },
@@ -28,10 +30,11 @@ var fail = function (msg) {
     disabled: false,
     storagePrefix: 'ac.'
   };
+/*eslint-enable*/
 
-var TestCacheFactory;
+var TestCacheFactory
 
 beforeEach(function () {
-  TestCacheFactory = CacheFactory;
-  TestCacheFactory.destroyAll();
-});
+  TestCacheFactory = CacheFactory
+  TestCacheFactory.destroyAll()
+})

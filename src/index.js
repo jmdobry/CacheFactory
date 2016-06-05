@@ -181,6 +181,10 @@ function createCache (cacheId, options) {
 
         item = $$data[key]
       }
+      
+      if (!item) {
+        return
+      }
 
       let value = item.value
       let now = new Date().getTime()

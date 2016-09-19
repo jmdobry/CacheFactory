@@ -1,0 +1,5456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Cache - Documentation</title>
+
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Cache.html">Cache</a><ul class='methods'><li data-type='method'><a href="Cache.html#destroy">destroy</a></li><li data-type='method'><a href="Cache.html#disable">disable</a></li><li data-type='method'><a href="Cache.html#enable">enable</a></li><li data-type='method'><a href="Cache.html#get">get</a></li><li data-type='method'><a href="Cache.html#info">info</a></li><li data-type='method'><a href="Cache.html#keys">keys</a></li><li data-type='method'><a href="Cache.html#keySet">keySet</a></li><li data-type='method'><a href="Cache.html#put">put</a></li><li data-type='method'><a href="Cache.html#remove">remove</a></li><li data-type='method'><a href="Cache.html#removeAll">removeAll</a></li><li data-type='method'><a href="Cache.html#removeExpired">removeExpired</a></li><li data-type='method'><a href="Cache.html#setCacheFlushInterval">setCacheFlushInterval</a></li><li data-type='method'><a href="Cache.html#setCapacity">setCapacity</a></li><li data-type='method'><a href="Cache.html#setDeleteOnExpire">setDeleteOnExpire</a></li><li data-type='method'><a href="Cache.html#setMaxAge">setMaxAge</a></li><li data-type='method'><a href="Cache.html#setOnExpire">setOnExpire</a></li><li data-type='method'><a href="Cache.html#setOptions">setOptions</a></li><li data-type='method'><a href="Cache.html#setRecycleFreq">setRecycleFreq</a></li><li data-type='method'><a href="Cache.html#setStorageMode">setStorageMode</a></li><li data-type='method'><a href="Cache.html#touch">touch</a></li><li data-type='method'><a href="Cache.html#values">values</a></li></ul></li><li><a href="CacheFactory.html">CacheFactory</a><ul class='methods'><li data-type='method'><a href="CacheFactory.html#clearAll">clearAll</a></li><li data-type='method'><a href="CacheFactory.html#createCache">createCache</a></li><li data-type='method'><a href="CacheFactory.html#destroy">destroy</a></li><li data-type='method'><a href="CacheFactory.html#destroyAll">destroyAll</a></li><li data-type='method'><a href="CacheFactory.html#disableAll">disableAll</a></li><li data-type='method'><a href="CacheFactory.html#enableAll">enableAll</a></li><li data-type='method'><a href="CacheFactory.html#exists">exists</a></li><li data-type='method'><a href="CacheFactory.html#get">get</a></li><li data-type='method'><a href="CacheFactory.html#info">info</a></li><li data-type='method'><a href="CacheFactory.html#keys">keys</a></li><li data-type='method'><a href="CacheFactory.html#keySet">keySet</a></li><li data-type='method'><a href="CacheFactory.html#removeExpiredFromAll">removeExpiredFromAll</a></li><li data-type='method'><a href="CacheFactory.html#touchAll">touchAll</a></li></ul></li></ul><h3>Modules</h3><ul><li><a href="module-cachefactory.html">cachefactory</a></li></ul><h3>Namespaces</h3><ul><li><a href="utils.html">utils</a><ul class='methods'><li data-type='method'><a href="utils.html#.equals">equals</a></li><li data-type='method'><a href="utils.html#.fromJson">fromJson</a></li><li data-type='method'><a href="utils.html#.isFunction">isFunction</a></li><li data-type='method'><a href="utils.html#.isNumber">isNumber</a></li><li data-type='method'><a href="utils.html#.isObject">isObject</a></li><li data-type='method'><a href="utils.html#.isString">isString</a></li><li data-type='method'><a href="utils.html#.toJson">toJson</a></li></ul></li></ul><h3>Tutorials</h3><ul><li><a href="tutorial-basics.html">The Basics</a></li><li><a href="tutorial-working-with-a-cache.html">Working with a cache</a></li><li><a href="tutorial-working-with-localstorage.html">Working with localStorage</a></li></ul>
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">Cache</h1>
+    
+
+    
+
+
+
+
+<section>
+
+<header>
+    
+        <h2>
+        Cache
+        </h2>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+
+    
+
+    <h4 class="name" id="Cache"><span class="type-signature"></span>new Cache<span class="signature">(id, options<span class="signature-attributes">opt</span>)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>Instances of this class represent a &quot;cache&quot;—a synchronous key-value store.
+Each instance holds the settings for the cache, and provides methods for
+manipulating the cache and its data.</p>
+<p>Generally you don't creates instances of <code>Cache</code> directly, but instead create
+instances of <code>Cache</code> via <a href="CacheFactory.html#createCache">CacheFactory#createCache</a>.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>id</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>A unique identifier for the cache.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>options</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>Configuration options.</p>
+                <h6>Properties</h6>
+                
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>cacheFlushInterval</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    null
+                
+                </td>
+            
+
+            <td class="description last"><p>See <a href="Cache.html#cacheFlushInterval">Cache#cacheFlushInterval</a>.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>capacity</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    Number.MAX_VALUE
+                
+                </td>
+            
+
+            <td class="description last"><p>See <a href="Cache.html#capacity">Cache#capacity</a>.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>deleteOnExpire</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    "none"
+                
+                </td>
+            
+
+            <td class="description last"><p>See <a href="Cache.html#deleteOnExpire">Cache#deleteOnExpire</a>.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>enabled</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    true
+                
+                </td>
+            
+
+            <td class="description last"><p>See <a href="Cache.html#enabled">Cache#enabled</a>.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>maxAge</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    Number.MAX_VALUE
+                
+                </td>
+            
+
+            <td class="description last"><p>See <a href="Cache.html#maxAge">Cache#maxAge</a>.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>onExpire</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    null
+                
+                </td>
+            
+
+            <td class="description last"><p>See <a href="Cache.html#onExpire">Cache#onExpire</a>.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>recycleFreq</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    1000
+                
+                </td>
+            
+
+            <td class="description last"><p>See <a href="Cache.html#recycleFreq">Cache#recycleFreq</a>.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>storageImpl</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="Cache.html#~StorageImpl">Cache~StorageImpl</a></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    null
+                
+                </td>
+            
+
+            <td class="description last"><p>See <a href="Cache.html#~StorageImpl">Cache~StorageImpl</a>.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>storageMode</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    "memory"
+                
+                </td>
+            
+
+            <td class="description last"><p>See <a href="Cache.html#storageMode">Cache#storageMode</a>.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>storagePrefix</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    "cachefactory.caches."
+                
+                </td>
+            
+
+            <td class="description last"><p>See <a href="Cache.html#storagePrefix">Cache#storagePrefix</a>.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>storeOnReject</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    false
+                
+                </td>
+            
+
+            <td class="description last"><p>See <a href="Cache.html#storeOnReject">Cache#storeOnReject</a>.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>storeOnResolve</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    false
+                
+                </td>
+            
+
+            <td class="description last"><p>See <a href="Cache.html#storeOnResolve">Cache#storeOnResolve</a>.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Cache.js.html">Cache.js</a>, <a href="Cache.js.html#line23">line 23</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>import CacheFactory from 'cachefactory';
+
+const cacheFactory = new CacheFactory();
+const options = {...};
+const cache = cacheFactory.createCache('my-cache', options);
+
+cache.put('foo', 'bar');
+console.log(cache.get('foo')); // "bar"</code></pre>
+
+
+
+    
+    </div>
+
+    
+
+    
+
+    
+
+     
+
+    
+
+    
+        <h3 class="subsection-title">Members</h3>
+
+        
+            
+<h4 class="name" id="cacheFlushInterval"><span class="type-signature">(readonly) </span>cacheFlushInterval<span class="type-signature"> :number|null</span></h4>
+
+
+
+
+<div class="description">
+    <p>The interval (in milliseconds) on which the cache should remove all of
+its items. Setting this to <code>null</code> disables the interval. The default is
+<code>null</code>.</p>
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">number</span>
+|
+
+<span class="param-type">null</span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-default">Default Value:</dt>
+    <dd class="tag-default"><ul class="dummy">
+            <li>null</li>
+        </ul></dd>
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Cache.js.html">Cache.js</a>, <a href="Cache.js.html#line89">line 89</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+    <h5>Example</h5>
+    
+        <p class="code-caption">Create a cache the clears itself every 15 minutes</p>
+    
+    <pre class="prettyprint"><code>import CacheFactory from 'cachefactory';
+
+const cacheFactory = new CacheFactory();
+const cache = cacheFactory.createCache('my-cache', {
+  cacheFlushInterval: 15 * 60 * 1000
+});</code></pre>
+
+
+
+        
+            
+<h4 class="name" id="capacity"><span class="type-signature">(readonly) </span>capacity<span class="type-signature"> :number</span></h4>
+
+
+
+
+<div class="description">
+    <p>The maximum number of items that can be stored in the cache. When the
+capacity is exceeded the least recently accessed item will be removed.
+The default is <code>Number.MAX_VALUE</code>.</p>
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">number</span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-default">Default Value:</dt>
+    <dd class="tag-default"><ul class="dummy">
+            <li>Number.MAX_VALUE</li>
+        </ul></dd>
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Cache.js.html">Cache.js</a>, <a href="Cache.js.html#line114">line 114</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+    <h5>Example</h5>
+    
+        <p class="code-caption">Create a cache with a capacity of 100</p>
+    
+    <pre class="prettyprint"><code>import CacheFactory from 'cachefactory';
+
+const cacheFactory = new CacheFactory();
+const cache = cacheFactory.createCache('my-cache', {
+  capacity: 100
+});</code></pre>
+
+
+
+        
+            
+<h4 class="name" id="deleteOnExpire"><span class="type-signature">(readonly) </span>deleteOnExpire<span class="type-signature"> :string</span></h4>
+
+
+
+
+<div class="description">
+    <p>Determines the behavior of a cache when an item expires. The default is
+<code>&quot;none&quot;</code>.</p>
+<p>Possible values:</p>
+<ul>
+<li><code>&quot;none&quot;</code> - Cache will do nothing when an item expires.</li>
+<li><code>&quot;passive&quot;</code> - Cache will do nothing when an item expires. Expired
+items will remain in the cache until requested, at which point they are
+removed, and <code>undefined</code> is returned.</li>
+<li><code>&quot;aggressive&quot;</code> - Cache will remove expired items as soon as they are
+discovered.</li>
+</ul>
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">string</span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-default">Default Value:</dt>
+    <dd class="tag-default"><ul class="dummy">
+            <li>"none"</li>
+        </ul></dd>
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Cache.js.html">Cache.js</a>, <a href="Cache.js.html#line139">line 139</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+    <h5>Examples</h5>
+    
+        <p class="code-caption">Create a cache that deletes items as soon as they expire</p>
+    
+    <pre class="prettyprint"><code>import CacheFactory from 'cachefactory';
+
+const cacheFactory = new CacheFactory();
+const cache = cacheFactory.createCache('my-cache', {
+  deleteOnExpire: 'aggressive'
+});</code></pre>
+
+        <p class="code-caption">Create a cache that doesn't delete expired items until they're accessed</p>
+    
+    <pre class="prettyprint"><code>import CacheFactory from 'cachefactory';
+
+const cacheFactory = new CacheFactory();
+const cache = cacheFactory.createCache('my-cache', {
+  deleteOnExpire: 'passive'
+});</code></pre>
+
+
+
+        
+            
+<h4 class="name" id="enabled"><span class="type-signature">(readonly) </span>enabled<span class="type-signature"> :boolean</span></h4>
+
+
+
+
+<div class="description">
+    <p>Marks whether the cache is enabled or not. For a disabled cache,
+<a href="Cache.html#put">Cache#put</a> is a no-op. The default is <code>true</code>.</p>
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">boolean</span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-default">Default Value:</dt>
+    <dd class="tag-default"><ul class="dummy">
+            <li>true</li>
+        </ul></dd>
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Cache.js.html">Cache.js</a>, <a href="Cache.js.html#line180">line 180</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+    <h5>Example</h5>
+    
+        <p class="code-caption">Create a cache that starts out disabled</p>
+    
+    <pre class="prettyprint"><code>import CacheFactory from 'cachefactory';
+
+const cacheFactory = new CacheFactory();
+const cache = cacheFactory.createCache('my-cache', {
+  enabled: false
+});
+
+// The cache is disabled, this is a no-op
+cache.put('foo', 'bar');
+console.log(cache.get('foo')); // undefined</code></pre>
+
+
+
+        
+            
+<h4 class="name" id="id"><span class="type-signature">(readonly) </span>id<span class="type-signature"> :string</span></h4>
+
+
+
+
+<div class="description">
+    <p>Then unique identifier given to this cache when it was created.</p>
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">string</span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Cache.js.html">Cache.js</a>, <a href="Cache.js.html#line208">line 208</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="maxAge"><span class="type-signature">(readonly) </span>maxAge<span class="type-signature"> :number</span></h4>
+
+
+
+
+<div class="description">
+    <p>Represents how long an item can be in the cache before expires. The
+cache's behavior toward expired items is determined by
+<a href="Cache.html#deleteOnExpire">Cache#deleteOnExpire</a>. The default value for <code>maxAge</code> is
+<code>Number.MAX_VALUE</code>.</p>
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">number</span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-default">Default Value:</dt>
+    <dd class="tag-default"><ul class="dummy">
+            <li>Number.MAX_VALUE</li>
+        </ul></dd>
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Cache.js.html">Cache.js</a>, <a href="Cache.js.html#line221">line 221</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+    <h5>Example</h5>
+    
+        <p class="code-caption">Create a cache where items expire after 15 minutes</p>
+    
+    <pre class="prettyprint"><code>import CacheFactory from 'cachefactory';
+
+const cacheFactory = new CacheFactory();
+const cache = cacheFactory.createCache('my-cache', {
+  // Items expire after 15 minutes
+  maxAge: 15 * 60 * 1000
+});
+const cache2 = cacheFactory.createCache('my-cache2', {
+  // Items expire after 15 minutes
+  maxAge: 15 * 60 * 1000,
+  // Expired items will only be deleted once they are accessed
+  deleteOnExpire: 'passive'
+});
+const cache3 = cacheFactory.createCache('my-cache3', {
+  // Items expire after 15 minutes
+  maxAge: 15 * 60 * 1000,
+  // Items will be deleted from the cache as soon as they expire
+  deleteOnExpire: 'aggressive'
+});</code></pre>
+
+
+
+        
+            
+<h4 class="name" id="onExpire"><span class="type-signature">(readonly) </span>onExpire<span class="type-signature"> :function</span></h4>
+
+
+
+
+<div class="description">
+    <p>A callback to be executed when expired items are removed from the
+cache when the cache is in <code>&quot;passive&quot;</code> or <code>&quot;aggressive&quot;</code> mode. The
+default is <code>null</code>. See <a href="Cache.html#~onExpireCallback">Cache~onExpireCallback</a> for the signature
+of the <code>onExpire</code> callback.</p>
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">function</span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-default">Default Value:</dt>
+    <dd class="tag-default"><ul class="dummy">
+            <li>null</li>
+        </ul></dd>
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Cache.js.html">Cache.js</a>, <a href="Cache.js.html#line272">line 272</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><a href="Cache.html#~onExpireCallback">Cache~onExpireCallback</a></li>
+        </ul>
+    </dd>
+    
+
+    
+</dl>
+
+
+
+
+
+    <h5>Example</h5>
+    
+        <p class="code-caption">Create a cache where items expire after 15 minutes</p>
+    
+    <pre class="prettyprint"><code>import CacheFactory from 'cachefactory';
+
+const cacheFactory = new CacheFactory();
+const cache = cacheFactory.createCache('my-cache', {
+  // Items expire after 15 minutes
+  maxAge: 15 * 60 * 1000,
+  // Expired items will only be deleted once they are accessed
+  deleteOnExpire: 'passive',
+  // Try to rehydrate cached items as they expire
+  onExpire: function (key, value, done) {
+    // Do something with key and value
+
+    // Will received "done" callback if in "passive" mode and passing
+    // an onExpire option to Cache#get.
+    if (done) {
+      done(); // You can pass whatever you want to done
+    }
+  }
+});</code></pre>
+
+
+
+        
+            
+<h4 class="name" id="recycleFreq"><span class="type-signature">(readonly) </span>recycleFreq<span class="type-signature"> :number|null</span></h4>
+
+
+
+
+<div class="description">
+    <p>The frequency (in milliseconds) with which the cache should check for
+expired items. The default is <code>1000</code>. The value of this interval only
+matters if <a href="Cache.html#deleteOnExpire">Cache#deleteOnExpire</a> is set to <code>&quot;aggressive&quot;</code>.</p>
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">number</span>
+|
+
+<span class="param-type">null</span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-default">Default Value:</dt>
+    <dd class="tag-default"><ul class="dummy">
+            <li>1000</li>
+        </ul></dd>
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Cache.js.html">Cache.js</a>, <a href="Cache.js.html#line312">line 312</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+    <h5>Example</h5>
+    
+        <p class="code-caption">Create a cache where items expire after 15 minutes checking every 10 seconds</p>
+    
+    <pre class="prettyprint"><code>import CacheFactory from 'cachefactory';
+
+const cacheFactory = new CacheFactory();
+const cache = cacheFactory.createCache('my-cache', {
+  // Items expire after 15 minutes
+  maxAge: 15 * 60 * 1000,
+  // Items will be deleted from the cache as soon as they expire
+  deleteOnExpire: 'aggressive',
+  // Check for expired items every 10 seconds
+  recycleFreq: 10 * 1000
+});</code></pre>
+
+
+
+        
+            
+<h4 class="name" id="storageMode"><span class="type-signature">(readonly) </span>storageMode<span class="type-signature"> :string</span></h4>
+
+
+
+
+<div class="description">
+    <p>Determines the storage medium used by the cache. The default is
+<code>&quot;memory&quot;</code>.</p>
+<p>Possible values:</p>
+<ul>
+<li><code>&quot;memory&quot;</code></li>
+<li><code>&quot;localStorage&quot;</code></li>
+<li><code>&quot;sessionStorage&quot;</code></li>
+</ul>
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">string</span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-default">Default Value:</dt>
+    <dd class="tag-default"><ul class="dummy">
+            <li>"memory"</li>
+        </ul></dd>
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Cache.js.html">Cache.js</a>, <a href="Cache.js.html#line342">line 342</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+    <h5>Examples</h5>
+    
+        <p class="code-caption">Create a cache that stores its data in localStorage</p>
+    
+    <pre class="prettyprint"><code>import CacheFactory from 'cachefactory';
+
+const cacheFactory = new CacheFactory();
+const cache = cacheFactory.createCache('my-cache', {
+  storageMode: 'localStorage'
+});</code></pre>
+
+        <p class="code-caption">Provide a custom storage implementation</p>
+    
+    <pre class="prettyprint"><code>import CacheFactory from 'cachefactory';
+
+const cacheFactory = new CacheFactory();
+const cache = cacheFactory.createCache('my-cache', {
+  storageMode: 'localStorage',
+  storageImpl: {
+    setItem: function (key, value) {
+      console.log('setItem', key, value);
+      localStorage.setItem(key, value);
+    },
+    getItem: function (key) {
+      console.log('getItem', key);
+      localStorage.getItem(key);
+    },
+    removeItem: function (key) {
+      console.log('removeItem', key);
+      localStorage.removeItem(key);
+    }
+  }
+});</code></pre>
+
+
+
+        
+            
+<h4 class="name" id="storagePrefix"><span class="type-signature">(readonly) </span>storagePrefix<span class="type-signature"> :string</span></h4>
+
+
+
+
+<div class="description">
+    <p>The prefix used to namespace the keys for items stored in
+<code>localStorage</code> or <code>sessionStorage</code>. The default is
+<code>&quot;cachefactory.caches.&quot;</code> which is conservatively long in order any
+possible conflict with other data in storage. Set to a shorter value
+to save storage space.</p>
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">string</span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-default">Default Value:</dt>
+    <dd class="tag-default"><ul class="dummy">
+            <li>"cachefactory.caches."</li>
+        </ul></dd>
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Cache.js.html">Cache.js</a>, <a href="Cache.js.html#line394">line 394</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>import CacheFactory from 'cachefactory';
+
+const cacheFactory = new CacheFactory();
+const cache = cacheFactory.createCache('my-cache', {
+  storageMode: 'localStorage',
+  // Completely remove the prefix to save the most space
+  storagePrefix: ''
+});
+cache.put('foo', 'bar');
+console.log(localStorage.get('my-cache.data.foo')); // "bar"</code></pre>
+
+
+
+        
+            
+<h4 class="name" id="storeOnReject"><span class="type-signature">(readonly) </span>storeOnReject<span class="type-signature"> :boolean</span></h4>
+
+
+
+
+<div class="description">
+    <p>If set to <code>true</code>, when a promise is inserted into the cache and is then
+rejected, then the rejection value will overwrite the promise in the
+cache. The default is <code>false</code>.</p>
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">boolean</span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-default">Default Value:</dt>
+    <dd class="tag-default"><ul class="dummy">
+            <li>false</li>
+        </ul></dd>
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Cache.js.html">Cache.js</a>, <a href="Cache.js.html#line425">line 425</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="storeOnResolve"><span class="type-signature">(readonly) </span>storeOnResolve<span class="type-signature"> :boolean</span></h4>
+
+
+
+
+<div class="description">
+    <p>If set to <code>true</code>, when a promise is inserted into the cache and is then
+resolved, then the resolution value will overwrite the promise in the
+cache. The default is <code>false</code>.</p>
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">boolean</span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-default">Default Value:</dt>
+    <dd class="tag-default"><ul class="dummy">
+            <li>false</li>
+        </ul></dd>
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Cache.js.html">Cache.js</a>, <a href="Cache.js.html#line442">line 442</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="~StorageImpl"><span class="type-signature">(inner) </span>StorageImpl<span class="type-signature"> :object</span></h4>
+
+
+
+
+<div class="description">
+    <p>Provide a custom storage medium, e.g. a polyfill for <code>localStorage</code>. Default: <code>null</code>.</p>
+<p>Must implement:</p>
+<ul>
+<li><code>setItem</code> - Same API as <code>localStorage.setItem(key, value)</code></li>
+<li><code>getItem</code> - Same API as <code>localStorage.getItem(key)</code></li>
+<li><code>removeItem</code> - Same API as <code>localStorage.removeItem(key)</code></li>
+</ul>
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">object</span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>setItem</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Implementation of <code>setItem(key, value)</code>.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>getItem</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Implementation of <code>getItem(key)</code>.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>removeItem</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Implementation of <code>removeItem(key)</code>.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Cache.js.html">Cache.js</a>, <a href="Cache.js.html#line7">line 7</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+    
+
+    
+        <h3 class="subsection-title">Methods</h3>
+
+        
+            
+
+    
+
+    <h4 class="name" id="destroy"><span class="type-signature"></span>destroy<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>Destroys this cache and all its data and renders it unusable.</p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Cache.js.html">Cache.js</a>, <a href="Cache.js.html#line464">line 464</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>cache.destroy();</code></pre>
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="disable"><span class="type-signature"></span>disable<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>Disables this cache. For a disabled cache, <a href="Cache.html#put">Cache#put</a> is a no-op.</p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Cache.js.html">Cache.js</a>, <a href="Cache.js.html#line490">line 490</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>cache.disable();</code></pre>
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="enable"><span class="type-signature"></span>enable<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>Enables this cache. For a disabled cache, <a href="Cache.html#put">Cache#put</a> is a no-op.</p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Cache.js.html">Cache.js</a>, <a href="Cache.js.html#line502">line 502</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>cache.enable();</code></pre>
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="get"><span class="type-signature"></span>get<span class="signature">(key, options<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {*}</span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>Retrieve an item from the cache, it it exists.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>key</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+|
+
+<span class="param-type">Array.&lt;string></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>The key of the item to retrieve.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>options</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>Configuration options.</p>
+                <h6>Properties</h6>
+                
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>onExpire</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>TODO</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Cache.js.html">Cache.js</a>, <a href="Cache.js.html#line514">line 514</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>The value for the specified <code>key</code>, if any.</p>
+</div>
+
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">*</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+    <h5>Examples</h5>
+    
+        <p class="code-caption">Retrieve an item from the cache</p>
+    
+    <pre class="prettyprint"><code>cache.put('foo', 'bar');
+cache.get('foo'); // "bar"</code></pre>
+
+        <p class="code-caption">Retrieve a possibly expired item while in passive mode</p>
+    
+    <pre class="prettyprint"><code>import CacheFactory from 'cachefactory';
+
+const cacheFactory = new CacheFactory();
+const cache = cacheFactory.createCache('my-cache', {
+  deleteOnExpire: 'passive',
+  maxAge: 15 * 60 * 1000
+});
+cache.get('foo', {
+  // Called if "foo" is expired
+  onExpire: function (key, value) {
+    // Do something with key and value
+  }
+});</code></pre>
+
+        <p class="code-caption">Retrieve a possibly expired item while in passive mode with global onExpire callback</p>
+    
+    <pre class="prettyprint"><code>import CacheFactory from 'cachefactory';
+
+const cacheFactory = new CacheFactory();
+const cache = cacheFactory.createCache('my-cache', {
+  deleteOnExpire: 'passive',
+  maxAge: 15 * 60 * 1000
+  onExpire: function (key, value, done) {
+    console.log('Expired item:', key);
+    if (done) {
+      done('foo', key, value);
+    }
+  }
+});
+cache.get('foo', {
+  // Called if "foo" is expired
+  onExpire: function (msg, key, value) {
+    console.log(msg); // "foo"
+    // Do something with key and value
+  }
+});</code></pre>
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="info"><span class="type-signature"></span>info<span class="signature">(key<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {*}</span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>Retrieve information about the whole cache or about a particular item in
+the cache.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>key</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>If specified, retrieve info for a particular item in
+the cache.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Cache.js.html">Cache.js</a>, <a href="Cache.js.html#line650">line 650</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>The information object.</p>
+</div>
+
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">*</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+    <h5>Examples</h5>
+    
+        <p class="code-caption">Retrieve info about the cache</p>
+    
+    <pre class="prettyprint"><code>const info = cache.info();
+info.id; // "my-cache"
+info.capacity; // 100
+info.maxAge; // 600000
+info.deleteOnExpire; // "aggressive"
+info.cacheFlushInterval; // null
+info.recycleFreq; // 10000
+info.storageMode; // "localStorage"
+info.enabled; // false
+info.size; // 1234</code></pre>
+
+        <p class="code-caption">Retrieve info about an item in the cache</p>
+    
+    <pre class="prettyprint"><code>const info = cache.info('foo');
+info.created; // 1234567890
+info.accessed; // 1234567990
+info.expires; // 1234569999
+info.isExpired; // false</code></pre>
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="keys"><span class="type-signature"></span>keys<span class="signature">()</span><span class="type-signature"> &rarr; {Array.&lt;string>}</span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>Retrieve a list of the keys of items currently in the cache.</p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Cache.js.html">Cache.js</a>, <a href="Cache.js.html#line714">line 714</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>The keys of the items in the cache</p>
+</div>
+
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Array.&lt;string></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>const keys = cache.keys();</code></pre>
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="keySet"><span class="type-signature"></span>keySet<span class="signature">()</span><span class="type-signature"> &rarr; {object}</span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>Retrieve an object of the keys of items currently in the cache.</p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Cache.js.html">Cache.js</a>, <a href="Cache.js.html#line737">line 737</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>The keys of the items in the cache.</p>
+</div>
+
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">object</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>const keySet = cache.keySet();</code></pre>
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="put"><span class="type-signature"></span>put<span class="signature">(key, value, options<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {*}</span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>Insert an item into the cache.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>key</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>The key under which to insert the item.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>value</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">*</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>The value to insert.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>options</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>Configuration options.</p>
+                <h6>Properties</h6>
+                
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>storeOnReject</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>See <a href="Cache.html#storeOnReject">Cache#storeOnReject</a>.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>storeOnResolve</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>See <a href="Cache.html#storeOnResolve">Cache#storeOnResolve</a>.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Cache.js.html">Cache.js</a>, <a href="Cache.js.html#line754">line 754</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>The inserted value.</p>
+</div>
+
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">*</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>const inserted = cache.put('foo', 'bar');</code></pre>
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="remove"><span class="type-signature"></span>remove<span class="signature">(key)</span><span class="type-signature"> &rarr; {*}</span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>Remove an item from the cache.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>key</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The key of the item to remove.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Cache.js.html">Cache.js</a>, <a href="Cache.js.html#line881">line 881</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>The value of the removed item, if any.</p>
+</div>
+
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">*</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>const removed = cache.remove('foo');</code></pre>
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="removeAll"><span class="type-signature"></span>removeAll<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>Remove all items from the cache.</p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Cache.js.html">Cache.js</a>, <a href="Cache.js.html#line929">line 929</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>cache.removeAll();</code></pre>
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="removeExpired"><span class="type-signature"></span>removeExpired<span class="signature">()</span><span class="type-signature"> &rarr; {object}</span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>Remove expired items from the cache, if any.</p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Cache.js.html">Cache.js</a>, <a href="Cache.js.html#line954">line 954</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>The expired items, if any.</p>
+</div>
+
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">object</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>const expiredItems = cache.removeExpired();</code></pre>
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="setCacheFlushInterval"><span class="type-signature"></span>setCacheFlushInterval<span class="signature">(cacheFlushInterval)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>Update the <a href="Cache.html#cacheFlushInterval">Cache#cacheFlushInterval</a> for the cache. Pass in <code>null</code>
+to disable the interval.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>cacheFlushInterval</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+|
+
+<span class="param-type">null</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The new <a href="Cache.html#cacheFlushInterval">Cache#cacheFlushInterval</a>.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Cache.js.html">Cache.js</a>, <a href="Cache.js.html#line986">line 986</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>cache.setCacheFlushInterval(60 * 60 * 1000);</code></pre>
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="setCapacity"><span class="type-signature"></span>setCapacity<span class="signature">(capacity)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>Update the <a href="Cache.html#capacity">Cache#capacity</a> for the cache. Pass in <code>null</code> to reset
+to <code>Number.MAX_VALUE</code>.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>capacity</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+|
+
+<span class="param-type">null</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The new <a href="Cache.html#capacity">Cache#capacity</a>.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Cache.js.html">Cache.js</a>, <a href="Cache.js.html#line1012">line 1012</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>cache.setCapacity(1000);</code></pre>
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="setDeleteOnExpire"><span class="type-signature"></span>setDeleteOnExpire<span class="signature">(deleteOnExpire)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>Update the <a href="Cache.html#deleteOnExpire">Cache#deleteOnExpire</a> for the cache. Pass in <code>null</code> to
+reset to <code>&quot;none&quot;</code>.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>deleteOnExpire</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+|
+
+<span class="param-type">null</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The new <a href="Cache.html#deleteOnExpire">Cache#deleteOnExpire</a>.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Cache.js.html">Cache.js</a>, <a href="Cache.js.html#line1039">line 1039</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>cache.setDeleteOnExpire('passive');</code></pre>
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="setMaxAge"><span class="type-signature"></span>setMaxAge<span class="signature">(maxAge)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>Update the <a href="Cache.html#maxAge">Cache#maxAge</a> for the cache. Pass in <code>null</code> to reset to
+to <code>Number.MAX_VALUE</code>.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>maxAge</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+|
+
+<span class="param-type">null</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The new <a href="Cache.html#maxAge">Cache#maxAge</a>.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Cache.js.html">Cache.js</a>, <a href="Cache.js.html#line1063">line 1063</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>cache.setMaxAge(60 * 60 * 1000);</code></pre>
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="setOnExpire"><span class="type-signature"></span>setOnExpire<span class="signature">(onExpire)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>Update the <a href="Cache.html#onExpire">Cache#onExpire</a> for the cache. Pass in <code>null</code> to unset
+the global <code>onExpire</code> callback of the cache.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>onExpire</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+|
+
+<span class="param-type">null</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The new <a href="Cache.html#onExpire">Cache#onExpire</a>.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Cache.js.html">Cache.js</a>, <a href="Cache.js.html#line1124">line 1124</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>cache.setOnExpire(function (key, value, done) {
+  // Do something
+});</code></pre>
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="setOptions"><span class="type-signature"></span>setOptions<span class="signature">(options, strict<span class="signature-attributes">opt</span>)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>Update multiple cache options at a time.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>options</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>The options to set.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>strict</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>Reset options not passed to <code>options</code> to the
+configured defaults.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Cache.js.html">Cache.js</a>, <a href="Cache.js.html#line1146">line 1146</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Examples</h5>
+    
+    <pre class="prettyprint"><code>cache.setOptions({
+  maxAge: 60 * 60 * 1000,
+  deleteOnExpire: 'aggressive'
+});</code></pre>
+
+        <p class="code-caption">Set two options, and reset the rest to the configured defaults</p>
+    
+    <pre class="prettyprint"><code>cache.setOptions({
+  maxAge: 60 * 60 * 1000,
+  deleteOnExpire: 'aggressive'
+}, true);</code></pre>
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="setRecycleFreq"><span class="type-signature"></span>setRecycleFreq<span class="signature">(recycleFreq)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>Update the <a href="Cache.html#recycleFreq">Cache#recycleFreq</a> for the cache. Pass in <code>null</code> to
+disable the interval.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>recycleFreq</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+|
+
+<span class="param-type">null</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The new <a href="Cache.html#recycleFreq">Cache#recycleFreq</a>.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Cache.js.html">Cache.js</a>, <a href="Cache.js.html#line1240">line 1240</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>cache.setRecycleFreq(10000);</code></pre>
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="setStorageMode"><span class="type-signature"></span>setStorageMode<span class="signature">(storageMode, storageImpl)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>Update the <a href="Cache.html#storageMode">Cache#storageMode</a> for the cache.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>storageMode</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The new <a href="Cache.html#storageMode">Cache#storageMode</a>.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>storageImpl</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The new <a href="Cache.html#~StorageImpl">Cache~StorageImpl</a>.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Cache.js.html">Cache.js</a>, <a href="Cache.js.html#line1268">line 1268</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="touch"><span class="type-signature"></span>touch<span class="signature">(key<span class="signature-attributes">opt</span>, options<span class="signature-attributes">opt</span>)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>Reset an item's age in the cache, or if <code>key</code> is unspecified, touch all
+items in the cache.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>key</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>The key of the item to touch.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>options</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>Options to pass to <a href="Cache.html#put">Cache#put</a> if
+necessary.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Cache.js.html">Cache.js</a>, <a href="Cache.js.html#line1360">line 1360</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>cache.touch('foo');</code></pre>
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="values"><span class="type-signature"></span>values<span class="signature">()</span><span class="type-signature"> &rarr; {array}</span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>Retrieve the values of all items in the cache.</p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Cache.js.html">Cache.js</a>, <a href="Cache.js.html#line1388">line 1388</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>The values of the items in the cache.</p>
+</div>
+
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">array</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>const values = cache.values();</code></pre>
+
+
+
+        
+    
+
+    
+        <h3 class="subsection-title">Type Definitions</h3>
+
+        
+                
+
+    
+
+    <h4 class="name" id="~onExpireCallback"><span class="type-signature"></span>onExpireCallback<span class="signature">(key, value, done<span class="signature-attributes">opt</span>)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>The <code>onExpire</code> callback.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>key</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>The key of the expired item.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>value</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">*</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>The value of the expired item.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>done</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>If in <code>&quot;passive&quot;</code> mode and you pass an
+<code>onExpire</code> callback to <a href="Cache.html#get">Cache#get</a>, then the <code>onExpire</code> callback
+you passed to <a href="Cache.html#get">Cache#get</a> will be passed to your global
+<code>onExpire</code> callback.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Cache.js.html">Cache.js</a>, <a href="Cache.js.html#line260">line 260</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.1</a> on Sun Sep 18 2016 19:56:09 GMT-0700 (PDT) using the Minami theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/linenumber.js"></script>
+</body>
+</html>

@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>cachefactory - Documentation</title>
+
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Cache.html">Cache</a><ul class='methods'><li data-type='method'><a href="Cache.html#destroy">destroy</a></li><li data-type='method'><a href="Cache.html#disable">disable</a></li><li data-type='method'><a href="Cache.html#enable">enable</a></li><li data-type='method'><a href="Cache.html#get">get</a></li><li data-type='method'><a href="Cache.html#info">info</a></li><li data-type='method'><a href="Cache.html#keys">keys</a></li><li data-type='method'><a href="Cache.html#keySet">keySet</a></li><li data-type='method'><a href="Cache.html#put">put</a></li><li data-type='method'><a href="Cache.html#remove">remove</a></li><li data-type='method'><a href="Cache.html#removeAll">removeAll</a></li><li data-type='method'><a href="Cache.html#removeExpired">removeExpired</a></li><li data-type='method'><a href="Cache.html#setCacheFlushInterval">setCacheFlushInterval</a></li><li data-type='method'><a href="Cache.html#setCapacity">setCapacity</a></li><li data-type='method'><a href="Cache.html#setDeleteOnExpire">setDeleteOnExpire</a></li><li data-type='method'><a href="Cache.html#setMaxAge">setMaxAge</a></li><li data-type='method'><a href="Cache.html#setOnExpire">setOnExpire</a></li><li data-type='method'><a href="Cache.html#setOptions">setOptions</a></li><li data-type='method'><a href="Cache.html#setRecycleFreq">setRecycleFreq</a></li><li data-type='method'><a href="Cache.html#setStorageMode">setStorageMode</a></li><li data-type='method'><a href="Cache.html#touch">touch</a></li><li data-type='method'><a href="Cache.html#values">values</a></li></ul></li><li><a href="CacheFactory.html">CacheFactory</a><ul class='methods'><li data-type='method'><a href="CacheFactory.html#clearAll">clearAll</a></li><li data-type='method'><a href="CacheFactory.html#createCache">createCache</a></li><li data-type='method'><a href="CacheFactory.html#destroy">destroy</a></li><li data-type='method'><a href="CacheFactory.html#destroyAll">destroyAll</a></li><li data-type='method'><a href="CacheFactory.html#disableAll">disableAll</a></li><li data-type='method'><a href="CacheFactory.html#enableAll">enableAll</a></li><li data-type='method'><a href="CacheFactory.html#exists">exists</a></li><li data-type='method'><a href="CacheFactory.html#get">get</a></li><li data-type='method'><a href="CacheFactory.html#info">info</a></li><li data-type='method'><a href="CacheFactory.html#keys">keys</a></li><li data-type='method'><a href="CacheFactory.html#keySet">keySet</a></li><li data-type='method'><a href="CacheFactory.html#removeExpiredFromAll">removeExpiredFromAll</a></li><li data-type='method'><a href="CacheFactory.html#touchAll">touchAll</a></li></ul></li></ul><h3>Modules</h3><ul><li><a href="module-cachefactory.html">cachefactory</a></li></ul><h3>Namespaces</h3><ul><li><a href="utils.html">utils</a><ul class='methods'><li data-type='method'><a href="utils.html#.equals">equals</a></li><li data-type='method'><a href="utils.html#.fromJson">fromJson</a></li><li data-type='method'><a href="utils.html#.isFunction">isFunction</a></li><li data-type='method'><a href="utils.html#.isNumber">isNumber</a></li><li data-type='method'><a href="utils.html#.isObject">isObject</a></li><li data-type='method'><a href="utils.html#.isString">isString</a></li><li data-type='method'><a href="utils.html#.toJson">toJson</a></li></ul></li></ul><h3>Tutorials</h3><ul><li><a href="tutorial-basics.html">The Basics</a></li><li><a href="tutorial-working-with-a-cache.html">Working with a cache</a></li><li><a href="tutorial-working-with-localstorage.html">Working with localStorage</a></li></ul>
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">cachefactory</h1>
+    
+
+    
+
+
+
+
+<section>
+
+<header>
+    
+        
+            
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+            <div class="description"><p>Registered as <code>cachefactory</code> in NPM and Bower.</p></div>
+        
+
+        
+            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line7">line 7</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Examples</h5>
+    
+        <p class="code-caption">Install from NPM</p>
+    
+    <pre class="prettyprint"><code>npm i --save cachefactory</code></pre>
+
+        <p class="code-caption">Install from Bower</p>
+    
+    <pre class="prettyprint"><code>bower i --save cachefactory</code></pre>
+
+        <p class="code-caption">Load into your app via script tag</p>
+    
+    <pre class="prettyprint"><code>&lt;script src="/path/to/cachefactory.min.js">&lt;/script></code></pre>
+
+        <p class="code-caption">Load into your app via CommonJS</p>
+    
+    <pre class="prettyprint"><code>var CacheFactory = require('cachefactory');</code></pre>
+
+        <p class="code-caption">Load into your app via ES2015 Modules</p>
+    
+    <pre class="prettyprint"><code>import CacheFactory from 'cachefactory';</code></pre>
+
+        <p class="code-caption">Load into your app via AMD</p>
+    
+    <pre class="prettyprint"><code>define('myApp', ['cachefactory'], function (CacheFactory) { ... })</code></pre>
+
+
+
+        
+    
+    </div>
+
+    
+
+    
+
+    
+
+     
+
+    
+
+    
+        <h3 class="subsection-title">Members</h3>
+
+        
+            
+<h4 class="name" id=".BinaryHeap"><span class="type-signature">(static) </span>BinaryHeap<span class="type-signature"> :function</span></h4>
+
+
+
+
+<div class="description">
+    <p>The <code>BinaryHeap</code> constructor function.</p>
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">function</span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line27">line 27</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><a href="https://github.com/jmdobry/yabh">https://github.com/jmdobry/yabh</a></li>
+        </ul>
+    </dd>
+    
+
+    
+</dl>
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>import CacheFactory from 'cachefactory';
+const { BinaryHeap } = CacheFactory;</code></pre>
+
+
+
+        
+            
+<h4 class="name" id=".Cache"><span class="type-signature">(static) </span>Cache<span class="type-signature"> :function</span></h4>
+
+
+
+
+<div class="description">
+    <p>The <a href="Cache.html">Cache</a> constructor function.</p>
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">function</span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line41">line 41</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><a href="Cache.html">Cache</a></li>
+        </ul>
+    </dd>
+    
+
+    
+</dl>
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>import CacheFactory from 'cachefactory';
+const { Cache } = CacheFactory;</code></pre>
+
+
+
+        
+            
+<h4 class="name" id=".defaults"><span class="type-signature">(static) </span>defaults<span class="type-signature"> :object</span></h4>
+
+
+
+
+<div class="description">
+    <p>The default cache values. Modify this object to change the default values.</p>
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">object</span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line55">line 55</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><a href="Cache.html">Cache</a></li>
+        </ul>
+    </dd>
+    
+
+    
+</dl>
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>import CacheFactory from 'cachefactory';
+const { defaults } = CacheFactory;
+
+// Change the default "maxAge" for caches that will be instantiated
+// after this point.
+defaults.maxAge = 60 * 60 * 1000;</code></pre>
+
+
+
+        
+            
+<h4 class="name" id=".utils"><span class="type-signature">(static) </span>utils<span class="type-signature"> :object</span></h4>
+
+
+
+
+<div class="description">
+    <p>Utility functions used throughout this library.</p>
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">object</span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line73">line 73</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>import Promise from 'bluebird';
+import CacheFactory from 'cachefactory';
+const { utils } = CacheFactory;
+
+// Make this library use your Promise lib
+utils.Promise = Promise;</code></pre>
+
+
+
+        
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.1</a> on Sun Sep 18 2016 19:56:09 GMT-0700 (PDT) using the Minami theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/linenumber.js"></script>
+</body>
+</html>

@@ -1,0 +1,11 @@
+{
+  "basics": {
+    "title": "The Basics"
+  },
+  "working-with-a-cache": {
+    "title": "Working with a cache"
+  },
+  "working-with-localstorage": {
+    "title": "Working with localStorage"
+  }
+}

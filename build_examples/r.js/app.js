@@ -1,5 +1,6 @@
 define('app', [
   'cachefactory'
 ], function (CacheFactory) {
-  return CacheFactory.createCache('test');
+  var cacheFactory = new CacheFactory();
+  return cacheFactory.createCache('my-cache');
 });

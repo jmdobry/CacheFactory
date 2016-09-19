@@ -10,7 +10,7 @@ module.exports = {
   },
   module: {
     loaders: [
-      { test: /(.+)\.js$/, loader: 'babel-loader?blacklist=useStrict' }
+      { test: /\.js$/, exclude: /node_modules/, loader: 'babel-loader' }
     ]
   }
 };

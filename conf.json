@@ -1,0 +1,24 @@
+  {
+  "source": {
+    "includePattern": ".*js$"
+  },
+  "plugins": ["plugins/markdown"],
+  "opts": {
+    "template": "node_modules/minami",
+    "destination": "./doc/",
+    "recurse": true,
+    "verbose": true,
+    "readme": "./README.md",
+    "package": "./package.json"
+  },
+  "templates": {
+    "systemName": "CacheFactory",
+    "copyright": "CacheFactory Copyright © 2014-2016 CacheFactory Project authors",
+    "outputSourceFiles": true,
+    "linenums": true,
+    "analytics": {
+      "ua": "UA-44834324-3",
+      "domain": "jmdobry.github.io"
+    }
+  }
+}

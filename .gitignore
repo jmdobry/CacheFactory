@@ -17,3 +17,4 @@ coverage/
 bower_components/
 
 build_examples/**/bundle.js
+doc/

@@ -1,8 +1,9 @@
 // normally this would be var CacheFactory = require('cachefactory');
 var CacheFactory = require('../../');
 
-var testCache = CacheFactory.createCache('test');
+var cacheFactory = new CacheFactory();
+var cache = cacheFactory.createCache('my-cache');
 
-testCache.put('foo', 'bar');
+cache.put('msg', 'It works!');
 
-document.getElementById('main').innerHTML = testCache.get('foo');
+document.getElementById('main').innerHTML = cache.get('msg');

@@ -5,15 +5,23 @@ module.exports = function (config) {
     browsers: ['PhantomJS'],
     files: [
       'node_modules/es6-promise/dist/es6-promise.js',
-      'dist/cachefactory.js',
-      './karma.start.js',
-      'test/**/*.js'
+      'node_modules/yabh/src/index.js',
+      'src/utils.js',
+      'src/defaults.js',
+      'src/Cache.js',
+      'src/CacheFactory.js',
+      'src/index.js',
+      'test/_setup.js',
+      'test/**/*.test.js'
     ],
     captureTimeout: 60000,
     colors: true,
     logLevel: config.LOG_INFO,
     port: 9876,
     plugins: [
+      'karma-sourcemap-loader',
+      'karma-babel-preprocessor',
+      'karma-chrome-launcher',
       'karma-phantomjs-launcher',
       'karma-mocha',
       'karma-chai',
@@ -28,7 +36,19 @@ module.exports = function (config) {
       dir: 'coverage/'
     },
     preprocessors: {
-      'dist/cachefactory.js': ['coverage']
+      'node_modules/yabh/src/index.js': ['babel'],
+      'src/**/*.js': ['babel', 'coverage', 'sourcemap'],
+      'karma.start.js': ['babel'],
+      'test/**/*.js': ['babel', 'sourcemap']
+    },
+    babelPreprocessor: {
+      options: {
+        presets: ['es2015'],
+        plugins: [
+          'transform-es2015-modules-umd'
+        ],
+        sourceMap: 'inline'
+      }
     },
     reporters: ['progress', 'coverage']
   })

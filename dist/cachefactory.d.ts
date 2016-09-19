@@ -7,11 +7,11 @@ declare module 'cachefactory' {
     removeItem: Function
   }
   class BinaryHeap {
-    new(weightFunc: Function, compareFunc: Function): BinaryHeap
+    new(weightFunc?: Function, compareFunc?: Function): BinaryHeap
     peek(): any
     pop(): any
-    push(any): void
-    remove(any): void
+    push(node: any): void
+    remove(node: any): void
     removeAll(): void
     size(): number
   }
@@ -28,7 +28,7 @@ declare module 'cachefactory' {
     cacheFlushInterval?: number
     capacity?: number
     deleteOnExpire?: DeleteOnExpire
-    disabled?: boolean
+    enable?: boolean
     maxAge?: number
     onExpire?: Function
     recycleFreq?: number
@@ -54,23 +54,8 @@ declare module 'cachefactory' {
     id: string
     size: number
   }
-  interface Cache {
-    $$cacheFlushInterval: number
-    $$cacheFlushIntervalId: number
-    $$capacity: boolean
-    $$deleteOnExpire: DeleteOnExpire
-    $$disabled: boolean
-    $$id: string
-    $$initializing: boolean
-    $$maxAge: number
-    $$onExpire: Function
-    $$prefix: string
-    $$recycleFreq: number
-    $$recycleFreqId: number
-    $$storageMode: StorageMode
-    $$storagePrefix: string
-    $$storeOnResolve: boolean
-    $$storeOnReject: boolean
+  class Cache {
+    id: string
     destroy(): void
     disable(): void
     enable(): void
@@ -95,25 +80,26 @@ declare module 'cachefactory' {
   }
   interface CacheFactoryInfo extends CacheOptions {
     size: number
-    caches: { [cacheId: string]: CacheInfo }
+    caches: { [id: string]: CacheInfo }
   }
-  function CacheFactory(cacheId: string, options?: CacheOptions): Cache
-  namespace CacheFactory {
-    var BinaryHeap: BinaryHeap
-    var defaults: CacheOptions
-    var utils: Utils
-    function clearAll(): void
-    function createCache(cacheId: string, options?: CacheOptions): Cache
-    function get(cacheId: string): Cache
-    function info(): CacheFactoryInfo
-    function destroy(cacheId: string): void
-    function destroyAll(): void
-    function disableAll(): void
-    function enabledAll(): void
-    function keys(): string[]
-    function keySet(): { [cacheId: string]: string }
-    function removeExpiredFromAll(): { [cacheId: string]: { [key: string]: any } }
-    function touchAll(): void
+  class CacheFactory {
+    static BinaryHeap: typeof BinaryHeap
+    static Cache: typeof Cache
+    static defaults: CacheOptions
+    static utils: Utils
+    clearAll(): void
+    createCache(id: string, options?: CacheOptions): Cache
+    exists(id: string): boolean
+    get(id: string): Cache
+    info(): CacheFactoryInfo
+    destroy(id: string): void
+    destroyAll(): void
+    disableAll(): void
+    enabledAll(): void
+    keys(): string[]
+    keySet(): { [id: string]: string }
+    removeExpiredFromAll(): { [id: string]: { [key: string]: any } }
+    touchAll(): void
   }
   export = CacheFactory
 }

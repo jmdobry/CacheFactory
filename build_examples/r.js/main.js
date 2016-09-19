@@ -7,8 +7,8 @@ require.config({
 require([
     'app'
   ], function (testCache) {
-    testCache.put('foo', 'bar');
+    testCache.put('msg', 'It works!');
 
-    document.getElementById('main').innerHTML = testCache.get('foo');
+    document.getElementById('main').innerHTML = testCache.get('msg');
   }
 );

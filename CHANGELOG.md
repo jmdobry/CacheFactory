@@ -1,3 +1,17 @@
+##### 2.0.0 - 17 September 2016
+
+###### Breaking changes
+- #20 - The `CacheFactory` function is now a contructor function that produces instances of `CacheFactory` when invoked with `new`
+- `CacheFactory#createCache` is now the only way to create a cache
+- `CacheFactory#get` now throws an error if the specified cache does not exist
+  - You can use `CacheFactory#exists to check if a cache exists
+- Switched from `Cache#disabled` to `Cache#enabled`
+
+###### Backwards compatible changes
+- Upgraded some dependencies
+- Added `CacheFactory#exists`
+- #9 - Added JSDoc comments and API Reference Documentation
+
 ##### 1.5.1 - 29 April 2016
 
 ###### Backwards compatible changes

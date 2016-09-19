@@ -7,9 +7,9 @@ browser.
 
 * [Installation](#installation)
 * [Quick Start](#quick-start)
-* [The Basics](https://jmdobry.github.io/CacheFactory/latest/tutorial-basics.html)
-* [Working with a cache](https://jmdobry.github.io/CacheFactory/latest/tutorial-working-with-a-cache.html)
-* [Working with localStorage](https://jmdobry.github.io/CacheFactory/latest/tutorial-working-with-localstorage.html)
+* [The Basics](http://www.pseudobry.com/CacheFactory/latest/tutorial-basics.html)
+* [Working with a cache](http://www.pseudobry.com/CacheFactory/latest/tutorial-working-with-a-cache.html)
+* [Working with localStorage](http://www.pseudobry.com/CacheFactory/latest/tutorial-working-with-localstorage.html)
 
 ## Installation
 
@@ -45,6 +45,13 @@ if (!cacheFactory.exists('my-cache')) {
 
 cache.put('/books/1', { title: 'BookOne', id: 1 });
 ```
+
+## Documentation
+
+* [The Basics](http://www.pseudobry.com/CacheFactory/latest/tutorial-basics.html)
+* [Working with a cache](http://www.pseudobry.com/CacheFactory/latest/tutorial-working-with-a-cache.html)
+* [Working with localStorage](http://www.pseudobry.com/CacheFactory/latest/tutorial-working-with-localstorage.html)
+* [API Reference Documentation](http://www.pseudobry.com/CacheFactory)
 
 ### License
 

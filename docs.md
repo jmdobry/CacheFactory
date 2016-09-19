@@ -73,7 +73,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 [2]: https://github.com/jmdobry/CacheFactory
 [3]: https://img.shields.io/npm/v/cachefactory.svg?style=flat
 [4]: https://www.npmjs.org/package/cachefactory
-[5]: https://img.shields.io/circleci/project/jmdobry/cachefactory/master.svg?style=flat
+[5]: https://img.shields.io/circleci/project/jmdobry/CacheFactory/master.svg?style=flat
 [6]: https://circleci.com/gh/jmdobry/cachefactory/tree/master
 [7]: https://img.shields.io/npm/dm/cachefactory.svg?style=flat
 [8]: https://www.npmjs.org/package/cachefactory

@@ -5,6 +5,7 @@
   "homepage": "https://github.com/jmdobry/CacheFactory",
   "main": "dist/cachefactory.js",
   "jsnext:main": "dist/cachefactory.es2015.js",
+  "typings": "dist/cachefactory.d.ts",
   "files": [
     "dist/",
     "src/",

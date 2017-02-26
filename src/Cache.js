@@ -1,4 +1,4 @@
-import BinaryHeap from '../node_modules/yabh/src/index'
+import BinaryHeap from './BinaryHeap'
 import defaults from './defaults'
 import utils from './utils'
 

@@ -4,10 +4,10 @@ module.exports = function (config) {
     frameworks: ['mocha', 'chai', 'sinon'],
     browsers: ['PhantomJS'],
     files: [
-      'node_modules/es6-promise/dist/es6-promise.js',
-      'node_modules/yabh/src/index.js',
+      'node_modules/es6-promise/dist/es6-promise.auto.js',
       'src/utils.js',
       'src/defaults.js',
+      'src/BinaryHeap.js',
       'src/Cache.js',
       'src/CacheFactory.js',
       'src/index.js',

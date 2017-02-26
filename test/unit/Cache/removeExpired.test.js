@@ -1,9 +1,7 @@
 import {
   assert,
-  CacheFactory
+  Cache
 } from '../../_setup'
-
-const { Cache } = CacheFactory
 
 describe('Cache#removeExpired', function () {
   it('should remove all expired items when deleteOnExpire is "none"', function (done) {

@@ -1,9 +1,7 @@
 import {
   assert,
-  CacheFactory
+  Cache
 } from '../../_setup'
-
-const { Cache } = CacheFactory
 
 describe('Cache#disable', function () {
   it('should disable the cache', function () {

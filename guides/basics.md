@@ -1,7 +1,7 @@
 Grab `CacheFactory` then create a cache. Let's go:
 
 ```js
-import CacheFactory from 'cachefactory';
+import { CacheFactory } from 'cachefactory';
 
 const cacheFactory = new CacheFactory();
 let cache;
@@ -68,8 +68,7 @@ cache = cacheFactory.createCache('my-cache', {
 Or say we want all of our caches to use that configuration as their default:
 
 ```js
-import CacheFactory from 'cachefactory';
-const { defaults } = CacheFactory;
+import { CacheFactory, defaults } from 'cachefactory';
 
 myUtils.extend(defaults, {
   maxAge: 60 * 60 * 1000,

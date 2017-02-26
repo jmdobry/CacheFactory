@@ -1,11 +1,9 @@
 import {
   assert,
-  CacheFactory,
+  Cache,
   CACHE_DEFAULTS,
   TYPES_EXCEPT_NUMBER
 } from '../../_setup'
-
-const { Cache } = CacheFactory
 
 describe('Cache#setRecycleFreq', function () {
   it('should set recycleFreq if deleteOneExpire is "aggressive"', function () {

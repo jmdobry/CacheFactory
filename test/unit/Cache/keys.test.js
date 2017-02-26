@@ -1,9 +1,7 @@
 import {
   assert,
-  CacheFactory
+  Cache
 } from '../../_setup'
-
-const { Cache } = CacheFactory
 
 describe('Cache#keys', function () {
   it('should return the array of keys of all items in the cache.', function () {

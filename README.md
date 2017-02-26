@@ -7,9 +7,9 @@ browser.
 
 * [Installation](#installation)
 * [Quick Start](#quick-start)
-* [The Basics](https://jmdobry.github.io/CacheFactory/latest/tutorial-basics.html)
-* [Working with a cache](https://jmdobry.github.io/CacheFactory/latest/tutorial-working-with-a-cache.html)
-* [Working with localStorage](https://jmdobry.github.io/CacheFactory/latest/tutorial-working-with-localstorage.html)
+* [The Basics](http://www.pseudobry.com/CacheFactory/latest/tutorial-basics.html)
+* [Working with a cache](http://www.pseudobry.com/CacheFactory/latest/tutorial-working-with-a-cache.html)
+* [Working with localStorage](http://www.pseudobry.com/CacheFactory/latest/tutorial-working-with-localstorage.html)
 
 ## Installation
 
@@ -28,12 +28,16 @@ bower install --save cachefactory
 ## Quick Start
 
 ```js
-import CacheFactory from 'cachefactory';
+import { CacheFactory } from 'cachefactory';
 
 const cacheFactory = new CacheFactory();
 let cache;
 
+// Check whether cache metadata has been initialized
+// on every page refresh.
 if (!cacheFactory.exists('my-cache')) {
+  // Create the cache metadata. Any previously saved
+  // data will be loaded.
   cache = cacheFactory.createCache('my-cache', {
     // Delete items from the cache when they expire
     deleteOnExpire: 'aggressive',
@@ -46,11 +50,18 @@ if (!cacheFactory.exists('my-cache')) {
 cache.put('/books/1', { title: 'BookOne', id: 1 });
 ```
 
+## Documentation
+
+* [The Basics](http://www.pseudobry.com/CacheFactory/latest/tutorial-basics.html)
+* [Working with a cache](http://www.pseudobry.com/CacheFactory/latest/tutorial-working-with-a-cache.html)
+* [Working with localStorage](http://www.pseudobry.com/CacheFactory/latest/tutorial-working-with-localstorage.html)
+* [API Reference Documentation](http://www.pseudobry.com/CacheFactory)
+
 ### License
 
 [MIT License][11]
 
-Copyright (C) 2015-2016 CacheFactory project authors
+Copyright (C) 2015-2017 CacheFactory project authors
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -73,7 +84,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 [2]: https://github.com/jmdobry/CacheFactory
 [3]: https://img.shields.io/npm/v/cachefactory.svg?style=flat
 [4]: https://www.npmjs.org/package/cachefactory
-[5]: https://img.shields.io/circleci/project/jmdobry/cachefactory/master.svg?style=flat
+[5]: https://img.shields.io/circleci/project/jmdobry/CacheFactory/master.svg?style=flat
 [6]: https://circleci.com/gh/jmdobry/cachefactory/tree/master
 [7]: https://img.shields.io/npm/dm/cachefactory.svg?style=flat
 [8]: https://www.npmjs.org/package/cachefactory

@@ -1,6 +1,6 @@
 define('app', [
   'cachefactory'
-], function (CacheFactory) {
-  var cacheFactory = new CacheFactory();
+], function (CacheFactoryModule) {
+  var cacheFactory = new CacheFactoryModule.CacheFactory();
   return cacheFactory.createCache('my-cache');
 });

@@ -1,10 +1,8 @@
 import {
   assert,
-  CacheFactory,
+  Cache,
   TYPES_EXCEPT_STRING_OR_NUMBER
 } from '../../_setup'
-
-const { Cache } = CacheFactory
 
 describe('Cache#put', function () {
   it('should do nothing if the cache is disabled', function () {

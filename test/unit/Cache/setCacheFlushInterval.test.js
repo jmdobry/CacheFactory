@@ -1,10 +1,8 @@
 import {
   assert,
-  CacheFactory,
+  Cache,
   TYPES_EXCEPT_NUMBER
 } from '../../_setup'
-
-const { Cache } = CacheFactory
 
 describe('Cache#setCacheFlushInterval', function () {
   it('should set cacheFlushInterval', function () {

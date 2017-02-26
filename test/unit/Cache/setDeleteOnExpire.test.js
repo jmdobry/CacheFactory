@@ -1,10 +1,8 @@
 import {
   assert,
-  CacheFactory,
+  Cache,
   TYPES_EXCEPT_STRING
 } from '../../_setup'
-
-const { Cache } = CacheFactory
 
 describe('Cache#setDeleteOnExpire', function () {
   it('should set deleteOnExpire', function () {

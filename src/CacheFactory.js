@@ -1,3 +1,4 @@
+import defaults from './defaults'
 /**
  * A instance of `CacheFactory` holds multiple caches, and provides methods for
  * manipulating all of the caches at once.
@@ -182,8 +183,8 @@ export default class CacheFactory {
     keys.forEach((cacheId) => {
       info.caches[cacheId] = this.get(cacheId).info()
     })
-    Object.keys(CacheFactory.defaults).forEach((key, value) => {
-      info[key] = CacheFactory.defaults[key]
+    Object.keys(defaults).forEach((key, value) => {
+      info[key] = defaults[key]
     })
     return info
   }

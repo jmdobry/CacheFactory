@@ -1,10 +1,8 @@
 import {
   assert,
-  CacheFactory,
+  Cache,
   TYPES_EXCEPT_FUNCTION
 } from '../../_setup'
-
-const { Cache } = CacheFactory
 
 describe('Cache#setOnExpire', function () {
   it('should set onExpire', function () {

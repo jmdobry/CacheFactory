@@ -1,11 +1,9 @@
 import {
   assert,
-  CacheFactory,
+  Cache,
   CACHE_DEFAULTS,
   TYPES_EXCEPT_STRING
 } from '../../_setup'
-
-const { Cache } = CacheFactory
 
 describe('Cache', function () {
   it('should construct an instance of Cache', function () {

@@ -28,7 +28,7 @@ bower install --save cachefactory
 ## Quick Start
 
 ```js
-import CacheFactory from 'cachefactory';
+import {CacheFactory} from 'cachefactory';
 
 const cacheFactory = new CacheFactory();
 let cache;

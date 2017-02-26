@@ -22,7 +22,7 @@ import utils from './utils'
  * @example <caption>Load into your app via AMD</caption>
  * define('myApp', ['cachefactory'], function (CacheFactory) { ... })
  */
-export default CacheFactory
+export {CacheFactory}
 
 /**
  * The `BinaryHeap` constructor function.
@@ -36,7 +36,7 @@ export default CacheFactory
  * @see https://github.com/jmdobry/yabh
  * @type {function}
  */
-CacheFactory.BinaryHeap = BinaryHeap
+export {BinaryHeap}
 
 /**
  * The {@link Cache} constructor function.
@@ -51,6 +51,7 @@ CacheFactory.BinaryHeap = BinaryHeap
  * @type {function}
  */
 CacheFactory.Cache = Cache
+export {Cache}
 
 /**
  * The default cache values. Modify this object to change the default values.
@@ -68,7 +69,7 @@ CacheFactory.Cache = Cache
  * @see Cache
  * @type {object}
  */
-CacheFactory.defaults = defaults
+export {defaults}
 
 /**
  * Utility functions used throughout this library.
@@ -85,4 +86,4 @@ CacheFactory.defaults = defaults
  * @memberof module:cachefactory
  * @type {object}
  */
-CacheFactory.utils = utils
+export {utils}

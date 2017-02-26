@@ -1,15 +1,15 @@
 import {
   assert,
-  CacheFactory
+  Cache
 } from '../../_setup'
 
 describe('CacheFactory#clearAll', function () {
   beforeEach(function () {
-    sinon.stub(CacheFactory.Cache.prototype, 'removeAll')
+    sinon.stub(Cache.prototype, 'removeAll')
   })
 
   afterEach(function () {
-    CacheFactory.Cache.prototype.removeAll.restore()
+    Cache.prototype.removeAll.restore()
   })
 
   it('should call removeAll on all caches', function () {

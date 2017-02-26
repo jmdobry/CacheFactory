@@ -1,20 +1,20 @@
 import {
   assert,
-  CacheFactory,
+  Cache,
   TYPES_EXCEPT_OBJECT,
   TYPES_EXCEPT_STRING
 } from '../../_setup'
 
 describe('Cache#setStorageMode', function () {
   it('should set storageMode', function () {
-    const cache = new CacheFactory.Cache(this.testId)
+    const cache = new Cache(this.testId)
     cache.setStorageMode('localStorage')
     assert.strictEqual(cache.storageMode, 'localStorage')
     assert.strictEqual(cache.$$storage(), localStorage)
   })
 
   it('should set storageImpl', function () {
-    const cache = new CacheFactory.Cache(this.testId)
+    const cache = new Cache(this.testId)
     const polyfill = {
       setItem: () => {},
       getItem: () => {},
@@ -26,7 +26,7 @@ describe('Cache#setStorageMode', function () {
   })
 
   it('should throw a TypeError if storageMode is not a string', function () {
-    const cache = new CacheFactory.Cache(this.testId)
+    const cache = new Cache(this.testId)
     TYPES_EXCEPT_STRING.forEach(function (value) {
       if (value === null || value === undefined) {
         return
@@ -38,14 +38,14 @@ describe('Cache#setStorageMode', function () {
   })
 
   it('should throw an Error if storageMode is not an allowed value', function () {
-    const cache = new CacheFactory.Cache(this.testId)
+    const cache = new Cache(this.testId)
     assert.throws(() => {
       cache.setStorageMode('foo')
     }, Error, '"storageMode" must be "memory", "localStorage", or "sessionStorage"!')
   })
 
   it('should throw a TypeError if storageImpl is not an object', function () {
-    const cache = new CacheFactory.Cache(this.testId)
+    const cache = new Cache(this.testId)
     TYPES_EXCEPT_OBJECT.forEach(function (value) {
       if (!value) {
         return
@@ -58,21 +58,21 @@ describe('Cache#setStorageMode', function () {
 
   it('should throw an Error if storageImpl down not implement setItem', function () {
     assert.throws(() => {
-      const cache = new CacheFactory.Cache(this.testId)
+      const cache = new Cache(this.testId)
       cache.setStorageMode('localStorage', {})
     }, Error, '"storageImpl" must implement "setItem(key, value)"!')
   })
 
   it('should throw an Error if storageImpl down not implement getItem', function () {
     assert.throws(() => {
-      const cache = new CacheFactory.Cache(this.testId)
+      const cache = new Cache(this.testId)
       cache.setStorageMode('localStorage', { setItem: () => {} })
     }, Error, '"storageImpl" must implement "getItem(key)"!')
   })
 
   it('should throw an Error if storageImpl down not implement removeItem', function () {
     assert.throws(() => {
-      const cache = new CacheFactory.Cache(this.testId)
+      const cache = new Cache(this.testId)
       cache.setStorageMode('localStorage', { setItem: () => {}, getItem: () => {} })
     }, Error, '"storageImpl" must implement "removeItem(key)"!')
   })
@@ -89,7 +89,7 @@ describe('Cache#setStorageMode', function () {
     const orig = localStorage.setItem
     localStorage.setItem = setItem
     if (localStorage.setItem === setItem) {
-      const cache = new CacheFactory.Cache('CacheFactory.cache', options)
+      const cache = new Cache('CacheFactory.cache', options)
       assert.isDefined(cache)
       assert.strictEqual(cache.info().id, 'CacheFactory.cache')
       assert.strictEqual(cache.info().deleteOnExpire, options.deleteOnExpire)
@@ -113,7 +113,7 @@ describe('Cache#setStorageMode', function () {
     const orig = sessionStorage.setItem
     sessionStorage.setItem = setItem
     if (sessionStorage.setItem === setItem) {
-      const cache = new CacheFactory.Cache('CacheFactory.cache', options)
+      const cache = new Cache('CacheFactory.cache', options)
       assert.isDefined(cache)
       assert.strictEqual(cache.info().id, 'CacheFactory.cache')
       assert.strictEqual(cache.info().deleteOnExpire, options.deleteOnExpire)

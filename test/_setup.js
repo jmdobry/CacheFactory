@@ -1,5 +1,5 @@
 import { assert } from 'chai'
-import CacheFactory from '../src/index'
+import { Cache, CacheFactory } from '../src/index'
 import sinon from 'sinon'
 
 window.pp = function pp (obj) {
@@ -29,6 +29,7 @@ assert.fail = function (msg) {
 // Setup global data once
 export {
   assert,
+  Cache,
   CacheFactory,
   sinon
 }

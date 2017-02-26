@@ -1,10 +1,8 @@
 import {
   assert,
-  CacheFactory,
+  Cache,
   TYPES_EXCEPT_OBJECT
 } from '../../_setup'
-
-const { Cache } = CacheFactory
 
 describe('Cache#setOptions', function () {
   it('should throw an error if "options" is not an object', function () {

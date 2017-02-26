@@ -1,10 +1,8 @@
 import {
   assert,
-  CacheFactory,
+  Cache,
   TYPES_EXCEPT_NUMBER
 } from '../../_setup'
-
-const { Cache } = CacheFactory
 
 describe('Cache#setMaxAge', function () {
   it('should set maxAge', function () {

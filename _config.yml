@@ -1,0 +1,8 @@
+title: CacheFactory
+description: CacheFactory is a very simple and useful synchronous key-value store for the browser.
+google_analytics: UA-34445126-4
+show_downloads: true
+theme: jekyll-theme-minimal
+
+gems:
+  - jekyll-mentions

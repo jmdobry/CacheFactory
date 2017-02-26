@@ -1,7 +1,7 @@
 ##### 3.0.0 - 26 February 2017
 
 ###### Breaking changes
-- #29 by @Delagen - TypeScript definitions have been rewritten, and the `CacheFactory` constructor function is now a named export of the module.
+- [#29](https://github.com/jmdobry/CacheFactory/pull/29) by @Delagen - TypeScript definitions have been rewritten, and the `CacheFactory` constructor function is now a named export of the module.
 
     Before:
 

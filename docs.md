@@ -28,12 +28,16 @@ bower install --save cachefactory
 ## Quick Start
 
 ```js
-import CacheFactory from 'cachefactory';
+import { CacheFactory } from 'cachefactory';
 
 const cacheFactory = new CacheFactory();
 let cache;
 
+// Check whether cache metadata has been initialized
+// on every page refresh.
 if (!cacheFactory.exists('my-cache')) {
+  // Create the cache metadata. Any previously saved
+  // data will be loaded.
   cache = cacheFactory.createCache('my-cache', {
     // Delete items from the cache when they expire
     deleteOnExpire: 'aggressive',
@@ -50,7 +54,7 @@ cache.put('/books/1', { title: 'BookOne', id: 1 });
 
 [MIT License][11]
 
-Copyright (C) 2015-2016 CacheFactory project authors
+Copyright (C) 2015-2017 CacheFactory project authors
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in

@@ -5,9 +5,9 @@ module.exports = function (config) {
     browsers: ['PhantomJS'],
     files: [
       'node_modules/es6-promise/dist/es6-promise.auto.js',
-      'node_modules/yabh/src/index.js',
       'src/utils.js',
       'src/defaults.js',
+      'src/BinaryHeap.js',
       'src/Cache.js',
       'src/CacheFactory.js',
       'src/index.js',

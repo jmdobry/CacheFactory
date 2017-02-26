@@ -1,5 +1,5 @@
 ```js
-import CacheFactory from 'cachefactory';
+import { CacheFactory } from 'cachefactory';
 
 const cacheFactory = new CacheFactory();
 

@@ -1,6 +1,20 @@
 machine:
   node:
-    version: 6.1.0
+    version: 6.9.5
+  environment:
+    PATH: "${PATH}:${HOME}/${CIRCLE_PROJECT_REPONAME}/node_modules/.bin"
+
+general:
+  branches:
+    ignore:
+      - gh-pages
+
+dependencies:
+  override:
+    - yarn
+  cache_directories:
+    - ~/.cache/yarn
+
 test:
   override:
-    - npm run ci
+    - yarn run ci

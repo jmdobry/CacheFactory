@@ -1,18 +1,58 @@
 /**
  * CacheFactory
- * @version 2.0.0 - Homepage <https://github.com/jmdobry/CacheFactory>
- * @copyright (c) 2015-2016 CacheFactory project authors
+ * @version 3.0.0 - Homepage <https://github.com/jmdobry/CacheFactory>
+ * @copyright (c) 2015-2017 CacheFactory project authors
  * @license MIT <https://github.com/jmdobry/CacheFactory/blob/master/LICENSE>
  * @overview CacheFactory is a very simple and useful cache for the browser.
  */
 (function (global, factory) {
-  typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
-  typeof define === 'function' && define.amd ? define('cachefactory', factory) :
-  (global.CacheFactory = factory());
-}(this, (function () { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
+	typeof define === 'function' && define.amd ? define('cachefactory', ['exports'], factory) :
+	(factory((global.CacheFactory = global.CacheFactory || {})));
+}(this, (function (exports) { 'use strict';
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) {
+  return typeof obj;
+} : function (obj) {
+  return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
+};
+
+
+
+
+
+
+
+
+
+
+
+var classCallCheck = function (instance, Constructor) {
+  if (!(instance instanceof Constructor)) {
+    throw new TypeError("Cannot call a class as a function");
+  }
+};
+
+var createClass = function () {
+  function defineProperties(target, props) {
+    for (var i = 0; i < props.length; i++) {
+      var descriptor = props[i];
+      descriptor.enumerable = descriptor.enumerable || false;
+      descriptor.configurable = true;
+      if ("value" in descriptor) descriptor.writable = true;
+      Object.defineProperty(target, descriptor.key, descriptor);
+    }
+  }
+
+  return function (Constructor, protoProps, staticProps) {
+    if (protoProps) defineProperties(Constructor.prototype, protoProps);
+    if (staticProps) defineProperties(Constructor, staticProps);
+    return Constructor;
+  };
+}();
 
 /**
- * @method bubbleUp
+ * @private
  * @param {array} heap The heap.
  * @param {function} weightFunc The weight function.
  * @param {number} n The index of the element to bubble up.
@@ -38,7 +78,7 @@ var bubbleUp = function bubbleUp(heap, weightFunc, n) {
 };
 
 /**
- * @method bubbleDown
+ * @private
  * @param {array} heap The heap.
  * @param {function} weightFunc The weight function.
  * @param {number} n The index of the element to sink down.
@@ -79,75 +119,206 @@ var bubbleDown = function bubbleDown(heap, weightFunc, n) {
   }
 };
 
-function BinaryHeap(weightFunc, compareFunc) {
-  if (!weightFunc) {
-    weightFunc = function weightFunc(x) {
-      return x;
-    };
-  }
-  if (!compareFunc) {
-    compareFunc = function compareFunc(x, y) {
-      return x === y;
-    };
-  }
-  if (typeof weightFunc !== 'function') {
-    throw new Error('BinaryHeap([weightFunc][, compareFunc]): "weightFunc" must be a function!');
-  }
-  if (typeof compareFunc !== 'function') {
-    throw new Error('BinaryHeap([weightFunc][, compareFunc]): "compareFunc" must be a function!');
-  }
-  this.weightFunc = weightFunc;
-  this.compareFunc = compareFunc;
-  this.heap = [];
-}
+/**
+ * @class BinaryHeap
+ * @example
+ * import { BinaryHeap } from 'cachefactory';
+ *
+ * const queue = new BinaryHeap();
+ * queue.push(2);
+ * queue.push(77);
+ * queue.push(8);
+ * queue.push(33);
+ * queue.push(5);
+ * queue.pop(); // 2
+ * queue.pop(); // 5
+ * queue.pop(); // 8
+ * queue.pop(); // 33
+ * queue.pop(); // 77
+ *
+ * const userQueue = new BinaryHeap(
+ *   (user) => user.age,
+ *   (userOne, userTwo) => userOne.id === userTwo.id
+ * );
+ * queue.push({ id: 1, age: 34 });
+ * queue.push({ id: 2, age: 29 });
+ * queue.push({ id: 3, age: 25 });
+ * queue.push({ id: 3, age: 28 });
+ * queue.push({ id: 3, age: 27 });
+ * queue.push({ id: 4, age: 42 });
+ * queue.push({ id: 5, age: 19 });
+ * queue.pop(); // { id: 5, age: 19 }
+ * queue.pop(); // { id: 3, age: 27 }
+ * queue.pop(); // { id: 2, age: 29 }
+ * queue.pop(); // { id: 1, age: 34 }
+ * queue.pop(); // { id: 4, age: 42 }
+ *
+ * @param {function} [weightFunc] See {@link BinaryHeap#weightFunc}.
+ * @param {function} [compareFunc] See {@link BinaryHeap#compareFunc}.
+ */
 
-var BHProto = BinaryHeap.prototype;
+var BinaryHeap = function () {
+  function BinaryHeap(weightFunc, compareFunc) {
+    classCallCheck(this, BinaryHeap);
 
-BHProto.push = function (node) {
-  this.heap.push(node);
-  bubbleUp(this.heap, this.weightFunc, this.heap.length - 1);
-};
-
-BHProto.peek = function () {
-  return this.heap[0];
-};
-
-BHProto.pop = function () {
-  var front = this.heap[0];
-  var end = this.heap.pop();
-  if (this.heap.length > 0) {
-    this.heap[0] = end;
-    bubbleDown(this.heap, this.weightFunc, 0);
-  }
-  return front;
-};
-
-BHProto.remove = function (node) {
-  var length = this.heap.length;
-  for (var i = 0; i < length; i++) {
-    if (this.compareFunc(this.heap[i], node)) {
-      var removed = this.heap[i];
-      var end = this.heap.pop();
-      if (i !== length - 1) {
-        this.heap[i] = end;
-        bubbleUp(this.heap, this.weightFunc, i);
-        bubbleDown(this.heap, this.weightFunc, i);
-      }
-      return removed;
+    if (!weightFunc) {
+      weightFunc = function weightFunc(x) {
+        return x;
+      };
     }
+    if (!compareFunc) {
+      compareFunc = function compareFunc(x, y) {
+        return x === y;
+      };
+    }
+    if (typeof weightFunc !== 'function') {
+      throw new Error('BinaryHeap([weightFunc][, compareFunc]): "weightFunc" must be a function!');
+    }
+    if (typeof compareFunc !== 'function') {
+      throw new Error('BinaryHeap([weightFunc][, compareFunc]): "compareFunc" must be a function!');
+    }
+
+    /**
+     * The heap's configured weight function.
+     *
+     * Default:
+     * ```js
+     * function (x) {
+     *   return x;
+     * }
+     * ```
+     *
+     * @name BinaryHeap#weightFunc
+     * @type {function}
+     */
+    this.weightFunc = weightFunc;
+
+    /**
+     * The heap's configured compare function.
+     *
+     * Default:
+     * ```js
+     * function (x, y) {
+     *   return x === y;
+     * }
+     * ```
+     *
+     * @name BinaryHeap#compareFunc
+     * @type {function}
+     */
+    this.compareFunc = compareFunc;
+
+    /**
+     * The heap's data.
+     *
+     * @name BinaryHeap#heap
+     * @type {Array<*>}
+     */
+    this.heap = [];
   }
-  return null;
-};
 
-BHProto.removeAll = function () {
-  this.heap = [];
-};
+  /**
+   * Push an item into the queue.
+   *
+   * @method BinaryHeap#push
+   * @param {*} node
+   */
 
-BHProto.size = function () {
-  return this.heap.length;
-};
 
-var defaults = {
+  createClass(BinaryHeap, [{
+    key: 'push',
+    value: function push(node) {
+      this.heap.push(node);
+      bubbleUp(this.heap, this.weightFunc, this.heap.length - 1);
+    }
+
+    /**
+     * Look at the item at the front of the queue.
+     *
+     * @method BinaryHeap#peek
+     * @returns {*}
+     */
+
+  }, {
+    key: 'peek',
+    value: function peek() {
+      return this.heap[0];
+    }
+
+    /**
+     * Pop an item off the front of the queue.
+     *
+     * @method BinaryHeap#pop
+     * @returns {*}
+     */
+
+  }, {
+    key: 'pop',
+    value: function pop() {
+      var front = this.heap[0];
+      var end = this.heap.pop();
+      if (this.heap.length > 0) {
+        this.heap[0] = end;
+        bubbleDown(this.heap, this.weightFunc, 0);
+      }
+      return front;
+    }
+
+    /**
+     * Remove the given item from the queue.
+     *
+     * @method BinaryHeap#remove
+     * @param {*} node
+     */
+
+  }, {
+    key: 'remove',
+    value: function remove(node) {
+      var length = this.heap.length;
+      for (var i = 0; i < length; i++) {
+        if (this.compareFunc(this.heap[i], node)) {
+          var removed = this.heap[i];
+          var end = this.heap.pop();
+          if (i !== length - 1) {
+            this.heap[i] = end;
+            bubbleUp(this.heap, this.weightFunc, i);
+            bubbleDown(this.heap, this.weightFunc, i);
+          }
+          return removed;
+        }
+      }
+      return null;
+    }
+
+    /**
+     * Clear the heap.
+     *
+     * @method BinaryHeap#removeAll
+     */
+
+  }, {
+    key: 'removeAll',
+    value: function removeAll() {
+      this.heap = [];
+    }
+
+    /**
+     * Return the length of the queue.
+     *
+     * @method BinaryHeap#size
+     * @returns {number}
+     */
+
+  }, {
+    key: 'size',
+    value: function size() {
+      return this.heap.length;
+    }
+  }]);
+  return BinaryHeap;
+}();
+
+var defaults$1 = {
   capacity: Number.MAX_VALUE,
   cacheFlushInterval: null,
   deleteOnExpire: 'none',
@@ -160,86 +331,6 @@ var defaults = {
   storagePrefix: 'cachefactory.caches.',
   storeOnReject: false,
   storeOnResolve: false
-};
-
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) {
-  return typeof obj;
-} : function (obj) {
-  return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj;
-};
-
-
-
-
-
-var classCallCheck = function (instance, Constructor) {
-  if (!(instance instanceof Constructor)) {
-    throw new TypeError("Cannot call a class as a function");
-  }
-};
-
-var createClass = function () {
-  function defineProperties(target, props) {
-    for (var i = 0; i < props.length; i++) {
-      var descriptor = props[i];
-      descriptor.enumerable = descriptor.enumerable || false;
-      descriptor.configurable = true;
-      if ("value" in descriptor) descriptor.writable = true;
-      Object.defineProperty(target, descriptor.key, descriptor);
-    }
-  }
-
-  return function (Constructor, protoProps, staticProps) {
-    if (protoProps) defineProperties(Constructor.prototype, protoProps);
-    if (staticProps) defineProperties(Constructor, staticProps);
-    return Constructor;
-  };
-}();
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-var set$1 = function set$1(object, property, value, receiver) {
-  var desc = Object.getOwnPropertyDescriptor(object, property);
-
-  if (desc === undefined) {
-    var parent = Object.getPrototypeOf(object);
-
-    if (parent !== null) {
-      set$1(parent, property, value, receiver);
-    }
-  } else if ("value" in desc && desc.writable) {
-    desc.value = value;
-  } else {
-    var setter = desc.set;
-
-    if (setter !== undefined) {
-      setter.call(receiver, value);
-    }
-  }
-
-  return value;
 };
 
 var _Promise = null;
@@ -456,7 +547,7 @@ var Cache = function () {
   function Cache(id) {
     var _this = this;
 
-    var options = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
+    var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
     classCallCheck(this, Cache);
 
     if (!utils.isString(id)) {
@@ -514,10 +605,10 @@ var Cache = function () {
        */
       cacheFlushInterval: {
         enumerable: true,
-        get: function get() {
+        get: function get$$1() {
           return _this.$$cacheFlushInterval;
         },
-        set: function set() {
+        set: function set$$1() {
           throw new Error(assignMsg + ' \'cacheFlushInterval\'');
         }
       },
@@ -543,10 +634,10 @@ var Cache = function () {
        */
       capacity: {
         enumerable: true,
-        get: function get() {
+        get: function get$$1() {
           return _this.$$capacity;
         },
-        set: function set() {
+        set: function set$$1() {
           throw new Error(assignMsg + ' \'capacity\'');
         }
       },
@@ -588,10 +679,10 @@ var Cache = function () {
        */
       deleteOnExpire: {
         enumerable: true,
-        get: function get() {
+        get: function get$$1() {
           return _this.$$deleteOnExpire;
         },
-        set: function set() {
+        set: function set$$1() {
           throw new Error(assignMsg + ' \'deleteOnExpire\'');
         }
       },
@@ -620,10 +711,10 @@ var Cache = function () {
        */
       enabled: {
         enumerable: true,
-        get: function get() {
+        get: function get$$1() {
           return _this.$$enabled;
         },
-        set: function set() {
+        set: function set$$1() {
           throw new Error(assignMsg + ' \'enabled\'');
         }
       },
@@ -676,10 +767,10 @@ var Cache = function () {
        */
       maxAge: {
         enumerable: true,
-        get: function get() {
+        get: function get$$1() {
           return _this.$$maxAge;
         },
-        set: function set() {
+        set: function set$$1() {
           throw new Error(assignMsg + ' \'maxAge\'');
         }
       },
@@ -732,10 +823,10 @@ var Cache = function () {
        */
       onExpire: {
         enumerable: true,
-        get: function get() {
+        get: function get$$1() {
           return _this.$$onExpire;
         },
-        set: function set() {
+        set: function set$$1() {
           throw new Error(assignMsg + ' \'onExpire\'');
         }
       },
@@ -766,10 +857,10 @@ var Cache = function () {
        */
       recycleFreq: {
         enumerable: true,
-        get: function get() {
+        get: function get$$1() {
           return _this.$$recycleFreq;
         },
-        set: function set() {
+        set: function set$$1() {
           throw new Error(assignMsg + ' \'recycleFreq\'');
         }
       },
@@ -822,10 +913,10 @@ var Cache = function () {
        */
       storageMode: {
         enumerable: true,
-        get: function get() {
+        get: function get$$1() {
           return _this.$$storageMode;
         },
-        set: function set() {
+        set: function set$$1() {
           throw new Error(assignMsg + ' \'storageMode\'');
         }
       },
@@ -857,10 +948,10 @@ var Cache = function () {
        */
       storagePrefix: {
         enumerable: true,
-        get: function get() {
+        get: function get$$1() {
           return _this.$$storagePrefix;
         },
-        set: function set() {
+        set: function set$$1() {
           throw new Error(assignMsg + ' \'storagePrefix\'');
         }
       },
@@ -878,10 +969,10 @@ var Cache = function () {
        */
       storeOnReject: {
         enumerable: true,
-        get: function get() {
+        get: function get$$1() {
           return _this.$$storeOnReject;
         },
-        set: function set() {
+        set: function set$$1() {
           throw new Error(assignMsg + ' \'storeOnReject\'');
         }
       },
@@ -899,10 +990,10 @@ var Cache = function () {
        */
       storeOnResolve: {
         enumerable: true,
-        get: function get() {
+        get: function get$$1() {
           return _this.$$storeOnResolve;
         },
-        set: function set() {
+        set: function set$$1() {
           throw new Error(assignMsg + ' \'storeOnResolve\'');
         }
       }
@@ -1025,29 +1116,23 @@ var Cache = function () {
 
   }, {
     key: 'get',
-    value: function get(key) {
+    value: function get$$1(key) {
       var _this2 = this;
 
-      var options = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
+      var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
 
       if (Array.isArray(key)) {
-        var _ret = function () {
-          var keys = key;
-          var values = [];
+        var keys = key;
+        var values = [];
 
-          keys.forEach(function (key) {
-            var value = _this2.get(key, options);
-            if (value !== null && value !== undefined) {
-              values.push(value);
-            }
-          });
+        keys.forEach(function (key) {
+          var value = _this2.get(key, options);
+          if (value !== null && value !== undefined) {
+            values.push(value);
+          }
+        });
 
-          return {
-            v: values
-          };
-        }();
-
-        if ((typeof _ret === 'undefined' ? 'undefined' : _typeof(_ret)) === "object") return _ret.v;
+        return values;
       } else {
         if (utils.isNumber(key)) {
           key = '' + key;
@@ -1258,7 +1343,7 @@ var Cache = function () {
     value: function put(key, value) {
       var _this4 = this;
 
-      var options = arguments.length <= 2 || arguments[2] === undefined ? {} : arguments[2];
+      var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
 
       var storeOnResolve = options.storeOnResolve !== undefined ? !!options.storeOnResolve : this.$$storeOnResolve;
       var storeOnReject = options.storeOnReject !== undefined ? !!options.storeOnReject : this.$$storeOnReject;
@@ -1695,8 +1780,8 @@ var Cache = function () {
   }, {
     key: 'setOptions',
     value: function setOptions() {
-      var options = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
-      var strict = arguments.length <= 1 || arguments[1] === undefined ? false : arguments[1];
+      var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+      var strict = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
 
       if (!utils.isObject(options)) {
         throw new TypeError('"options" must be an object!');
@@ -1705,7 +1790,7 @@ var Cache = function () {
       if (options.storagePrefix !== undefined) {
         this.$$storagePrefix = options.storagePrefix;
       } else if (strict) {
-        this.$$storagePrefix = defaults.storagePrefix;
+        this.$$storagePrefix = defaults$1.storagePrefix;
       }
 
       this.$$prefix = this.$$storagePrefix + this.id;
@@ -1713,61 +1798,61 @@ var Cache = function () {
       if (options.enabled !== undefined) {
         this.$$enabled = !!options.enabled;
       } else if (strict) {
-        this.$$enabled = defaults.enabled;
+        this.$$enabled = defaults$1.enabled;
       }
 
       if (options.deleteOnExpire !== undefined) {
         this.setDeleteOnExpire(options.deleteOnExpire, false);
       } else if (strict) {
-        this.setDeleteOnExpire(defaults.deleteOnExpire, false);
+        this.setDeleteOnExpire(defaults$1.deleteOnExpire, false);
       }
 
       if (options.recycleFreq !== undefined) {
         this.setRecycleFreq(options.recycleFreq);
       } else if (strict) {
-        this.setRecycleFreq(defaults.recycleFreq);
+        this.setRecycleFreq(defaults$1.recycleFreq);
       }
 
       if (options.maxAge !== undefined) {
         this.setMaxAge(options.maxAge);
       } else if (strict) {
-        this.setMaxAge(defaults.maxAge);
+        this.setMaxAge(defaults$1.maxAge);
       }
 
       if (options.storeOnResolve !== undefined) {
         this.$$storeOnResolve = !!options.storeOnResolve;
       } else if (strict) {
-        this.$$storeOnResolve = defaults.storeOnResolve;
+        this.$$storeOnResolve = defaults$1.storeOnResolve;
       }
 
       if (options.storeOnReject !== undefined) {
         this.$$storeOnReject = !!options.storeOnReject;
       } else if (strict) {
-        this.$$storeOnReject = defaults.storeOnReject;
+        this.$$storeOnReject = defaults$1.storeOnReject;
       }
 
       if (options.capacity !== undefined) {
         this.setCapacity(options.capacity);
       } else if (strict) {
-        this.setCapacity(defaults.capacity);
+        this.setCapacity(defaults$1.capacity);
       }
 
       if (options.cacheFlushInterval !== undefined) {
         this.setCacheFlushInterval(options.cacheFlushInterval);
       } else if (strict) {
-        this.setCacheFlushInterval(defaults.cacheFlushInterval);
+        this.setCacheFlushInterval(defaults$1.cacheFlushInterval);
       }
 
       if (options.onExpire !== undefined) {
         this.setOnExpire(options.onExpire);
       } else if (strict) {
-        this.setOnExpire(defaults.onExpire);
+        this.setOnExpire(defaults$1.onExpire);
       }
 
       if (options.storageMode !== undefined || options.storageImpl !== undefined) {
-        this.setStorageMode(options.storageMode || defaults.storageMode, options.storageImpl || defaults.storageImpl);
+        this.setStorageMode(options.storageMode || defaults$1.storageMode, options.storageImpl || defaults$1.storageImpl);
       } else if (strict) {
-        this.setStorageMode(defaults.storageMode, defaults.storageImpl);
+        this.setStorageMode(defaults$1.storageMode, defaults$1.storageImpl);
       }
     }
 
@@ -1979,7 +2064,8 @@ var Cache = function () {
  *
  * @class CacheFactory
  */
-var CacheFactory$1 = function () {
+
+var CacheFactory = function () {
   function CacheFactory() {
     classCallCheck(this, CacheFactory);
 
@@ -2034,7 +2120,7 @@ var CacheFactory$1 = function () {
   }, {
     key: 'createCache',
     value: function createCache(id) {
-      var options = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
+      var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
 
       if (this.caches[id]) {
         throw new Error('cache "' + id + '" already exists!');
@@ -2157,7 +2243,7 @@ var CacheFactory$1 = function () {
 
   }, {
     key: 'get',
-    value: function get(id) {
+    value: function get$$1(id) {
       var cache = this.caches[id];
       if (!cache) {
         throw new ReferenceError('Cache "' + id + '" does not exist!');
@@ -2193,8 +2279,8 @@ var CacheFactory$1 = function () {
       keys.forEach(function (cacheId) {
         info.caches[cacheId] = _this5.get(cacheId).info();
       });
-      Object.keys(CacheFactory.defaults).forEach(function (key, value) {
-        info[key] = CacheFactory.defaults[key];
+      Object.keys(defaults$1).forEach(function (key, value) {
+        info[key] = defaults$1[key];
       });
       return info;
     }
@@ -2287,70 +2373,15 @@ var CacheFactory$1 = function () {
   return CacheFactory;
 }();
 
-/**
- * The `BinaryHeap` constructor function.
- *
- * @example
- * import CacheFactory from 'cachefactory';
- * const { BinaryHeap } = CacheFactory;
- *
- * @name BinaryHeap
- * @memberof module:cachefactory
- * @see https://github.com/jmdobry/yabh
- * @type {function}
- */
-CacheFactory$1.BinaryHeap = BinaryHeap;
+CacheFactory.Cache = Cache;
 
-/**
- * The {@link Cache} constructor function.
- *
- * @example
- * import CacheFactory from 'cachefactory';
- * const { Cache } = CacheFactory;
- *
- * @name Cache
- * @memberof module:cachefactory
- * @see Cache
- * @type {function}
- */
-CacheFactory$1.Cache = Cache;
+exports.CacheFactory = CacheFactory;
+exports.BinaryHeap = BinaryHeap;
+exports.Cache = Cache;
+exports.defaults = defaults$1;
+exports.utils = utils;
 
-/**
- * The default cache values. Modify this object to change the default values.
- *
- * @example
- * import CacheFactory from 'cachefactory';
- * const { defaults } = CacheFactory;
- *
- * // Change the default "maxAge" for caches that will be instantiated
- * // after this point.
- * defaults.maxAge = 60 * 60 * 1000;
- *
- * @name defaults
- * @memberof module:cachefactory
- * @see Cache
- * @type {object}
- */
-CacheFactory$1.defaults = defaults;
-
-/**
- * Utility functions used throughout this library.
- *
- * @example
- * import Promise from 'bluebird';
- * import CacheFactory from 'cachefactory';
- * const { utils } = CacheFactory;
- *
- * // Make this library use your Promise lib
- * utils.Promise = Promise;
- *
- * @name utils
- * @memberof module:cachefactory
- * @type {object}
- */
-CacheFactory$1.utils = utils;
-
-return CacheFactory$1;
+Object.defineProperty(exports, '__esModule', { value: true });
 
 })));
 //# sourceMappingURL=cachefactory.js.map

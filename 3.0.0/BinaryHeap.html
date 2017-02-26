@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>utils - Documentation</title>
+    <title>BinaryHeap - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -28,7 +28,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">utils</h1>
+    <h1 class="page-title">BinaryHeap</h1>
     
 
     
@@ -41,7 +41,7 @@
 <header>
     
         <h2>
-        utils
+        BinaryHeap
         </h2>
         
     
@@ -51,10 +51,119 @@
     <div class="container-overview">
     
         
-            <div class="description"><p>Utility methods used by CacheFactory.</p></div>
+
+    
+
+    <h4 class="name" id="BinaryHeap"><span class="type-signature"></span>new BinaryHeap<span class="signature">(weightFunc<span class="signature-attributes">opt</span>, compareFunc<span class="signature-attributes">opt</span>)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
         
 
         
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>weightFunc</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>See <a href="BinaryHeap.html#weightFunc">BinaryHeap#weightFunc</a>.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>compareFunc</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>See <a href="BinaryHeap.html#compareFunc">BinaryHeap#compareFunc</a>.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
 
 
 <dl class="details">
@@ -86,7 +195,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="utils.js.html">utils.js</a>, <a href="utils.js.html#line6">line 6</a>
+        <a href="BinaryHeap.js.html">BinaryHeap.js</a>, <a href="BinaryHeap.js.html#line69">line 69</a>
     </li></ul></dd>
     
 
@@ -98,13 +207,54 @@
 </dl>
 
 
-        
-            <h3>Example</h3>
-            
-    <pre class="prettyprint"><code>import { utils } from 'cachefactory'
-console.log(utils.isString('foo')) // true</code></pre>
 
-        
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>import { BinaryHeap } from 'cachefactory';
+
+const queue = new BinaryHeap();
+queue.push(2);
+queue.push(77);
+queue.push(8);
+queue.push(33);
+queue.push(5);
+queue.pop(); // 2
+queue.pop(); // 5
+queue.pop(); // 8
+queue.pop(); // 33
+queue.pop(); // 77
+
+const userQueue = new BinaryHeap(
+  (user) => user.age,
+  (userOne, userTwo) => userOne.id === userTwo.id
+);
+queue.push({ id: 1, age: 34 });
+queue.push({ id: 2, age: 29 });
+queue.push({ id: 3, age: 25 });
+queue.push({ id: 3, age: 28 });
+queue.push({ id: 3, age: 27 });
+queue.push({ id: 4, age: 42 });
+queue.push({ id: 5, age: 19 });
+queue.pop(); // { id: 5, age: 19 }
+queue.pop(); // { id: 3, age: 27 }
+queue.pop(); // { id: 2, age: 29 }
+queue.pop(); // { id: 1, age: 34 }
+queue.pop(); // { id: 4, age: 42 }</code></pre>
+
+
+
     
     </div>
 
@@ -119,6 +269,234 @@ console.log(utils.isString('foo')) // true</code></pre>
     
 
     
+        <h3 class="subsection-title">Members</h3>
+
+        
+            
+<h4 class="name" id="compareFunc"><span class="type-signature"></span>compareFunc<span class="type-signature"> :function</span></h4>
+
+
+
+
+<div class="description">
+    <p>The heap's configured compare function.</p>
+<p>Default:</p>
+<pre class="prettyprint source lang-js"><code>function (x, y) {
+  return x === y;
+}</code></pre>
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">function</span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="BinaryHeap.js.html">BinaryHeap.js</a>, <a href="BinaryHeap.js.html#line136">line 136</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="heap"><span class="type-signature"></span>heap<span class="type-signature"> :Array.&lt;*></span></h4>
+
+
+
+
+<div class="description">
+    <p>The heap's data.</p>
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">Array.&lt;*></span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="BinaryHeap.js.html">BinaryHeap.js</a>, <a href="BinaryHeap.js.html#line151">line 151</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="weightFunc"><span class="type-signature"></span>weightFunc<span class="type-signature"> :function</span></h4>
+
+
+
+
+<div class="description">
+    <p>The heap's configured weight function.</p>
+<p>Default:</p>
+<pre class="prettyprint source lang-js"><code>function (x) {
+  return x;
+}</code></pre>
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">function</span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="BinaryHeap.js.html">BinaryHeap.js</a>, <a href="BinaryHeap.js.html#line121">line 121</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+    
 
     
         <h3 class="subsection-title">Methods</h3>
@@ -128,14 +506,214 @@ console.log(utils.isString('foo')) // true</code></pre>
 
     
 
-    <h4 class="name" id=".equals"><span class="type-signature">(static) </span>equals<span class="signature">(a, a)</span><span class="type-signature"> &rarr; {booleal}</span></h4>
+    <h4 class="name" id="peek"><span class="type-signature"></span>peek<span class="signature">()</span><span class="type-signature"> &rarr; {*}</span></h4>
 
     
 
 
 
 <div class="description">
-    <p>Returns whether the two values are strictly equal.</p>
+    <p>Look at the item at the front of the queue.</p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="BinaryHeap.js.html">BinaryHeap.js</a>, <a href="BinaryHeap.js.html#line171">line 171</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">*</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="pop"><span class="type-signature"></span>pop<span class="signature">()</span><span class="type-signature"> &rarr; {*}</span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>Pop an item off the front of the queue.</p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="BinaryHeap.js.html">BinaryHeap.js</a>, <a href="BinaryHeap.js.html#line181">line 181</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">*</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="push"><span class="type-signature"></span>push<span class="signature">(node)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>Push an item into the queue.</p>
 </div>
 
 
@@ -171,7 +749,7 @@ console.log(utils.isString('foo')) // true</code></pre>
 
         <tr>
             
-                <td class="name"><code>a</code></td>
+                <td class="name"><code>node</code></td>
             
 
             <td class="type">
@@ -187,30 +765,7 @@ console.log(utils.isString('foo')) // true</code></pre>
 
             
 
-            <td class="description last"><p>The first value.</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>a</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">*</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>The second value.</p></td>
+            <td class="description last"></td>
         </tr>
 
     
@@ -251,7 +806,7 @@ console.log(utils.isString('foo')) // true</code></pre>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="utils.js.html">utils.js</a>, <a href="utils.js.html#line17">line 17</a>
+        <a href="BinaryHeap.js.html">BinaryHeap.js</a>, <a href="BinaryHeap.js.html#line160">line 160</a>
     </li></ul></dd>
     
 
@@ -274,36 +829,6 @@ console.log(utils.isString('foo')) // true</code></pre>
 
 
 
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    <p>Whether the two values are strictly equal.</p>
-</div>
-
-
-
-<dl class="param-type">
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">booleal</span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-    <h5>Example</h5>
-    
-    <pre class="prettyprint"><code>import { utils } from 'cachefactory'
-
-console.log(utils.equals(4, 4) // true
-console.log(utils.equals(4, '4') // false</code></pre>
 
 
 
@@ -312,14 +837,14 @@ console.log(utils.equals(4, '4') // false</code></pre>
 
     
 
-    <h4 class="name" id=".fromJson"><span class="type-signature">(static) </span>fromJson<span class="signature">(json)</span><span class="type-signature"> &rarr; {object}</span></h4>
+    <h4 class="name" id="remove"><span class="type-signature"></span>remove<span class="signature">(node)</span><span class="type-signature"></span></h4>
 
     
 
 
 
 <div class="description">
-    <p>Proxy for <code>JSON.parse</code>.</p>
+    <p>Remove the given item from the queue.</p>
 </div>
 
 
@@ -355,175 +880,7 @@ console.log(utils.equals(4, '4') // false</code></pre>
 
         <tr>
             
-                <td class="name"><code>json</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>JSON to parse.</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="utils.js.html">utils.js</a>, <a href="utils.js.html#line35">line 35</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-    <dt class="tag-see">See:</dt>
-    <dd class="tag-see">
-        <ul>
-            <li><a href="utils.html#.toJson">utils.toJson</a></li>
-        </ul>
-    </dd>
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    <p>The parsed object.</p>
-</div>
-
-
-
-<dl class="param-type">
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">object</span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-    <h5>Example</h5>
-    
-    <pre class="prettyprint"><code>import { utils } from 'cachefactory'
-
-const a = utils.fromJson('{"name":"John"}')
-console.log(a) // { name: 'John' }</code></pre>
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id=".isFunction"><span class="type-signature">(static) </span>isFunction<span class="signature">(value)</span><span class="type-signature"> &rarr; {boolean}</span></h4>
-
-    
-
-
-
-<div class="description">
-    <p>Returns whether the provided value is a function.</p>
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>value</code></td>
+                <td class="name"><code>node</code></td>
             
 
             <td class="type">
@@ -539,7 +896,7 @@ console.log(a) // { name: 'John' }</code></pre>
 
             
 
-            <td class="description last"><p>The value to test.</p></td>
+            <td class="description last"></td>
         </tr>
 
     
@@ -580,7 +937,7 @@ console.log(a) // { name: 'John' }</code></pre>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="utils.js.html">utils.js</a>, <a href="utils.js.html#line53">line 53</a>
+        <a href="BinaryHeap.js.html">BinaryHeap.js</a>, <a href="BinaryHeap.js.html#line197">line 197</a>
     </li></ul></dd>
     
 
@@ -603,37 +960,6 @@ console.log(a) // { name: 'John' }</code></pre>
 
 
 
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    <p>Whether the provided value is a function.</p>
-</div>
-
-
-
-<dl class="param-type">
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">boolean</span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-    <h5>Example</h5>
-    
-    <pre class="prettyprint"><code>import { utils } from 'cachefactory'
-const a = function (){ console.log('foo bar')}
-const b = { foo: "bar" }
-console.log(utils.isFunction(a)) // true
-console.log(utils.isFunction(b)) // false</code></pre>
 
 
 
@@ -642,14 +968,14 @@ console.log(utils.isFunction(b)) // false</code></pre>
 
     
 
-    <h4 class="name" id=".isNumber"><span class="type-signature">(static) </span>isNumber<span class="signature">(value)</span><span class="type-signature"> &rarr; {boolean}</span></h4>
+    <h4 class="name" id="removeAll"><span class="type-signature"></span>removeAll<span class="signature">()</span><span class="type-signature"></span></h4>
 
     
 
 
 
 <div class="description">
-    <p>Returns whether the provided value is a number.</p>
+    <p>Clear the heap.</p>
 </div>
 
 
@@ -658,55 +984,6 @@ console.log(utils.isFunction(b)) // false</code></pre>
 
 
 
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>value</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">*</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>The value to test.</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
 
 
 
@@ -742,7 +1019,7 @@ console.log(utils.isFunction(b)) // false</code></pre>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="utils.js.html">utils.js</a>, <a href="utils.js.html#line71">line 71</a>
+        <a href="BinaryHeap.js.html">BinaryHeap.js</a>, <a href="BinaryHeap.js.html#line220">line 220</a>
     </li></ul></dd>
     
 
@@ -765,39 +1042,6 @@ console.log(utils.isFunction(b)) // false</code></pre>
 
 
 
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    <p>Whether the provided value is a number.</p>
-</div>
-
-
-
-<dl class="param-type">
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">boolean</span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-    <h5>Example</h5>
-    
-    <pre class="prettyprint"><code>import { utils } from 'js-data'
-const a = 1
-const b = -1.25
-const c = '1'
-console.log(utils.isNumber(a)) // true
-console.log(utils.isNumber(b)) // true
-console.log(utils.isNumber(c)) // false</code></pre>
 
 
 
@@ -806,14 +1050,14 @@ console.log(utils.isNumber(c)) // false</code></pre>
 
     
 
-    <h4 class="name" id=".isObject"><span class="type-signature">(static) </span>isObject<span class="signature">(value)</span><span class="type-signature"> &rarr; {boolean}</span></h4>
+    <h4 class="name" id="size"><span class="type-signature"></span>size<span class="signature">()</span><span class="type-signature"> &rarr; {number}</span></h4>
 
     
 
 
 
 <div class="description">
-    <p>Returns whether the provided value is an object.</p>
+    <p>Return the length of the queue.</p>
 </div>
 
 
@@ -822,55 +1066,6 @@ console.log(utils.isNumber(c)) // false</code></pre>
 
 
 
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>value</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">*</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>The value to test.</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
 
 
 
@@ -906,7 +1101,7 @@ console.log(utils.isNumber(c)) // false</code></pre>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="utils.js.html">utils.js</a>, <a href="utils.js.html#line91">line 91</a>
+        <a href="BinaryHeap.js.html">BinaryHeap.js</a>, <a href="BinaryHeap.js.html#line229">line 229</a>
     </li></ul></dd>
     
 
@@ -932,10 +1127,6 @@ console.log(utils.isNumber(c)) // false</code></pre>
 <h5>Returns:</h5>
 
         
-<div class="param-desc">
-    <p>Whether the provided value is an object.</p>
-</div>
-
 
 
 <dl class="param-type">
@@ -944,352 +1135,13 @@ console.log(utils.isNumber(c)) // false</code></pre>
     </dt>
     <dd>
         
-<span class="param-type">boolean</span>
+<span class="param-type">number</span>
 
 
     </dd>
 </dl>
 
     
-
-
-    <h5>Example</h5>
-    
-    <pre class="prettyprint"><code>import { utils } from 'cachefactory'
-const a = { foo: "bar" }
-const b = 'foo bar'
-console.log(utils.isObject(a)) // true
-console.log(utils.isObject(b)) // false</code></pre>
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id=".isString"><span class="type-signature">(static) </span>isString<span class="signature">(value)</span><span class="type-signature"> &rarr; {boolean}</span></h4>
-
-    
-
-
-
-<div class="description">
-    <p>Returns whether the provided value is a string.</p>
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>value</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">*</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>The value to test.</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="utils.js.html">utils.js</a>, <a href="utils.js.html#line113">line 113</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    <p>Whether the provided value is a string.</p>
-</div>
-
-
-
-<dl class="param-type">
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">boolean</span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-    <h5>Example</h5>
-    
-    <pre class="prettyprint"><code>import { utils } from 'cachefactory'
-console.log(utils.isString('')) // true
-console.log(utils.isString('my string')) // true
-console.log(utils.isString(100)) // false
-console.log(utils.isString([1,2,4])) // false</code></pre>
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id=".toJson"><span class="type-signature">(static) </span>toJson<span class="signature">(value)</span><span class="type-signature"> &rarr; {string}</span></h4>
-
-    
-
-
-
-<div class="description">
-    <p>Proxy for <code>JSON.stringify</code>.</p>
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>value</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">*</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>Value to serialize to JSON.</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="utils.js.html">utils.js</a>, <a href="utils.js.html#line131">line 131</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-    <dt class="tag-see">See:</dt>
-    <dd class="tag-see">
-        <ul>
-            <li><a href="utils.html#.fromJson">utils.fromJson</a></li>
-        </ul>
-    </dd>
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    <p>JSON string.</p>
-</div>
-
-
-
-<dl class="param-type">
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">string</span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-    <h5>Example</h5>
-    
-    <pre class="prettyprint"><code>import { utils } from 'cachefactory'
-
-const a = { name: 'John' }
-console.log(utils.toJson(a)) // '{"name":"John"}'</code></pre>
 
 
 

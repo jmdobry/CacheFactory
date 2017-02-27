@@ -20,7 +20,8 @@
     "CONTRIBUTORS"
   ],
   "keywords": [
-    "cache"
+    "cache",
+    "cachefactory"
   ],
   "standard": {
     "parser": "babel-eslint",
